@@ -69,3 +69,6 @@ modules.xml
 
 # Sonarlint plugin
 .idea/sonarlint
+
+# Ruby Version file (don't need have Gemfile)
+.ruby-version
