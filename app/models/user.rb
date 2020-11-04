@@ -5,15 +5,28 @@ class User < ActiveRecord::Base
   # So use this in the view
   # <%= text_field :person, :email %>
   # <%= text_field :person, :email_confirmation %>
-  validates :password, confirmation: true, unless: -> { password.blank? }
-  validates :email, confirmation: true, unless: -> { email.blank? }
-  validates :email_confirmation, :user_id, :password_confirmation, presence: true
 
-  def self.create_with_omniauth(auth)
-    create! do |user|
-      user.provider = auth['provider']
-      user.uid = auth['uid']
-      user.name = auth['info']['name'] || '' if auth['info']
-    end
+  has_secure_password
+  validates :email, confirmation: true, uniqueness: true, unless: -> { email.blank? }
+  validates :email_confirmation, :user_id, presence: true, uniqueness: true
+  validate :password_checker, on: :create!
+  validate :email_checker, on: :create!
+
+  def self.create!(user_params)
+    user_params.merge!({ session_token: SecureRandom.base64 })
+    super(user_params)
   end
+
+  def password_checker
+    password_check = /([a-zA-Z]+|\d+){7,20}/.match?(password) &&
+                     /\A.*\d.*\z/.match?(password) &&
+                     /\A.*[a-zA-Z].*\z/.match?(password)
+    errors.add(:password, 'Password must contain 7-20 characters with only digits or letters') unless password_check
+  end
+
+  def email_checker
+    email_check = /\w@\w\.(com|edu|net|gov)/.match?(email)
+    errors.add(:email, 'Must be a valid email address') unless email_check
+  end
+
 end

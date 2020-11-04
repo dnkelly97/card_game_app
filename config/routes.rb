@@ -6,8 +6,10 @@ Rails.application.routes.draw do
   # You can have the root of your site routed with "root"
   # root 'welcome#index'
   match '/login', to: 'user_sessions#new', via: :get
-  match '/login_create', to: 'user_sessions#create', via: :post
-  match '/logout', to: 'user_sessions#destroy', via: :delete
+  match '/login', to: 'user_sessions#create', via: :post
+  match '/logout', to: 'user_sessions#destroy', via: :post
+  # get  'auth/:provider/callback' => 'user_sessions#create'
+  # get  'auth/failure' => 'user_sessions#failure'
 
   root to: redirect('/login')
   # Example of regular route:
