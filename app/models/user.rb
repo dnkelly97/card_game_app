@@ -14,7 +14,12 @@ class User < ActiveRecord::Base
 
   def self.create!(user_params)
     user_params.merge!({ session_token: SecureRandom.base64 })
-    super(user_params)
+    begin
+      super(user_params)
+    rescue ActiveRecord::RecordInvalid => e
+      nil
+      raise e
+    end
   end
 
   def password_checker

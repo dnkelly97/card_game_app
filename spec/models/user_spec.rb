@@ -43,5 +43,16 @@ RSpec.describe User, type: :model do
       @user = User.new(test_params)
       expect(@user.valid?).to be_falsey
     end
+    it 'create! failures will rethrow error' do
+      # Invalid
+      test_params = { user_id: 'kev', password: '12345', password_confirmation: 'asdf123',
+                      email: 'me@google.com', email_confirmation: 'me@google.lol' }
+
+      begin
+        User.create!(test_params)
+      rescue StandardError => e
+        expect(e.class).to be(ActiveRecord::RecordInvalid)
+      end
+    end
   end
 end
