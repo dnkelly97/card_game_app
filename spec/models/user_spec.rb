@@ -15,17 +15,32 @@ RSpec.describe User, type: :model do
       # Invalid
       test_params = { user_id: 'kev', password: '12345', password_confirmation: '12345',
                       email: 'me@google.com', email_confirmation: 'me@google.com' }
-      @user = User.create!(test_params)
+      @user = User.new(test_params)
       expect(@user.valid?).to be_falsey
 
       test_params = { user_id: 'kev', password: 'asdf', password_confirmation: 'asdf',
                       email: 'me@google.com', email_confirmation: 'me@google.com' }
-      @user = User.create!(test_params)
+      @user = User.new(test_params)
       expect(@user.valid?).to be_falsey
 
-      test_params = { user_id: 'kev', password: '12121212asas12121212a', password_confirmation: '12121212asas12121212a',
+      test_params = { user_id: 'kev', password: '12121212asas12121212aasdfasdf', password_confirmation: '12121212asas12121212a',
                       email: 'me@google.com', email_confirmation: 'me@google.com' }
-      @user = User.create!(test_params)
+      @user = User.new(test_params)
+      expect(@user.valid?).to be_falsey
+    end
+    it 'Email must have valid format' do
+      # Invalid
+      test_params = { user_id: 'kev', password: '12345', password_confirmation: 'asdf123',
+                      email: 'me@google.com', email_confirmation: 'me@google.lol' }
+      @user = User.new(test_params)
+      expect(@user.valid?).to be_falsey
+      test_params = { user_id: 'kev', password: '12345', password_confirmation: 'asdf123',
+                      email: 'me@google.com', email_confirmation: 'me@;;a.edu' }
+      @user = User.new(test_params)
+      expect(@user.valid?).to be_falsey
+      test_params = { user_id: 'kev', password: '12345', password_confirmation: 'asdf123',
+                      email: 'me@google.com', email_confirmation: 'meyou.edu' }
+      @user = User.new(test_params)
       expect(@user.valid?).to be_falsey
     end
   end

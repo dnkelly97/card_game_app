@@ -8,9 +8,9 @@ class User < ActiveRecord::Base
 
   has_secure_password
   validates :email, confirmation: true, uniqueness: true, unless: -> { email.blank? }
-  validates :email_confirmation, :user_id, presence: true, uniqueness: true
-  validate :password_checker, on: :create!
-  validate :email_checker, on: :create!
+  validates :user_id, presence: true, uniqueness: true
+  validate :password_checker, on: :create
+  validate :email_checker, on: :create
 
   def self.create!(user_params)
     user_params.merge!({ session_token: SecureRandom.base64 })
@@ -18,14 +18,14 @@ class User < ActiveRecord::Base
   end
 
   def password_checker
-    password_check = /([a-zA-Z]+|\d+){7,20}/.match?(password) &&
+    password_check = /([a-zA-Z]|\d){7,20}/.match?(password) &&
                      /\A.*\d.*\z/.match?(password) &&
                      /\A.*[a-zA-Z].*\z/.match?(password)
     errors.add(:password, 'Password must contain 7-20 characters with only digits or letters') unless password_check
   end
 
   def email_checker
-    email_check = /\w@\w\.(com|edu|net|gov)/.match?(email)
+    email_check = /\w+@\w+\.(com|edu|net|gov)/.match?(email)
     errors.add(:email, 'Must be a valid email address') unless email_check
   end
 
