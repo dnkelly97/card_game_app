@@ -20,6 +20,22 @@ RSpec.describe UsersController do
       post :create, test_params
       expect(response).to redirect_to(new_user_path)
     end
+    it 'Password must be confirmed' do
+      # Valid
+      test_params = { user: { user_id: 'kev', password: 'asdf123',
+                              email: 'me@google.com', email_confirmation: 'me@google.com' } }
+      post :create, test_params
+      expect(response).to redirect_to(new_user_path)
+    end
+    it 'Email must be confirmed' do
+
+      # Invalid
+      test_params = { user:  {user_id: 'kev', password: 'asdf123', password_confirmation: 'asdf123',
+                              email: 'me@google.com' } }
+      post :create, test_params
+      expect(response).to redirect_to(new_user_path)
+
+    end
   end
 
 end

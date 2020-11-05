@@ -7,17 +7,16 @@ class User < ActiveRecord::Base
   # <%= text_field :person, :email_confirmation %>
 
   has_secure_password
-  validates :email, confirmation: true, uniqueness: true, unless: -> { email.blank? }
+  validates :email, presence: true, confirmation: true, uniqueness: true, format: { with: /\A\w+@\w+\.[a-z]{2,}\z/i, on: :create }
   validates :user_id, presence: true, uniqueness: true
+  validates :password, :password_confirmation, :email_confirmation, presence: true
   validate :password_checker, on: :create
-  validate :email_checker, on: :create
 
   def self.create!(user_params)
     user_params.merge!({ session_token: SecureRandom.base64 })
     begin
       super(user_params)
     rescue ActiveRecord::RecordInvalid => e
-      nil
       raise e
     end
   end
@@ -29,9 +28,5 @@ class User < ActiveRecord::Base
     errors.add(:password, 'Password must contain 7-20 characters with only digits or letters') unless password_check
   end
 
-  def email_checker
-    email_check = /\w+@\w+\.(com|edu|net|gov)/.match?(email)
-    errors.add(:email, 'Must be a valid email address') unless email_check
-  end
 
 end
