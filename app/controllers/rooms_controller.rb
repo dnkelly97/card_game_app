@@ -7,4 +7,9 @@ class RoomsController < ApplicationController
     @room = Room.create!
     redirect_to room_path(@room)
   end
+
+  def show
+    id = params[:id]
+    @room = Room.find(id)
+  end
 end
