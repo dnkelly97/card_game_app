@@ -1,14 +1,10 @@
 class RoomsController < ApplicationController
-  def room_params
-    params.require(:room).permit(:name)
-  end
-
   def new
     @room = Room.new
   end
 
   def create
-    @room = Room.create!(room_params)
+    @room = Room.create!(:name => params[:room_name])
     redirect_to room_path(@room)
   end
 
