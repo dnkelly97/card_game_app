@@ -1,6 +1,7 @@
 <h2>Create New Game Room</h2>
 <%= form_tag rooms_path, :class => 'form' do %>
   <%=label :room, :name, :class => 'col-form-label' %>
+  <%= text_field_tag 'room_name', nil  %>
   <%= submit_tag 'Create Room', :class => 'btn btn-primary' %>
 <!--  TODO: Add link to home for cancelling addition -->
 <% end %>
