@@ -9,10 +9,9 @@ describe RoomsController do
     end
     it 'should redirect to the new created room' do
       post :create
-      expect(response).to render_template(room_path/1)
+      expect(response).to redirect_to('/rooms/1')
+      #TODO: Figure out how to change to a path variable
     end
-    it 'should generate a room code' do
-
-    end
+    pending it 'should generate a room code'
   end
 end
