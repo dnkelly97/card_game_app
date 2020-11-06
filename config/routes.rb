@@ -1,5 +1,12 @@
 Rails.application.routes.draw do
+
+  mount ActionCable.server => '/cable'
   resources :rooms
+
+  # TODO: Remove when switching to using index
+  root :to => redirect('/rooms/new')
+
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
