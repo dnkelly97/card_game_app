@@ -1,6 +1,6 @@
 class PilesController < ApplicationController
   def pile_params
-    params.require(:pile).permit(:name, :private, :creator)
+    params.require(:pile).permit(:name, :private_pile, :creator)
   end
   def index
     @piles = Pile.all
@@ -11,8 +11,11 @@ class PilesController < ApplicationController
   end
 
   def create
-    @pile = Pile.create!(pile_params)
-    flash[:notice] = "#{@pile.name} was successfully created."
+    private_pile = params[:private_pile]
+    name = params[:pile][:name]
+    creator = params[:pile][:creator]
+    @pile = Pile.create!(name: name, creator: creator, private_pile: private_pile )
+    flash[:notice] = "#{@pile.serializable_hash} was successfully created." #@pile.name
     redirect_to piles_path
   end
 
