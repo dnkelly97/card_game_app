@@ -1,0 +1,30 @@
+<h2>Transfer Card!!</h2>
+<table class="table table-striped col-md-12">
+  <thead>
+  <tr>
+    <th>Pile</th>
+  </tr>
+  </thead>
+  <tbody>
+  <%= form_tag piles_transfer_card_path, :id => 'the_cards_form' do
+    @cards.each do |card| %>
+    <tr>
+      <td>
+        <% if (@is_private) %>
+          <%= card %>
+        <% elsif !(@is_private) %>
+          <%= card.name %>
+        <% end %>
+      </td>
+      <td>
+        <%=check_box_tag "the_cards[#{card.name}]", nil, nil, {:id => "checkbox_#{card.name}"}%>
+      </td>
+    </tr>
+  <% end %>
+  </tbody>
+</table>
+  <%= label :pile, :name2, 'Destination Pile:', :class => 'col-form-label' %>
+  <%= text_field :pile, 'name2', :class => 'form-control col-1' %>
+  <br/>
+  <%= submit_tag 'Transfer Card', :class => 'btn btn-primary' %>
+<% end %>

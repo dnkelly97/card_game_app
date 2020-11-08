@@ -1,4 +1,10 @@
 Rails.application.routes.draw do
+  root "piles#pile_homepage"
+  resources :piles
+  match '/create_pile', to: 'piles#new', via: :get
+  post 'piles/show'
+  post 'piles/transfer_card'
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

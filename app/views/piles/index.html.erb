@@ -1,0 +1,12 @@
+<h2>All Piles</h2>
+<table class="table table-striped col-md-12">
+  <tbody>
+  <% @piles.each do |pile| %>
+    <tr>
+      <td>
+        <%= pile.serializable_hash%>
+      </td>
+    </tr>
+  <% end %>
+  </tbody>
+</table>
