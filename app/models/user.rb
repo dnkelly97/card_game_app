@@ -7,18 +7,18 @@ class User < ActiveRecord::Base
   # <%= text_field :person, :email_confirmation %>
 
   has_secure_password
+  before_save { |user| user.email = user.email.downcase }
+  before_save :create_session_token
   validates :email, presence: true, confirmation: true, uniqueness: true, format: { with: /\A\w+@\w+\.[a-z]{2,}\z/i, on: :create }
-  validates :user_id, presence: true, uniqueness: true
-  validates :password, :password_confirmation, :email_confirmation, presence: true
+  validates :user_id, presence: true, uniqueness: true, on: create, length: { maximum: 30 }
+  validates :password, presence: true
+  validates :password_confirmation, :email_confirmation, presence: true, on: :create
   validate :password_checker, on: :create
 
-  def self.create!(user_params)
-    user_params.merge!({ session_token: SecureRandom.base64 })
-    begin
-      super(user_params)
-    rescue ActiveRecord::RecordInvalid => e
-      raise e
-    end
+
+private
+  def create_session_token
+    self.session_token = SecureRandom.urlsafe_base64
   end
 
   def password_checker
