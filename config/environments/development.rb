@@ -39,6 +39,6 @@ Rails.application.configure do
   # Raises error for missing translations
   # config.action_view.raise_on_missing_translations = true
   #
-  config.action_cable.url = "ws://localhost:3000/cable"
-  config.action_cable.disable_request_forgery_protection = true
+  # config.actioncable.url = "ws://localhost:3000/cable"
+  # config.actioncable.disable_request_forgery_protection = true
 end
