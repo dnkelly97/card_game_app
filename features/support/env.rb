@@ -5,6 +5,7 @@
 # files.
 
 require 'cucumber/rails'
+require 'rspec/expectations'
 
 # frozen_string_literal: true
 

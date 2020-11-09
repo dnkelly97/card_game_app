@@ -3,9 +3,9 @@
 <%= form_tag users_path,  :class => 'form' do %>
   <%= label :user, :user_id, 'Username', :class => 'col-form-label' %>
   <%= text_field :user, 'user_id', id: 'signupUser', :class => 'form-control' %>
-  <%= label :user, :email, 'Password', :class => 'col-form-label'  %>
+  <%= label :user, :password, 'Password', :class => 'col-form-label'  %>
   <%= text_field :user, 'password', id: 'signupPass', :class => 'form-control' %>
-  <%= label :user, :email, 'Password Confirmation', :class => 'col-form-label'  %>
+  <%= label :user, :password, 'Password Confirmation', :class => 'col-form-label'  %>
   <%= text_field :user, 'password_confirmation', id: 'signupPassConfirm', :class => 'form-control' %>
   <%= label :user, :email, 'Email', :class => 'col-form-label'  %>
   <%= text_field :user, 'email', id: 'signupEmail', :class => 'form-control' %>
