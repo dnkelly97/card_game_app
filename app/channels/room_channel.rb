@@ -1,4 +1,4 @@
-class UsersChannel < ApplicationCable::Channel
+class UsersChannel < ActionCable::Channel
   def subscribed
 
   end
