@@ -1,6 +1,7 @@
 GEM
   remote: https://rubygems.org/
   specs:
+    actioncable (0.0.0)
     actionmailer (4.2.10)
       actionpack (= 4.2.10)
       actionview (= 4.2.10)
@@ -313,6 +314,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  actioncable
   byebug
   capybara
   coffee-rails (~> 4.1.0)
