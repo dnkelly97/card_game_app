@@ -1,10 +1,10 @@
 # This file is copied to spec/ when you run 'rails generate rspec:install'
-require "spec_helper"
-ENV["RAILS_ENV"] ||= "test"
-require File.expand_path("../config/environment", __dir__)
+require 'spec_helper'
+ENV['RAILS_ENV'] ||= 'test'
+require File.expand_path('../config/environment', __dir__)
 # Prevent database truncation if the environment is production
 abort("The Rails environment is running in production mode!") if Rails.env.production?
-require "rspec/rails"
+require 'rspec/rails'
 # Add additional requires below this line. Rails is not loaded until this point!
 
 # Requires supporting ruby files with custom matchers and macros, etc, in
@@ -63,8 +63,8 @@ RSpec.configure do |config|
   # config.filter_gems_from_backtrace("gem name")
 
   # Monkey-Patch for RSpec controller tests
-  if RUBY_VERSION >= "2.6.0"
-    if Rails.version < "5"
+  if RUBY_VERSION >= '2.6.0'
+    if Rails.version < '5'
       class ActionController::TestResponse < ActionDispatch::TestResponse
         def recycle!
           # HACK: to avoid MonitorMixin double-initialize error:
@@ -74,7 +74,7 @@ RSpec.configure do |config|
         end
       end
     else
-      puts "Monkeypatch for ActionController::TestResponse no longer needed"
+      puts 'Monkeypatch for ActionController::TestResponse no longer needed'
     end
   end
 end
