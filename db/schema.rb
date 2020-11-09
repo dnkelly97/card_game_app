@@ -11,12 +11,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20201106221001) do
+ActiveRecord::Schema.define(version: 20201109174448) do
 
   create_table "rooms", force: :cascade do |t|
     t.string   "name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.integer  "max_players"
+    t.string   "game_type"
+    t.boolean  "private"
   end
 
   add_index "rooms", ["name"], name: "index_rooms_on_name", unique: true
