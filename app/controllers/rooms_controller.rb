@@ -20,6 +20,7 @@ class RoomsController < ApplicationController
   end
 
   def create_join
+    @room = Room.find(params[:id])
     redirect_to room_path(@room)
   end
 end
