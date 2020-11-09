@@ -4,7 +4,7 @@ class RoomsController < ApplicationController
   end
 
   def create
-    @room = Room.create!(:name => params[:room_name],
+    @room = Room.create_room!(:name => params[:room_name],
                          :max_players => params[:room_max_players],
                          :game_type => params[:game_type],
                          :private => params[:private])
