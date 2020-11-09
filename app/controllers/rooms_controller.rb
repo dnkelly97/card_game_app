@@ -15,4 +15,7 @@ class RoomsController < ApplicationController
     id = params[:id]
     @room = Room.find(id)
   end
+
+  def new_join
+  end
 end
