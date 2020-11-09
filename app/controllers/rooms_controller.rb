@@ -20,7 +20,12 @@ class RoomsController < ApplicationController
   end
 
   def create_join
-    @room = Room.find(params[:id])
-    redirect_to room_path(@room)
+    begin
+      @room = Room.find(params[:id])
+      redirect_to room_path(@room)
+    rescue ActiveRecord::RecordNotFound
+      flash[:warning] = "A room with that code does not exist."
+      redirect_to rooms_new_join_path
+    end
   end
 end
