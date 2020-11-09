@@ -2,6 +2,7 @@ Rails.application.routes.draw do
 
   # mount ActionCable.server => '/cable'
   get '/rooms/new_join', to: 'rooms#new_join'
+  get '/rooms/create_join', to: 'rooms#create_join'
   resources :rooms
 
   # TODO: Remove when switching to using index

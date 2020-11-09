@@ -18,4 +18,8 @@ class RoomsController < ApplicationController
 
   def new_join
   end
+
+  def create_join
+    redirect_to room_path(@room)
+  end
 end
