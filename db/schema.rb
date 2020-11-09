@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20201109185042) do
+ActiveRecord::Schema.define(version: 20201109210922) do
 
   create_table "rooms", force: :cascade do |t|
     t.string   "name"
@@ -20,8 +20,9 @@ ActiveRecord::Schema.define(version: 20201109185042) do
     t.integer  "max_players"
     t.string   "game_type"
     t.boolean  "private"
+    t.string   "room_code"
   end
 
-  add_index "rooms", [nil], name: "index_rooms_on_room_code", unique: true
+  add_index "rooms", ["room_code"], name: "index_rooms_on_room_code", unique: true
 
 end
