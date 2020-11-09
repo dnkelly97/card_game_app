@@ -3,5 +3,6 @@
   <%=label :room, :id, 'Room ID', :class => 'col-form-label' %>
   <%= text_field_tag 'id', nil  %>
   <%= submit_tag 'Join Room', :class => 'btn btn-primary' %>
-  <!--  TODO: Add link to home for cancelling addition -->
 <% end %>
+<br/>
+<%= link_to 'Create Room', new_room_path, :class => 'btn btn-secondary'%>
