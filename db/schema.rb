@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20201109174448) do
+ActiveRecord::Schema.define(version: 20201109185042) do
 
   create_table "rooms", force: :cascade do |t|
     t.string   "name"
@@ -22,6 +22,6 @@ ActiveRecord::Schema.define(version: 20201109174448) do
     t.boolean  "private"
   end
 
-  add_index "rooms", ["name"], name: "index_rooms_on_name", unique: true
+  add_index "rooms", [nil], name: "index_rooms_on_room_code", unique: true
 
 end
