@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
 
-  # mount ActionCable.server => '/cable'
+  mount ActionCable.server => '/cable'
   resources :rooms
 
   # TODO: Remove when switching to using index
