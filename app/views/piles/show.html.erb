@@ -11,8 +11,9 @@
     <tr>
       <td>
         <% if (@is_private) %>
-          <%= card %>
+          <%= card.id %>
         <% elsif !(@is_private) %>
+          <%= card.id %>
           <%= card.name %>
         <% end %>
       </td>
@@ -26,5 +27,5 @@
   <%= label :pile, :name2, 'Destination Pile:', :class => 'col-form-label' %>
   <%= text_field :pile, 'name2', :class => 'form-control col-1' %>
   <br/>
-  <%= submit_tag 'Transfer Card', :class => 'btn btn-primary' %>
+  <%= submit_tag 'Transfer Card(s)', :class => 'btn btn-primary' %>
 <% end %>
