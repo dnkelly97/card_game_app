@@ -25,6 +25,8 @@ jobs:
         run: |
           gem install bundler -v 1.17.3
           bundle install
+      - name: prepare database
+        run: bundle exec rake db:test:prepare
       - name: run rspec tests
         run: bundle exec rspec
       - name: run cucumber tests
