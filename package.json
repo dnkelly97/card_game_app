@@ -1,6 +1,8 @@
 {
   "name": "Team3_SELT2020",
   "version": "1.0.0",
-  "dependencies": {
+  "dependencies": {},
+  "devDependencies": {
+    "@rails/actioncable": "^6.0.3-4"
   }
 }
