@@ -7,5 +7,5 @@
   <%= text_field :user, 'password', id: 'loginPass', :class => 'form-control' %>
   <br/>
   <%= submit_tag 'Login to my account', id: 'login_submit' %>
-  <%= link_to 'Sign-up for an account', new_user_path, :method => :get, id: 'signup' %>
 <% end %>
+<%= button_to 'Sign-up for an account', new_user_path, :method => :get, id: 'signup' %>

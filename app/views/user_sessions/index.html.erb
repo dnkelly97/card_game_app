@@ -1,2 +1,9 @@
 <h2>Dashboard</h2>
-<%=button_to "Sign out", logout_path %>
+<% if !@current_user %>
+  <%= button_to 'Sign Up/Login',  login_path, method: :get, :class => 'btn btn-primary', :id => 'signupLogin' %>
+<% else %>
+  <div class="message">
+    <%= "Welcome player" %>
+  </div>
+  <%= button_to "Logout",  logout_path, method: :post,:class => 'btn btn-primary', :id => 'logout' %>
+<% end %>

@@ -34,7 +34,7 @@ RSpec.describe UsersController do
                              email: 'me@google.com' } }
       post :create, test_params
       expect(response).to redirect_to(new_user_path)
-
+      expect(flash[:notice]).to_not be_nil
     end
   end
 

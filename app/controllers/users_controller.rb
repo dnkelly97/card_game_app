@@ -7,12 +7,10 @@ class UsersController < ApplicationController
     begin
       @user = User.create!(user_params)
     rescue ActiveRecord::RecordInvalid => ex
-      flash[:error] = 'Invalid credentials'
-      redirect_to new_user_path
+      redirect_to new_user_path, flash: { notice: 'Invalid credentials' }
       return
     end
-    flash[:notice] = "Welcome, #{@user.user_id}. Your account was successfully created."
-    redirect_to login_path
+    redirect_to login_path, flash: { notice: 'Welcome. Your account was successfully logged in.' }
   end
 
 end

@@ -13,5 +13,5 @@
   <%= text_field :user, 'email_confirmation', id: 'signupEmailConfirm', :class => 'form-control' %>
   <br/>
   <%= submit_tag 'Create Account', id: 'signupCreate' %>
-  <%= link_to 'Cancel', login_path, :method => :get %>
 <% end %>
+<%= button_to 'Cancel', login_path, :method => :get %>
