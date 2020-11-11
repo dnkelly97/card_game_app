@@ -1,6 +1,5 @@
 class RoomsController < ApplicationController
   def new
-    @room = Room.new
   end
 
   def create
@@ -21,7 +20,7 @@ class RoomsController < ApplicationController
 
   def create_join
     begin
-      @room = Room.find(params[:id])
+      @room = Room.find_by!(:room_code => params[:id])
       redirect_to room_path(@room)
     rescue ActiveRecord::RecordNotFound
       flash[:warning] = "A room with that code does not exist."
