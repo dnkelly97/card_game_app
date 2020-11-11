@@ -45,7 +45,7 @@ group :development, :test do
   gem 'byebug'
   gem 'capybara'
   gem 'guard-rspec'
-  # gem 'factory_girl_rails'
+  gem 'factory_girl_rails'
   gem 'launchy'
   gem 'rspec', '~>3.5'
   gem 'rspec-rails'
