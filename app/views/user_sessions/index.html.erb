@@ -5,5 +5,7 @@
   <div class="message">
     <%= "Welcome player" %>
   </div>
+  <%= button_to "Create Room", new_room_path, method: :get, :class => 'btn btn-primary' %>
+  <%= button_to "Join Room", rooms_new_join_path, method: :get, :class => 'btn btn-primary' %>
   <%= button_to "Logout",  logout_path, method: :post,:class => 'btn btn-primary', :id => 'logout' %>
 <% end %>

@@ -1,0 +1,8 @@
+{
+  "GROUP":  "G0003",
+  "ALL_SPRINTS": {
+    "SPRINT1_URL": "https://g003-cardgamesim-sprint1.herokuapp.com/",
+    "SPRINT2_URL": "",
+    "SPRINT3_URL": "",
+    }
+}
