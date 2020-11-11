@@ -11,6 +11,7 @@ describe PilesController do
       expect(response).to redirect_to (piles_pile_homepage_path)
     end
     it 'should render the show page for the source pile' do
+      Pile.create(:name => "Deck", :private_pile => true)
       params = {
           pile: {source_pile: "Deck"}
       }
