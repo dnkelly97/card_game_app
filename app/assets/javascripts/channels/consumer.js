@@ -1,3 +1,3 @@
-const lib = require("@rails/actioncable")
+//const lib = require("@rails/actioncable")
 
-export default lib.createConsumer()
+//export default lib.createConsumer()
