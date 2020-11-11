@@ -88,5 +88,3 @@ Then /^I should see the (.*?) in the previously empty pile: "(.*?)"$/ do |card, 
 
 end
 
-
-
