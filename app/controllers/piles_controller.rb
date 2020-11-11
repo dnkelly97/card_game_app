@@ -24,7 +24,7 @@ class PilesController < ApplicationController
     source_pile = Pile.find_by(name: source_pile)
     if source_pile.nil?
       flash[:notice] = "This is not a pile in the database. Please try again." #@pile.name
-      redirect_to root_path and return
+      redirect_to piles_pile_homepage_path and return
     end
     @is_private = source_pile.private_pile
     @cards = source_pile.cards
@@ -35,7 +35,7 @@ class PilesController < ApplicationController
     @destination_pile = Pile.find_by(name: destination_pile)
     if @destination_pile.nil?
       flash[:notice] = "This is not a pile in the database. Please try again." #@pile.name
-      redirect_to root_path and return
+      redirect_to piles_pile_homepage_path and return
     end
     if params[:the_cards].nil?
       flash[:notice] = "No cards selected"

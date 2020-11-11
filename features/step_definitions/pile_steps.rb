@@ -46,7 +46,7 @@ end
 And /^I have tried to transfer the (.*?) from pile with id=(.*?) to pile with name "(.*?)"$/ do |card, source_pile_id, destination_pile|
   visit root_path
   source_pile = Pile.find_by(id: source_pile_id)
-  log(source_pile.name)
+
   fill_in 'Enter Source Pile:', :with => source_pile.name
   click_button 'Transfer Card'
   #log(page.body)
@@ -55,12 +55,12 @@ And /^I have tried to transfer the (.*?) from pile with id=(.*?) to pile with na
   log(destination_pile)
   click_on 'Transfer Card(s)'
   #expect(page.status_code).should == 302
-  log(page.body)
+
 end
 
 Then /^I should see the (.*?) in the previously empty pile: "(.*?)"$/ do |card, pile_name|
   #log(page.body)
-  visit root_path
+  visit piles_pile_homepage_path
   fill_in 'Enter Source Pile:', :with => pile_name
   click_button 'Transfer Card'
   pile = Pile.find_by(name: pile_name)
