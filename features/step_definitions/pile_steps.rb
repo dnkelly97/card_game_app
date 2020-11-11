@@ -7,7 +7,7 @@ When /^I have created a pile with name "(.*?)" and creator "(.*?)" and privacy_p
   fill_in 'Pile Name:', :with => name
   fill_in 'Your Name:', :with => creator
   select privacy_pile, :from => 'private_pile'
-  click_button 'Create my pile!'
+  click_on 'Create my pile!'
 end
 
 And /^I am on the Piles Index page$/  do
@@ -30,7 +30,7 @@ Given ('that at least one pile exists in the database') do
   fill_in 'Pile Name:', :with => "Deck"
   fill_in 'Your Name:', :with => "The Game"
   select true, :from => 'private_pile'
-  click_button 'Create my pile!'
+  click_on 'Create my pile!'
 end
 
 
@@ -46,15 +46,25 @@ end
 And /^I have tried to transfer the (.*?) from pile with id=(.*?) to pile with name "(.*?)"$/ do |card, source_pile_id, destination_pile|
   visit root_path
   source_pile = Pile.find_by(id: source_pile_id)
-  log(source_pile.name)
   fill_in 'Enter Source Pile:', :with => source_pile.name
-  click_button 'Transfer Card'
-  log(page.body)
+  click_on 'Transfer Card'
   check "checkbox_#{card}"
   fill_in 'Destination Pile:', :with => destination_pile
-  log(destination_pile)
-  click_button 'Transfer Card(s)'
-  log(page.body)
+  click_on 'Transfer Card(s)'
+  # visit root_path
+  # fill_in 'Enter Source Pile:', :with => destination_pile_name
+  # click_on 'Transfer Card'
+  # card_name = card
+  # card = Card.find_by(name: card_name)
+  # card_id = card.id
+  # result=false
+  # all("tr").each do |tr|
+  #   if tr.has_content?(card_id)
+  #     result = true
+  #     break
+  #   end
+  # end
+  # expect(result).to be_truthy
 end
 
 Then /^I should see the (.*?) in the previously empty pile: "(.*?)"$/ do |card, pile_name|
@@ -62,21 +72,15 @@ Then /^I should see the (.*?) in the previously empty pile: "(.*?)"$/ do |card, 
   fill_in 'Enter Source Pile:', :with => pile_name
   click_button 'Transfer Card'
   card = Card.find_by(name: card)
-  #log(card)
   card_id = card.id
-  # log(card_id)
-  #expect(page).to have_content(card_id)
-
   result=false
   all("tr").each do |tr|
-    #log(page.body)
     if tr.has_content?(card_id)
       result = true
       break
     end
   end
   expect(result).to be_truthy
-
 end
 
 
