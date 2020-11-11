@@ -24,4 +24,14 @@ ActiveRecord::Schema.define(version: 20201108014830) do
     t.boolean "private_pile"
   end
 
+  create_table "users", force: :cascade do |t|
+    t.string   "user_id"
+    t.string   "email"
+    t.string   "password_digest"
+    t.string   "provider"
+    t.string   "session_token"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+  end
 end
+

@@ -17,12 +17,11 @@ describe PilesController do
       post :show, params
       expect(response).to render_template('show')
     end
-    it 'should transfer selected card to the destination pile' do
-      params = {
-          pile: {source_pile: "Deck"}
-      }
-      post :show, params
-
-    end
+    #it 'should transfer selected card to the destination pile' do
+      #params = {
+      #   pile: {source_pile: "Deck"}
+      #}
+      #post :show, params
+    #end
   end
 end

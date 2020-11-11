@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous"></link>
   <title>CardsGameSimulator</title>
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
@@ -8,16 +9,13 @@
 </head>
 <h1><%= link_to 'CardGameSim', root_path, :class => 'btn btn-primary' %></h1>
 <body>
-<div id="main">
-  <% if flash[:notice] %>
-    <div class="alert alert-danger">
+  <div id="main">
+    <% if flash[:notice] %>
       <div class="flashMessage" id="notice">
         <%= flash[:notice] %>
       </div>
-    </div>
-  <% end %>
-  <br/>
-  <%= yield %>
-</div>
+    <% end %>
+    <%= yield %>
+  </div>
 </body>
 </html>

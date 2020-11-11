@@ -50,7 +50,7 @@ And /^I have tried to transfer the (.*?) from pile with id=(.*?) to pile with na
   fill_in 'Enter Source Pile:', :with => source_pile.name
   click_button 'Transfer Card'
   #log(page.body)
-  check "checkbox_#{card}"
+  check "the_cards[#{card}]"
   fill_in 'Destination Pile:', :with => destination_pile
   log(destination_pile)
   click_on 'Transfer Card(s)'
