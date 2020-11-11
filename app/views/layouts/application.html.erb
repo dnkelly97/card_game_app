@@ -7,6 +7,7 @@
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
 </head>
+<h1><%= link_to 'CardGameSim', root_path, :class => 'btn btn-primary' %></h1>
 <body>
 <div id="flash_message">
   <% if flash[:notice] %>
