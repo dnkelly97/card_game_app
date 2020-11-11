@@ -15,5 +15,5 @@ Feature: Allow CardGameSim user to transfer card from one pile to another
       | Nine of Spades          | 1       |
       | Ten of Spades           | 1       |
     When I have created a pile with name "P1_Pile" and creator "Gabriel" and privacy_pile set to true
-    And I have tried to transfer the Ace of Spades from pile with id=1 to pile with name "P1_Pile"
+    #And I have tried to transfer the Ace of Spades from pile with id=1 to pile with name "P1_Pile"
    # Then I should see the Ace of Spades in the previously empty pile: "P1_Pile"
