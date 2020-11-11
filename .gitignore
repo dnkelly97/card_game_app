@@ -72,3 +72,6 @@ modules.xml
 
 #Ruby Version outside gemfile
 .ruby-version
+
+# Node Dependencies
+**/node_modules/**
