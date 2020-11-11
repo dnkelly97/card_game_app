@@ -25,7 +25,6 @@ ActiveRecord::Schema.define(version: 20201109210922) do
 
   add_index "rooms", ["room_code"], name: "index_rooms_on_room_code", unique: true
 
-
   create_table "users", force: :cascade do |t|
     t.string   "user_id"
     t.string   "email"
