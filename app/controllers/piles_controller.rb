@@ -14,7 +14,7 @@ class PilesController < ApplicationController
     private_pile = params[:private_pile]
     name = params[:pile][:name]
     creator = params[:pile][:creator]
-    @pile = Pile.create!(name: name, creator: creator, private_pile: private_pile )
+    @pile = Pile.create!(name: name, creator: creator, private_pile: private_pile, card_count: 0)
     flash[:notice] = "#{@pile.serializable_hash} was successfully created." #@pile.name
     redirect_to piles_path
   end
