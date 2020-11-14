@@ -29,10 +29,12 @@ class PilesController < ApplicationController
     end
     @is_private = source_pile.private_pile
     @cards = source_pile.cards
+    @source_pile = source_pile
   end
 
   def transfer_card
     destination_pile = params[:pile][:name2]
+    source_pile = Pile.find_by(name: params[:source_pile_name])
     room_id = params[:room_id]
     @destination_pile = Pile.find_by(name: destination_pile)
     if @destination_pile.nil?
@@ -43,6 +45,11 @@ class PilesController < ApplicationController
       flash[:notice] = "No cards selected"
       redirect_to room_path({:id => room_id}) and return
     end
+    card_difference = params[:the_cards].keys.count
+    @destination_pile[:card_count] = @destination_pile.cards.count + card_difference
+    source_pile[:card_count] = source_pile.cards.count - card_difference
+    @destination_pile.save
+    source_pile.save
     params[:the_cards].keys.each do |card|
       flash[:notice] = "#{card}"
       @destination_pile.cards << Card.find_by(name: card)
