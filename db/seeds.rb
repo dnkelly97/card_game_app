@@ -5,7 +5,7 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
-Pile.create!(name: "Deck", private_pile: true, creator: nil)
+Pile.create!(name: "Deck", private_pile: true, creator: nil, card_count: 52)
 Card.create([{name: "Ace of Spades", pile_id: 1},
              {name: "Two of Spades", pile_id: 1},
              {name: "Three of Spades", pile_id: 1},
