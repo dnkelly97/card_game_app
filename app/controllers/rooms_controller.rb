@@ -4,7 +4,7 @@ class RoomsController < ApplicationController
 
   def create
     @room = Room.create_room!(:name => params[:room_name],
-                         :max_players => params[:room_max_players],
+                         :max_players => params[:max_players],
                          :game_type => params[:game_type],
                          :private => params[:private])
     redirect_to room_path(@room)
