@@ -1,6 +1,6 @@
 <h2>Create Pile!!</h2>
 
-<%= form_tag piles_path, :class => 'form' do %>
+<%= form_tag piles_path({:room_id => params[:room_id]}), :class => 'form' do %>
   <%= label :pile, :name, 'Pile Name:', :class => 'col-form-label' %>
   <%= text_field :pile, 'name', :class => 'form-control col-1' %>
   <%= label :pile, :creator, 'Your Name:', :class => 'col-form-label'  %>
