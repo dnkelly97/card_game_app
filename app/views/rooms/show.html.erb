@@ -1,7 +1,7 @@
 <h2>Welcome To <%= @room.name %></h2>
 <h3>To have someone join this room, have them enter the following room code: <%= @room.room_code %></h3>
 <p>
-  <%= button_to('Create Pile!', create_pile_path({:room_id => @room.id}), method: :get) %>
+  <%= button_to('Create Pile!', create_pile_path({:room_id => @room.id}), method: :post) %>
   <%= button_to('View All Piles!', piles_path({:room_id => @room.id}), method: :get) %>
   <%= form_tag piles_show_path({:room_id => @room.id}), :class => 'form' do %>
     <%= label :pile, :source_pile, "Enter Source Pile:", :class => 'col-form-label' %>
