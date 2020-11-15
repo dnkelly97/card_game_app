@@ -21,11 +21,11 @@ Rails.application.routes.draw do
 
   root to: redirect('/dashboard')
 
-  #root "piles#pile_homepage"
   get "piles/pile_homepage"
   resources :piles
   match '/create_pile', to: 'piles#new', via: :get
   post 'piles/show'
+  post 'piles/draw_cards_from_deck'
   post 'piles/transfer_card'
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
