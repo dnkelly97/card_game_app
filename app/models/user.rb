@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 class User < ActiveRecord::Base
+  belongs_to :room
 
   # Confirmation: You should use this helper when you have two text fields that should receive exactly the same content
   # So use this in the view
@@ -11,7 +12,7 @@ class User < ActiveRecord::Base
   before_save :create_session_token
   validates :email, presence: true, confirmation: true, uniqueness: true, format: { with: /\A\w+@\w+\.[a-z]{2,}\z/i, on: :create }
   validates :user_id, presence: true, uniqueness: true, on: create, length: { maximum: 30 }
-  validates :password, presence: true
+  validates :password, presence: true, on: :create
   validates :password_confirmation, :email_confirmation, presence: true, on: :create
   validate :password_checker, on: :create
 
