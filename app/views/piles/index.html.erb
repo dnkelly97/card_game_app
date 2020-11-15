@@ -1,10 +1,23 @@
 <h2>All Piles</h2>
 <table class="table table-striped col-md-12">
+  <thead>
+  <tr>
+    <th>Name</th>
+    <th>Owner</th>
+    <th>Count</th>
+  </tr>
+  </thead>
   <tbody>
   <% @piles.each do |pile| %>
     <tr>
       <td>
-        <%= pile.serializable_hash%>
+        <%= pile.name%>
+      </td>
+      <td>
+        <%= pile.creator%>
+      </td>
+      <td>
+        <%= pile.card_count%>
       </td>
     </tr>
   <% end %>
