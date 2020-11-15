@@ -2,10 +2,36 @@
 <h3>To have someone join this room, have them enter the following room code: <%= @room.room_code %></h3>
 <p>
   <%= button_to('Create Pile!', create_pile_path({:room_id => @room.id}), method: :get) %>
-  <%= button_to('View All Piles!', piles_path({:room_id => @room.id}), method: :get) %>
   <%= form_tag piles_show_path({:room_id => @room.id}), :class => 'form' do %>
     <%= label :pile, :source_pile, "Enter Source Pile:", :class => 'col-form-label' %>
     <%= text_field :pile, 'source_pile', :class => 'form-control'%>
     <%= submit_tag 'Transfer Card',  :class => 'btn btn-primary'%>
   <% end %>
 </p>
+<br>
+<br>
+<br>
+<table class="table table-striped col-md-12">
+  <thead>
+  <tr>
+    <th>Name</th>
+    <th>Owner</th>
+    <th>Count</th>
+  </tr>
+  </thead>
+  <tbody>
+  <% @piles.each do |pile| %>
+    <tr>
+      <td>
+        <%= pile.name%>
+      </td>
+      <td>
+        <%= pile.creator%>
+      </td>
+      <td>
+        <%= pile.card_count%>
+      </td>
+    </tr>
+  <% end %>
+  </tbody>
+</table>
