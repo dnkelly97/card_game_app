@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_11_15_182118) do
+ActiveRecord::Schema.define(version: 2020_11_15_224204) do
 
   create_table "cards", force: :cascade do |t|
     t.string "name"
@@ -22,6 +22,7 @@ ActiveRecord::Schema.define(version: 2020_11_15_182118) do
     t.string "creator"
     t.boolean "private_pile"
     t.integer "card_count"
+    t.integer "room_id"
   end
 
   create_table "rooms", force: :cascade do |t|
@@ -33,8 +34,6 @@ ActiveRecord::Schema.define(version: 2020_11_15_182118) do
     t.boolean "private"
     t.string "room_code"
   end
-
-  add_index "rooms", ["room_code"], name: "index_rooms_on_room_code", unique: true
 
   create_table "users", force: :cascade do |t|
     t.string "user_id"
