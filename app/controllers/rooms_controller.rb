@@ -13,6 +13,7 @@ class RoomsController < ApplicationController
   def show
     id = params[:id]
     @room = Room.find(id)
+    @piles = Pile.all
   end
 
   def new_join
