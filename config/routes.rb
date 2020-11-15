@@ -23,7 +23,7 @@ Rails.application.routes.draw do
 
   get "piles/pile_homepage"
   resources :piles
-  match '/create_pile', to: 'piles#new', via: :get
+  match '/create_pile', to: 'piles#new', via: :post
   post 'piles/show'
   post 'piles/draw_cards_from_deck'
   post 'piles/transfer_card'
