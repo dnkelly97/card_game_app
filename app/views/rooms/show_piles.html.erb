@@ -1,8 +1,12 @@
 <h2>All Piles</h2>
 <div class="w3-panel" id="show-pile-panel">
-  <p>
-    <%= "Pile: pile_id" %>
-  </p>
+  <table class="dataTable" id="card-table">
+    <tr>
+      <% Card.where(pile_id: @piles[0].id).each do |card| %>
+        <td><%= "#{card.serializable_hash}" %></td>
+      <% end %>
+    </tr>
+  </table>
 </div>
 <table class="table table-striped col-md-12">
   <tbody>
