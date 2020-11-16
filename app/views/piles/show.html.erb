@@ -1,3 +1,4 @@
+<h3><%= link_to 'Game Room', room_path({:id => params[:room_id]}), :class => 'btn btn-primary' %></h3>
 <h2>Transfer Card!!</h2>
 <table class="table table-striped col-md-12">
   <thead>
@@ -6,7 +7,7 @@
   </tr>
   </thead>
   <tbody>
-  <%= form_tag piles_transfer_card_path, :id => 'the_cards_form' do
+  <%= form_tag piles_transfer_card_path({:room_id => params[:room_id]}), :id => 'the_cards_form' do
     @cards.each do |card| %>
     <tr>
       <td>
