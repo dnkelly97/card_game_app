@@ -11,9 +11,6 @@ class RoomsController < ApplicationController
     user = User.find_by_session_token(session[:session_token])
     @room.users << @current_user
     @room.save!
-    deck = Pile.find_by(:name => "Deck")
-    @room.piles << deck
-    @room.save!
     room = Room.find_by(:id => @current_user.room_id)
     flash[:notice] = "#{@current_user.user_id}, welcome to #{room.name}"
     redirect_to room_path(@room)
