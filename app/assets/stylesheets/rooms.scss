@@ -3,7 +3,7 @@
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
 .w3-panel {
-  height: 200px;
+  height: 210px;
   width: 75%;
   transform: translate(16%);
   background-color: #4CAF50;
@@ -11,7 +11,8 @@
 #card-table {
   display: block;
   overflow-x: auto;
-  height: 190px;
+  overflow-y: hidden;
+  height: 210px;
   width: 95%;
   transform: translate(2.5%)
 }

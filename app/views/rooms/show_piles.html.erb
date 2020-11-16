@@ -6,10 +6,9 @@
         <% Card.where(pile_id: pile.id).each do |card| %>
           <td>
             <% if pile.private_pile %>
-              <%= "Face Down Card" %>
+              <p style="font-size:128px;">&#x1F0F4;</p>
             <% else %>
-              <p style="font-size:128px;">&#x<%= @unicode %>;</p>
-              <%= "#{card.name}" %>
+              <p style="font-size:128px;">&#x<%= card.unicode_value %>;</p>
             <% end %>
           </td>
         <% end %>
@@ -17,6 +16,7 @@
     <% end %>
   </table>
 </div>
+</br>
 <table class="table table-striped col-md-12">
   <tbody>
   <% @piles.each do |pile| %>
