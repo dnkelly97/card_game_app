@@ -11,12 +11,16 @@ class PilesController < ApplicationController
   end
 
   def create
+    room_id = params[:room_id]
+    room = Room.find_by(id: room_id)
     private_pile = params[:private_pile]
     name = params[:pile][:name]
     creator = params[:pile][:creator]
-    @pile = Pile.create!(name: name, creator: creator, private_pile: private_pile, card_count: 0)
-    flash[:notice] = "#{@pile.serializable_hash} was successfully created." #@pile.name
-    redirect_to piles_path
+    @pile = Pile.create!(name: name, creator: creator, private_pile: private_pile, card_count: 0, room_id: room_id)
+    room.piles << @pile
+    room.save!
+    flash[:notice] = "#{@pile.serializable_hash} was successfully created. room id is#{room_id}" #@pile.name
+    redirect_to room_path({:id => room_id}) and return
   end
 
   def show
@@ -30,6 +34,34 @@ class PilesController < ApplicationController
     @is_private = source_pile.private_pile
     @cards = source_pile.cards
     @source_pile = source_pile
+  end
+
+  def draw_cards_from_deck
+    room_id = params[:room_id]
+    num_cards = params[:pile][:num_cards].to_i
+    num_cards_copy = num_cards
+    deck = Pile.find_by(name: "Deck")
+    user = User.find_by_session_token(session[:session_token])
+    destination_pile = Pile.find_by(name: "#{user.user_id}'s Hand") #this represents the format an automatically created hand should get
+
+    if num_cards > deck.cards.count
+      flash[:notice] = "There aren't enough cards in the deck. Please try again or wait until the deck is replenished." #@pile.name
+      redirect_to room_path({:id => room_id}) and return
+    end
+
+    until num_cards == 0
+      deck_count = deck.cards.count
+      random_num = rand(deck_count)
+      destination_pile.cards << deck.cards[random_num]
+      destination_pile[:card_count] = destination_pile[:card_count] + 1
+      deck[:card_count] = deck[:card_count] - 1
+      deck.save
+      destination_pile.save
+      num_cards = num_cards - 1
+    end
+
+    flash[:notice] = "#{num_cards_copy} card(s) transferred from Deck!"
+    redirect_to room_path({:id => room_id})
   end
 
   def transfer_card

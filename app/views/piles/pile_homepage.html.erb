@@ -1,9 +1,0 @@
-<p>
-  <%= button_to('Create Pile!', create_pile_path, method: :get) %>
-  <%= button_to('View All Piles!', piles_path, method: :get) %>
-  <%= form_tag piles_show_path, :class => 'form' do %>
-    <%= label :pile, :source_pile, "Enter Source Pile:", :class => 'col-form-label' %>
-    <%= text_field :pile, 'source_pile', :class => 'form-control'%>
-    <%= submit_tag 'Transfer Card',  :class => 'btn btn-primary'%>
-  <% end %>
-</p>

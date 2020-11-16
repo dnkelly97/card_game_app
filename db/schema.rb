@@ -23,6 +23,7 @@ ActiveRecord::Schema.define(version: 20201114045134) do
     t.string  "creator"
     t.boolean "private_pile"
     t.integer "card_count"
+    t.integer "room_id"
   end
 
   create_table "rooms", force: :cascade do |t|
@@ -45,6 +46,7 @@ ActiveRecord::Schema.define(version: 20201114045134) do
     t.string   "session_token"
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
+    t.integer "room_id"
   end
 
 end
