@@ -1,10 +1,10 @@
 function show_cards(id){
-    id = parseInt(id)
-    if (document.getElementById(id).style.display == "block") {
-        document.getElementById(id).style.display = "none"
-    } else{
-        document.getElementById(id).style.display = "block"
+    let arr = document.querySelectorAll(".cardsTable tr")
+    for(let i=0; i<arr.length; i++){
+        arr.item(i).style.display = "none"
     }
+    id = parseInt(id)
+    document.getElementById(id).style.display = "block"
 }
 
 function display_pile(id){

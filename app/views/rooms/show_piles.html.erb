@@ -1,6 +1,6 @@
 <h2>All Piles</h2>
 <div class="w3-panel" id="show-pile-panel">
-  <table class="dataTable" id="card-table">
+  <table class="cardsTable dataTable" id="card-table">
     <% @piles.each do |pile| %>
       <tr id=<%="#{pile.id}"%> style="display:none;">
         <% Card.where(pile_id: pile.id).each do |card| %>
@@ -15,12 +15,7 @@
   <% @piles.each do |pile| %>
     <tr>
       <td>
-        <%= button_tag "#{pile.serializable_hash}", type: "button", onclick: "display_pile(#{pile.id})"%>
-      </td>
-      <td id=<%="#{pile.id}"%> style="display:none;">
-        <% Card.where(pile_id: pile.id).each do |card| %>
-          <%= "#{card.serializable_hash}" %>
-        <%end %>
+        <%= button_tag "#{pile.serializable_hash}", type: "button", onclick: "show_cards(#{pile.id})"%>
       </td>
     </tr>
   <% end %>
