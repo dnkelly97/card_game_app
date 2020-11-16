@@ -1,13 +1,15 @@
 <h2>All Piles</h2>
-<div class="w3-panel">
-  <p>I am a panel.</p>
+<div class="w3-panel" id="show-pile-panel">
+  <p>
+    <%= "Pile: pile_id" %>
+  </p>
 </div>
 <table class="table table-striped col-md-12">
   <tbody>
   <% @piles.each do |pile| %>
     <tr>
       <td>
-        <%= button_tag "#{pile.serializable_hash}", type: "button", onclick: "show_cards(#{pile.id})"%>
+        <%= button_tag "#{pile.serializable_hash}", type: "button", onclick: "display_pile(#{pile.id})"%>
       </td>
       <td id=<%="#{pile.id}"%> style="display:none;">
         <% Card.where(pile_id: pile.id).each do |card| %>
