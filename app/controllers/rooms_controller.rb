@@ -30,5 +30,6 @@ class RoomsController < ApplicationController
 
   def show_piles
     @piles = Pile.all
+    @unicode = "1F0A1"
   end
 end

@@ -8,7 +8,7 @@
             <% if pile.private_pile %>
               <%= "Face Down Card" %>
             <% else %>
-              <p style="font-size:128px;">&#x1F0A1;</p>
+              <p style="font-size:128px;">&#x<%= @unicode %>;</p>
               <%= "#{card.name}" %>
             <% end %>
           </td>
