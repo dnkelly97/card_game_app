@@ -4,7 +4,13 @@
     <% @piles.each do |pile| %>
       <tr id=<%="#{pile.id}"%> style="display:none;">
         <% Card.where(pile_id: pile.id).each do |card| %>
-          <td><%= "#{card.serializable_hash}" %></td>
+          <td>
+            <% if pile.private_pile %>
+              <%= "#{card.id}" %>
+            <% else %>
+              <%= "#{card.serializable_hash}" %>
+            <% end %>
+          </td>
         <% end %>
       </tr>
     <% end %>
