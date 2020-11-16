@@ -32,8 +32,8 @@ jobs:
           gem install bundler -v 2.1.4
           bundle install
           bundle exec yarn install
-          bundle exec rails webpacker:install
-          bundle exec webpack-dev-server
+          bundle exec rails webpacker:compile
+      
       - name: verify webpacker outputs
         run: | 
           apt install tree
