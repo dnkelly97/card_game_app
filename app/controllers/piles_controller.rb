@@ -41,7 +41,13 @@ class PilesController < ApplicationController
     num_cards = params[:pile][:num_cards].to_i
     num_cards_copy = num_cards
     deck = Pile.find_by(name: "Deck")
-    user = User.find_by_session_token(session[:session_token])
+    #User.find_by_session_token(session[:session_token])
+    # user = User.find_by(session_token: session[:session_token])
+    user = User.find_by(id: params[:user_id])
+    if user.nil?
+      flash[:notice] = "Unfortunately, User.find_by(session_token: session[:session_token]) is still nil" #@pile.name
+      redirect_to room_path({:id => room_id}) and return
+    end
     destination_pile = Pile.find_by(name: "#{user.user_id}'s Hand") #this represents the format an automatically created hand should get
 
     if num_cards > deck.cards.count
