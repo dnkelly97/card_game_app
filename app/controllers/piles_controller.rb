@@ -108,10 +108,10 @@ class PilesController < ApplicationController
   end
 
   def transfer_card
-    destination_pile = params[:pile][:name2]
-    source_pile = Pile.find_by(name: params[:source_pile_name])
     room_id = params[:room_id]
-    @destination_pile = Pile.find_by(name: destination_pile)
+    destination_pile = params[:pile][:name2]
+    source_pile = Pile.find_by(name: params[:source_pile_name], room_id: room_id)
+    @destination_pile = Pile.find_by(name: destination_pile, room_id: room_id)
     if @destination_pile.nil?
       flash[:notice] = "This is not a pile in the database. Please try again." #@pile.name
       redirect_to room_path({:id => room_id}) and return #piles_pile_homepage_path and return
