@@ -30,3 +30,5 @@ import BaseRoom from './components/BaseRoom';
 ReactOnRails.register({
     BaseRoom
 });
+
+

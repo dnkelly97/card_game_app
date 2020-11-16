@@ -1,5 +1,5 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :room do
-    name "TestRoom"
+    name { "TestRoom" }
   end
 end
