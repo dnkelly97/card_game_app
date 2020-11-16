@@ -1,7 +1,7 @@
 Feature: Allow CardGameSim user to transfer card from one pile to another
 
   Scenario: Transfer a card to an empty pile (Declarative)
-    Given that at least one pile exists in the database
+    #Given that at least one pile exists in the database
     And the following cards have been added to the pile whose id is 1:
       | name                    | pile_id |
       | Ace of Spades           | 1       |
