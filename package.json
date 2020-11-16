@@ -1,8 +1,8 @@
 {
-  "name": "Team3_SELT2020",
-  "version": "1.0.0",
-  "dependencies": {},
+  "dependencies": {
+    "@rails/webpacker": "5.2.1"
+  },
   "devDependencies": {
-    "@rails/actioncable": "^6.0.3-4"
+    "webpack-dev-server": "^3.11.0"
   }
 }
