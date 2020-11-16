@@ -8,7 +8,7 @@ class User < ActiveRecord::Base
 
   has_secure_password
   before_save { |user| user.email = user.email.downcase }
-  before_save :create_session_token
+  before_create :create_session_token
   validates :email, presence: true, confirmation: true, uniqueness: true, format: { with: /\A\w+@\w+\.[a-z]{2,}\z/i, on: :create }
   validates :user_id, presence: true, uniqueness: true, on: create, length: { maximum: 30 }
   validates :password, presence: true, on: :create

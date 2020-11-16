@@ -1,4 +1,5 @@
 class PilesController < ApplicationController
+  before_action :set_current_user
   def pile_params
     params.require(:pile).permit(:name, :private_pile, :creator)
   end
@@ -16,6 +17,10 @@ class PilesController < ApplicationController
     private_pile = params[:private_pile]
     name = params[:pile][:name]
     creator = params[:pile][:creator]
+    if @current_user.nil?
+      flash[:notice] = "@current_user is still nil" #@pile.name
+      redirect_to room_path({:id => room_id}) and return
+    end
     @pile = Pile.create!(name: name, creator: creator, private_pile: private_pile, card_count: 0, room_id: room_id)
     room.piles << @pile
     room.save!
