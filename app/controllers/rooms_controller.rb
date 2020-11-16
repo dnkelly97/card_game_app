@@ -27,4 +27,8 @@ class RoomsController < ApplicationController
       redirect_to rooms_new_join_path
     end
   end
+
+  def show_piles
+    @piles = Pile.all
+  end
 end
