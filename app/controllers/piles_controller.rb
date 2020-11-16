@@ -10,6 +10,72 @@ class PilesController < ApplicationController
   def new
 
   end
+  def new_deck
+
+  end
+  def create_deck
+    room_id = params[:room_id]
+    room = Room.find_by(id: room_id)
+    @pile = Pile.create!(name: "Deck", creator: "The Game", private_pile: true, card_count: 52, room_id: room_id)
+    room.piles << @pile
+    Card.create([{name: "Ace of Spades", pile_id: @pile.id},
+                 {name: "Two of Spades", pile_id: @pile.id},
+                 {name: "Three of Spades", pile_id: @pile.id},
+                 {name: "Four of Spades", pile_id: @pile.id},
+                 {name: "Five of Spades", pile_id: @pile.id},
+                 {name: "Six of Spades", pile_id: @pile.id},
+                 {name: "Seven of Spades", pile_id: @pile.id},
+                 {name: "Eight of Spades", pile_id: @pile.id},
+                 {name: "Nine of Spades", pile_id: @pile.id},
+                 {name: "Ten of Spades", pile_id: @pile.id},
+                 {name: "Jack of Spades", pile_id: @pile.id},
+                 {name: "Queen of Spades", pile_id: @pile.id},
+                 {name: "King of Spades", pile_id: @pile.id},
+                 {name: "Ace of Hearts", pile_id: @pile.id},
+                 {name: "Two of Hearts", pile_id: @pile.id},
+                 {name: "Three of Hearts", pile_id: @pile.id},
+                 {name: "Four of Hearts", pile_id: @pile.id},
+                 {name: "Five of Hearts", pile_id: @pile.id},
+                 {name: "Six of Hearts", pile_id: @pile.id},
+                 {name: "Seven of Hearts", pile_id: @pile.id},
+                 {name: "Eight of Hearts", pile_id: @pile.id},
+                 {name: "Nine of Hearts", pile_id: @pile.id},
+                 {name: "Ten of Hearts", pile_id: @pile.id},
+                 {name: "Jack of Hearts", pile_id: @pile.id},
+                 {name: "Queen of Hearts", pile_id: @pile.id},
+                 {name: "King of Hearts", pile_id: @pile.id},
+                 {name: "Ace of Clubs", pile_id: @pile.id},
+                 {name: "Two of Clubs", pile_id: @pile.id},
+                 {name: "Three of Clubs", pile_id: @pile.id},
+                 {name: "Four of Clubs", pile_id: @pile.id},
+                 {name: "Five of Clubs", pile_id: @pile.id},
+                 {name: "Six of Clubs", pile_id: @pile.id},
+                 {name: "Seven of Clubs", pile_id: @pile.id},
+                 {name: "Eight of Clubs", pile_id: @pile.id},
+                 {name: "Nine of Clubs", pile_id: @pile.id},
+                 {name: "Ten of Clubs", pile_id: @pile.id},
+                 {name: "Jack of Clubs", pile_id: @pile.id},
+                 {name: "Queen of Clubs", pile_id: @pile.id},
+                 {name: "King of Clubs", pile_id: @pile.id},
+                 {name: "Ace of Diamonds", pile_id: @pile.id},
+                 {name: "Two of Diamonds", pile_id: @pile.id},
+                 {name: "Three of Diamonds", pile_id: @pile.id},
+                 {name: "Four of Diamonds", pile_id: @pile.id},
+                 {name: "Five of Diamonds", pile_id: @pile.id},
+                 {name: "Six of Diamonds", pile_id: @pile.id},
+                 {name: "Seven of Diamonds", pile_id: @pile.id},
+                 {name: "Eight of Diamonds", pile_id: @pile.id},
+                 {name: "Nine of Diamonds", pile_id: @pile.id},
+                 {name: "Ten of Diamonds", pile_id: @pile.id},
+                 {name: "Jack of Diamonds", pile_id: @pile.id},
+                 {name: "Queen of Diamonds", pile_id: @pile.id},
+                 {name: "King of Diamonds", pile_id: @pile.id}
+                ])
+    room.save!
+
+    flash[:notice] = "Game deck initialized!" #@pile.name
+    redirect_to room_path({:id => room_id}) and return
+  end
 
   def create
     room_id = params[:room_id]
