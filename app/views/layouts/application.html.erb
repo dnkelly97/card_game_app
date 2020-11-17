@@ -24,6 +24,12 @@
         <%= flash[:warning].html_safe %>
       </div>
     </div>
+  <% elsif flash[:error] %>
+    <div class="alert alert-danger">
+      <div class="flashMessage" id="error">
+        <%= flash[:error].html_safe %>
+      </div>
+    </div>
   <% end %>
 </div>
 <%= yield %>
