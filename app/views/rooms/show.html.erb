@@ -2,7 +2,8 @@
 <h3>To have someone join this room, have them enter the following room code: <%= @room.room_code %></h3>
 <%= react_component("BaseRoom") %>
 <p>
-  <%= button_to('Create Pile!', create_pile_path({:room_id => @room.id}), method: :post) %>
+  <%= button_to('Create Deck!', create_deck_path({:room_id => @room.id}), method: :post) %>
+  <%= button_to('Create Empty Pile!', create_pile_path({:room_id => @room.id}), method: :post) %>
   <%= form_tag piles_show_path({:room_id => @room.id}), :class => 'form' do %>
     <%= label :pile, :source_pile, "Enter Source Pile:", :class => 'col-form-label' %>
     <%= text_field :pile, 'source_pile', :class => 'form-control'%>
@@ -17,27 +18,29 @@
 <br>
 <br>
 <br>
-<table class="table table-striped col-md-12" id="piles">
-<thead>
-<tr>
-  <th>Name</th>
-  <th>Owner</th>
-  <th>Card Count</th>
-</tr>
-</thead>
-  <tbody>
-<% @piles.each do |pile| %>
+<table class="table table-striped col-md-12">
+  <thead>
   <tr>
-    <td>
-      <%= pile.name %>
-    </td>
-    <td>
-      <%= pile.creator %>
-    </td>
-    <td>
-      <%= pile.card_count %>
-    </td>
+    <th>Name</th>
+    <th>Owner</th>
+    <th>Count</th>
   </tr>
-<% end %>
+  </thead>
+  <tbody>
+  <% @piles.each do |pile| %>
+    <% if pile.room_id == @room.id%>
+      <tr>
+        <td>
+          <%= pile.name%>
+        </td>
+        <td>
+          <%= pile.creator%>
+        </td>
+        <td>
+          <%= pile.card_count%>
+        </td>
+      </tr>
+    <% end %>
+  <% end %>
   </tbody>
 </table>

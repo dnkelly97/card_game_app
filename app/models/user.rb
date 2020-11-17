@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 class User < ActiveRecord::Base
   belongs_to :room
-
   # Confirmation: You should use this helper when you have two text fields that should receive exactly the same content
   # So use this in the view
   # <%= text_field :person, :email %>
