@@ -10,7 +10,7 @@ export default class ActionsPanel extends React.Component {
                 <Button className="action-button" variant="outline-dark">Transfer</Button>
                 <Button className="action-button" variant="outline-dark">Reset Deck</Button>
                 <Button className="action-button" variant="outline-dark">Show Hand</Button>
-                <Button className="action-button" variant="outline-danger">Rest Game</Button>
+                <Button className="action-button" variant="outline-danger">Reset Game</Button>
                 <Button className="action-button" variant="outline-danger">Quit Game</Button>
 
             </React.Fragment>
