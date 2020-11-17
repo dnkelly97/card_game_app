@@ -4,7 +4,7 @@ RSpec.describe UserSessionsController do
   describe 'Login to account' do
     before(:all) do
       User.delete_all
-      @user = FactoryGirl.create(:user)
+      @user = FactoryBot.create(:user)
     end
     it 'Should go to dashboard if provided valid info' do
       # Valid
