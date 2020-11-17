@@ -40,6 +40,11 @@ gem 'bcrypt', '~> 3.1.7'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
+# Gems for react portion of application
+gem 'webpacker'
+gem 'react_on_rails'
+gem 'mini_racer'
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'
