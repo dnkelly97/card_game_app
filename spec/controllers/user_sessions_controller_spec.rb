@@ -12,7 +12,7 @@ RSpec.describe UserSessionsController do
                               email: 'me@you.com' } }
       post :create, params: test_params
       expect(response).to redirect_to(dashboard_path)
-
+      expect(flash[:notice]).to match("Welcome #{@current_user.user_id}. Your account was successfully logged in.")
     end
     it 'Should go to login if provided invalid info' do
       # Invalid

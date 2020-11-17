@@ -14,7 +14,7 @@ class UserSessionsController < ApplicationController
       @current_user = User.where({ email: session_params[:email] }).to_a[0]
       if @current_user&.authenticate(session_params[:password])
         session[:session_token] = @current_user.session_token
-        redirect_to dashboard_path, flash: { notice: 'Welcome. Your account was successfully logged in.' }
+        redirect_to dashboard_path, flash: { notice: "Welcome #{@current_user.user_id}. Your account was successfully logged in." }
         return
       end
     end

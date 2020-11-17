@@ -12,7 +12,7 @@ class UsersController < ApplicationController
       redirect_to new_user_path, flash: { notice: output.join('<br/>').html_safe }
       return
     end
-    redirect_to login_path, flash: { notice: 'Welcome. Your account was successfully logged in.' }
+    redirect_to login_path, flash: { notice: 'Your account was successfully logged in.'}
   end
 
 end
