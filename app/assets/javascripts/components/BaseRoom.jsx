@@ -6,41 +6,21 @@ import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import '../../stylesheets/application.css';
+import CentralPiles from "./CentralPiles";
 
 export default class BaseRoom extends React.Component {
     render() {
         return (
-            // <Container className="base-room" fluid>
-            //     <Row s={2} md={3}>
-            //         <Col >
-            //             LP
-            //         </Col>
-            //         <Col >
-            //             <Row>
-            //               TC
-            //             </Row>
-            //             <Row xs={6}>
-            //                 MC
-            //             </Row>
-            //             <Row>
-            //                 <BottomCenterPanel/>
-            //             </Row>
-            //         </Col>
-            //         <Col>
-            //             <ActionsPanel/>
-            //         </Col>
-            //     </Row>
-            // </Container>
             <div className="base-room">
                 <div className="left-panel">
-                    LP
+                    Other Players Cards
                 </div>
                 <div className="center-panel">
                     <div className="top-center-panel">
-                        TC
+                        Other Players Cards
                     </div>
                     <div className="middle-center-panel">
-                        MC
+                        <CentralPiles/>
                     </div>
                     <div className="bottom-center-panel">
                         <BottomCenterPanel/>
