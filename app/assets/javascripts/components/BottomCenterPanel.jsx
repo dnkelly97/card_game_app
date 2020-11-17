@@ -26,11 +26,11 @@ export default class BottomCenterPanel extends React.Component{
         return(
             <React.Fragment>
                 {/*{this._render_hand(cardList)}*/}
-                <Button className="blank-card">+</Button>
-                <Button className="blank-card">+</Button>
-                <Button className="blank-card">+</Button>
-                <Button className="blank-card">+</Button>
-                <Button className="blank-card">+</Button>
+                <Button variant="outline-primary" className="blank-card">+</Button>
+                <Button variant="outline-primary" className="blank-card">+</Button>
+                <Button variant="outline-primary" className="blank-card">+</Button>
+                <Button variant="outline-primary" className="blank-card">+</Button>
+                <Button variant="outline-primary" className="blank-card">+</Button>
             </React.Fragment>
         )
     }
