@@ -36,8 +36,8 @@ jobs:
       
       - name: verify webpacker outputs
         run: | 
-          apt install tree
-          tree app/public
+          ls public
+          ls public/packs
       - name: prepare database
         run: bundle exec rake db:test:prepare
       - name: run rspec tests
