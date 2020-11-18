@@ -89,7 +89,7 @@ class RoomsController < ApplicationController
       end
       if @room.users.count < @room.max_players
         @room.users << @current_user
-        pile = Pile.create(name: "#{@current_user.name}'s Hand", creator: @current_user, private_pile: true, card_count: 0)
+        pile = Pile.create(name: "#{@current_user.user_id}'s Hand", creator: @current_user.user_id, private_pile: true, card_count: 0)
         @room.piles << pile
         @room.save!
         flash[:notice] = "#{@current_user.user_id}, welcome to #{@room.name}"
