@@ -11,7 +11,6 @@ class User < ActiveRecord::Base
   before_create :create_session_token
   validates :email, presence: true, confirmation: true, uniqueness: true, format: { with: /\A\w+@\w+\.[a-z]{2,}\z/i, on: :create }
   validates :user_id, presence: true, uniqueness: true, on: create, length: { maximum: 30 }
-  # validates :password, presence: true
   validates :password_confirmation, :email_confirmation, presence: true, on: :create
   validate :password_checker, on: :create
 
