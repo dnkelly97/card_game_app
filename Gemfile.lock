@@ -125,6 +125,11 @@ GEM
       rspec (>= 2.99.0, < 4.0)
     i18n (1.8.5)
       concurrent-ruby (~> 1.0)
+    jasmine (3.6.0)
+      jasmine-core (~> 3.6.0)
+      phantomjs
+      rack (>= 1.2.1)
+      rake
     jasmine-core (3.6.0)
     jasmine-jquery-rails (2.0.3)
     jasmine-rails (0.15.0)
@@ -344,6 +349,7 @@ DEPENDENCIES
   database_cleaner
   factory_bot_rails
   guard-rspec
+  jasmine
   jasmine-jquery-rails
   jasmine-rails
   jbuilder (~> 2.0)
