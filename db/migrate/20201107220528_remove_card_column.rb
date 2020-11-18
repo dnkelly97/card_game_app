@@ -1,4 +1,4 @@
-class RemoveCardColumn < ActiveRecord::Migration
+class RemoveCardColumn < ActiveRecord::Migration[5.2]
   def change
     remove_column :piles, :cards
   end
