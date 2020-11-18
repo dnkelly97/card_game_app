@@ -73,7 +73,7 @@ class PilesController < ApplicationController
                 ])
     room.save!
 
-    flash[:notice] = "Game deck initialized!" #@pile.name
+    flash[:notice] = "Another deck added to the room"
     redirect_to room_path({:id => room_id}) and return
   end
 
@@ -107,15 +107,8 @@ class PilesController < ApplicationController
     room_id = params[:room_id]
     num_cards = params[:pile][:num_cards].to_i
     num_cards_copy = num_cards
-    deck = Pile.find_by(name: "Deck")
-    #User.find_by_session_token(session[:session_token])
-    # user = User.find_by(session_token: session[:session_token])
-    user = User.find_by(id: params[:user_id])
-    if user.nil?
-      flash[:notice] = "Unfortunately, User.find_by(session_token: session[:session_token]) is still nil" #@pile.name
-      redirect_to room_path({:id => room_id}) and return
-    end
-    destination_pile = Pile.find_by(name: "#{user.user_id}'s Hand") #this represents the format an automatically created hand should get
+    deck = Pile.find_by(name: "Deck", room_id: room_id)
+    destination_pile = Pile.find_by(name: "#{@current_user.user_id}'s Hand", room_id: room_id) #this represents the format an automatically created hand should get
 
     if num_cards > deck.cards.count
       flash[:notice] = "There aren't enough cards in the deck. Please try again or wait until the deck is replenished." #@pile.name
