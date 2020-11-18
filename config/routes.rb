@@ -21,7 +21,6 @@ Rails.application.routes.draw do
 
   root to: redirect('/dashboard')
 
-  get "piles/pile_homepage"
   resources :piles
   match '/create_pile', to: 'piles#new', via: :post
   match '/create_deck', to: 'piles#create_deck', via: :post
