@@ -1,4 +1,4 @@
-class AddRoomCode < ActiveRecord::Migration
+class AddRoomCode < ActiveRecord::Migration[4.2]
   def change
   end
 end

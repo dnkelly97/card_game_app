@@ -1,4 +1,4 @@
-class CreatePiles < ActiveRecord::Migration
+class CreatePiles < ActiveRecord::Migration[4.2]
   def change
     create_table :piles do |t|
       t.string 'name'
