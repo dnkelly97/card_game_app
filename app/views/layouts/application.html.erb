@@ -6,8 +6,10 @@
   <%= csrf_meta_tags %>
   <%= csp_meta_tag %>
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= javascript_pack_tag 'application' %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+  <%= csrf_meta_tags %>
   <%= action_cable_meta_tag %>
-  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
 </head>
 <h1><%= link_to 'CardGameSim', root_path, :class => 'btn btn-primary' %></h1>
 <body>

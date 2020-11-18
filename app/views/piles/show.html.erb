@@ -7,7 +7,7 @@
   </tr>
   </thead>
   <tbody>
-  <%= form_tag piles_transfer_card_path({:room_id => params[:room_id]}), :id => 'the_cards_form' do
+  <%= form_tag piles_transfer_card_path({:room_id => params[:room_id], :source_pile_name => @source_pile.name}), :id => 'the_cards_form' do
     @cards.each do |card| %>
     <tr>
       <td>

@@ -1,8 +1,14 @@
 {
-  "name": "Team3_SELT2020",
-  "version": "1.0.0",
-  "dependencies": {},
+  "dependencies": {
+    "@babel/preset-react": "^7.12.5",
+    "@rails/webpacker": "5.2.1",
+    "babel-plugin-transform-react-remove-prop-types": "^0.4.24",
+    "prop-types": "^15.7.2",
+    "react": "^17.0.1",
+    "react-dom": "^17.0.1",
+    "react-on-rails": "^12.0.4"
+  },
   "devDependencies": {
-    "@rails/actioncable": "^6.0.3-4"
+    "webpack-dev-server": "^3.11.0"
   }
 }
