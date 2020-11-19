@@ -12,7 +12,8 @@ RSpec.describe UserSessionsController do
                               email: 'me@you.com' } }
       post :create, params: test_params
       expect(response).to redirect_to(dashboard_path)
-
+      expect(flash[:notice].include?("#{assigns(:current_user).user_id}")).to be_truthy
+      expect(flash[:notice].include?('Your account was successfully logged in.')).to be_truthy
     end
     it 'Should go to login if provided invalid info' do
       # Invalid
@@ -20,6 +21,7 @@ RSpec.describe UserSessionsController do
                               email: 'me@you.com' } }
       post :create, params: test_params
       expect(response).to redirect_to(login_path)
+      expect(flash[:warning]).to match('Unsuccessful login')
 
     end
     it 'Should go to login page if logging out' do
