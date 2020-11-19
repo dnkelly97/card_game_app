@@ -73,6 +73,7 @@ class PilesController < ApplicationController
                 ])
     room.save!
 
+
     flash[:notice] = "Another deck added to the room"
     redirect_to room_path({:id => room_id}) and return
   end
@@ -83,7 +84,7 @@ class PilesController < ApplicationController
     private_pile = params[:private_pile]
     name = params[:pile][:name]
     creator = params[:pile][:creator]
-    @pile = Pile.create!(name: name, creator: creator, private_pile: private_pile, card_count: 0)
+    @pile = Pile.create!(name: name, creator: creator, private_pile: private_pile, card_count: 0, room_id: room_id)
     room.piles << @pile
     room.save!
     flash[:notice] = "#{@pile.serializable_hash} was successfully created." #@pile.name
