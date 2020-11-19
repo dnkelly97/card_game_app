@@ -152,7 +152,7 @@ class PilesController < ApplicationController
     source_pile.save
     params[:the_cards].keys.each do |card|
       flash[:notice] = "#{card}"
-      @destination_pile.cards << Card.find_by(name: card)
+      @destination_pile.cards << Card.find_by(id: card)
     end
     flash[:notice] = "Card(s) successfully transferred!"
     redirect_to room_path({:id => room_id})
