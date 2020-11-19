@@ -34,6 +34,15 @@ RSpec.describe UserSessionsController do
       expect(session[:session_token]).to be_nil
 
     end
+    it 'Dashboard after login has current_user' do
+      # Valid
+      test_params = { user: { password: 'testpass1',
+                              email: 'me@you.com' } }
+      post :create, params: test_params
+      post :index
+      expect(assigns(:current_user)).to_not be_nil
+
+    end
   end
 
 end
