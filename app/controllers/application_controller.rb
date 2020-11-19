@@ -7,6 +7,6 @@ class ApplicationController < ActionController::Base
 
   def set_current_user
     @current_user ||= session[:session_token] && User.find_by_session_token(session[:session_token])
-    redirect_to login_path unless @current_user
+    redirect_to dashboard_path, notice: "You must be logged in to do that" unless @current_user
   end
 end
