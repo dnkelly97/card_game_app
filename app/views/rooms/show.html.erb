@@ -9,7 +9,7 @@
     <%= text_field :pile, 'source_pile', :class => 'form-control'%>
     <%= submit_tag 'Transfer Card',  :class => 'btn btn-primary'%>
   <% end %>
-  <%= form_tag piles_draw_cards_from_deck_path({:room_id => @room.id, :user_id => @user}), :class => 'form' do %>
+  <%= form_tag piles_draw_cards_from_deck_path({:room_id => @room.id}), :class => 'form' do %>
     <%= label :pile, :num_cards, "Enter Number of Cards:", :class => 'col-form-label' %>
     <%= text_field :pile, 'num_cards', :class => 'form-control'%>
     <%= submit_tag 'Draw cards from Deck',  :class => 'btn btn-primary'%>

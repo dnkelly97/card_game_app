@@ -93,8 +93,8 @@ class PilesController < ApplicationController
 
   def show
     source_pile = params[:pile][:source_pile]
-    source_pile = Pile.find_by(name: source_pile)
     room_id = params[:room_id]
+    source_pile = Pile.find_by(name: source_pile, room_id: room_id)
     if source_pile.nil?
       flash[:notice] = "This is not a pile in the database. Please try again." #@pile.name
       redirect_to room_path({:id => room_id}) and return
