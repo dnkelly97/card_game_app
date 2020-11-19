@@ -13,28 +13,30 @@
 </head>
 <h1><%= link_to 'CardGameSim', root_path, :class => 'btn btn-primary' %></h1>
 <body>
-<div id="flash_message">
-  <% if flash[:notice] %>
-    <div class="alert alert-danger">
-      <div class="flashMessage" id="notice">
-        <%= flash[:notice].html_safe %>
+<div id="MainWindow">
+  <div id="flash_message">
+    <% if flash[:notice] %>
+      <div class="alert alert-danger">
+        <div class="flashMessage" id="notice">
+          <%= flash[:notice] %>
+        </div>
       </div>
-    </div>
-  <% elsif flash[:warning] %>
-    <div class="alert alert-danger">
-      <div class="flashMessage" id="warning">
-        <%= flash[:warning].html_safe %>
+    <% elsif flash[:warning] %>
+      <div class="alert alert-danger">
+        <div class="flashMessage" id="warning">
+          <%= flash[:warning] %>
+        </div>
       </div>
-    </div>
-  <% elsif flash[:error] %>
-    <div class="alert alert-danger">
-      <div class="flashMessage" id="error">
-        <%= flash[:error].html_safe %>
+    <% elsif flash[:error] %>
+      <div class="alert alert-danger">
+        <div class="flashMessage" id="error">
+          <%= flash[:error].html_safe %>
+        </div>
       </div>
-    </div>
-  <% end %>
+    <% end %>
+  </div>
+  <%= yield %>
 </div>
-<%= yield %>
 
 </body>
 </html>
