@@ -1,10 +1,13 @@
 describe('LoginPopup', function(){
+    beforeEach(function (){
+        loadFixtures("dashboard.html");
+    });
     describe('setup', function (){
         it('adds pop Div to main page', function(){
-            expect($('#loginPopup')).to.exist();
+            expect($('#loginPopup')).toExist();
         });
         it('hide Div initially', function(){
-            expect($('#loginPopup')).toBe.hidden;
+            expect($('#loginPopup')).toBeHidden;
         });
     });
     describe('Clicking login function', function (){
@@ -23,13 +26,13 @@ describe('LoginPopup', function(){
                 $('#signupLogin').trigger('click');
             });
             it('popup is Visible', function(){
-                expect($('#loginPopup')).toBe.visible();
+                expect($('#loginPopup')).toBeVisible();
             });
             it('hide Div', function(){
                 let fixture2 = setFixtures('<input id="cancelLogin">')
                 let fixHtml2 = fixture2.find('#cancelLogin');
                 $(fixHtml2).click()
-                expect($('#loginPopup')).toBe.hidden();
+                expect($('#loginPopup')).toBeHidden();
             });
         });
     });

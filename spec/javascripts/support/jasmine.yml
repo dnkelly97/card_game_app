@@ -52,7 +52,7 @@ helpers:
 #
 spec_files:
   - '**/*[sS]pec.js'
-
+  - '**/*[sS]pec.coffee'
 # src_dir
 #
 # Source directory path. Your src_files must be returned relative to this path. Will use root if left blank.
