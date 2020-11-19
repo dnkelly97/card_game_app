@@ -350,6 +350,7 @@ DEPENDENCIES
   factory_bot_rails
   guard-rspec
   jasmine
+  jasmine-core
   jasmine-jquery-rails
   jasmine-rails
   jbuilder (~> 2.0)

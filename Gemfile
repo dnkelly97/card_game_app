@@ -53,6 +53,7 @@ group :development, :test do
   gem 'factory_bot_rails'
   gem 'launchy'
   gem 'jasmine'
+  gem 'jasmine-core'
   gem 'jasmine-rails'
   gem 'jasmine-jquery-rails'
   gem 'rspec', '~>3.5'
