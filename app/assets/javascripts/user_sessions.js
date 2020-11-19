@@ -16,11 +16,12 @@ let LoginPopup = {
           return(false);
     },
     showLogin: function (data, requestStatus, xhrObject) {
+        console.log("Hello")
         let oneFourth = Math.ceil($(window).width()/4);
         $('#MainWindow').css({'opacity': 0.4})
         $('#loginPopup').
             css({'left': oneFourth,'width': 2*oneFourth, 'top':250, 'opacity': 1.0}).html(data).show();
-        $('#cancelLogin').click(LoginPopup.hideLogin);
+        $(document).on('click', '#cancelLogin', LoginPopup.hideLogin);
         $('#signupLogin').prop("disabled", true);
         return(false);
 
