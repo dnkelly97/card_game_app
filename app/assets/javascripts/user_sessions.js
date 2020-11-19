@@ -21,13 +21,14 @@ let LoginPopup = {
         $('#loginPopup').
             css({'left': oneFourth,'width': 2*oneFourth, 'top':250, 'opacity': 1.0}).html(data).show();
         $('#cancelLogin').click(LoginPopup.hideLogin);
+        $('#signupLogin').prop("disabled", true);
         return(false);
 
     },
     hideLogin: function() {
         $('#loginPopup').hide();
         $('#MainWindow').css({'opacity': 1.0})
-
+        $('#signupLogin').prop("disabled", false);
         return(false);
     }
 };
