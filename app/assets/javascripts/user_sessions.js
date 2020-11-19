@@ -33,4 +33,3 @@ let LoginPopup = {
     }
 };
 jQuery(LoginPopup.setup);
-console.log("LoginPopup setup done");
