@@ -11,6 +11,8 @@ RSpec.describe UsersController do
                               email: 'me@google.com', email_confirmation: 'me@google.com' } }
       post :create, params: test_params
       expect(response).to redirect_to(login_path)
+      expect(flash[:notice].include?('Your account was successfully created.')).to be_truthy
+
     end
     it 'password must be 7-20 characters, have letter+number and a confirmation' do
 
@@ -19,6 +21,8 @@ RSpec.describe UsersController do
                              email: 'me@google.com', email_confirmation: 'me@google.com' } }
       post :create, params: test_params
       expect(response).to redirect_to(new_user_path)
+      expect(flash[:warning].include?('Password must contain 7-20 characters')).to be_truthy
+
     end
     it 'Password must be confirmed' do
       # Valid
@@ -26,6 +30,8 @@ RSpec.describe UsersController do
                               email: 'me@google.com', email_confirmation: 'me@google.com' } }
       post :create, params: test_params
       expect(response).to redirect_to(new_user_path)
+      expect(flash[:warning].include?('confirm')).to be_truthy
+
     end
     it 'Email must be confirmed' do
 
@@ -34,7 +40,7 @@ RSpec.describe UsersController do
                              email: 'me@google.com' } }
       post :create, params: test_params
       expect(response).to redirect_to(new_user_path)
-      expect(flash[:notice]).to_not be_nil
+      expect(flash[:warning].include?('confirm')).to be_truthy
     end
   end
 
