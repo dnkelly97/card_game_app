@@ -101,6 +101,18 @@ html, body, .App, .base-room{
 
 }
 
-.playing-card {
 
+.w3-panel {
+  height: 210px;
+  width: 75%;
+  transform: translate(16%);
+  background-color: #4CAF50;
+}
+#card-table {
+  display: block;
+  overflow-x: auto;
+  overflow-y: hidden;
+  height: 210px;
+  width: 95%;
+  transform: translate(2.5%)
 }
