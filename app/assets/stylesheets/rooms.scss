@@ -19,7 +19,10 @@ html, body, .App, .base-room{
 .left-panel {
   display: flex;
   flex-direction: column;
-  flex: 2
+  flex: 1;
+  justify-content: space-between;
+  padding-left: 5%;
+  padding-right: 5%;
 }
 
 .right-panel {
@@ -42,6 +45,7 @@ html, body, .App, .base-room{
   flex-direction: row;
   height: 25%;
   width: 100%;
+  align-content: center;
 }
 
 .middle-center-panel {
