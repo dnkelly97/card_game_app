@@ -107,7 +107,6 @@ class PilesController < ApplicationController
   def draw_cards_from_deck
     room_id = params[:room_id]
     num_cards = params[:pile][:num_cards].to_i
-    num_cards_copy = num_cards
     deck = Pile.find_by(name: "Deck", room_id: room_id)
     destination_pile = Pile.find_by(name: "#{@current_user.user_id}'s Hand", room_id: room_id) #this represents the format an automatically created hand should get
 
@@ -115,19 +114,17 @@ class PilesController < ApplicationController
       flash[:notice] = "There aren't enough cards in the deck. Please try again or wait until the deck is replenished." #@pile.name
       redirect_to room_path({:id => room_id}) and return
     end
-
-    until num_cards == 0
-      deck_count = deck.cards.count
-      random_num = rand(deck_count)
-      destination_pile.cards << deck.cards[random_num]
+    deck_count = deck.cards.count
+    list_of_cards = (0...deck_count-1).to_a.sample(num_cards)
+    list_of_cards.each do |card_num|
+      destination_pile.cards << deck.cards[card_num]
       destination_pile[:card_count] = destination_pile[:card_count] + 1
       deck[:card_count] = deck[:card_count] - 1
       deck.save
       destination_pile.save
-      num_cards = num_cards - 1
     end
 
-    flash[:notice] = "#{num_cards_copy} card(s) transferred from Deck!"
+    flash[:notice] = "#{num_cards} card(s) transferred from Deck!"
     redirect_to room_path({:id => room_id})
   end
 
