@@ -316,6 +316,10 @@
           2,
           null,
           null,
+          null,
+          1,
+          0,
+          null,
           null
         ]
       },
@@ -486,7 +490,7 @@
         }
       }
     },
-    "timestamp": 1605847899
+    "timestamp": 1605849627
   },
   "Cucumber Features": {
     "coverage": {
@@ -630,6 +634,27 @@
         "lines": [
           1,
           null,
+          null
+        ]
+      },
+      "/mnt/c/Users/RangerJammy 3.0/Documents/GitHub/SELT/Team3_SELT2020/features/step_definitions/show_pile_steps.rb": {
+        "lines": [
+          null,
+          1,
+          0,
+          null,
+          null,
+          null,
+          null,
+          null,
+          1,
+          0,
+          null,
+          null,
+          null,
+          null,
+          1,
+          0,
           null
         ]
       },
@@ -981,6 +1006,6 @@
         ]
       }
     },
-    "timestamp": 1605848653
+    "timestamp": 1605849651
   }
 }
