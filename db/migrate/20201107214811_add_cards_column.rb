@@ -1,5 +1,6 @@
-class AddCardsColumn < ActiveRecord::Migration
+class AddCardsColumn < ActiveRecord::Migration[5.2]
   def change
-    add_column :piles, :cards, :integer, array: true, default: []
+    remove_column :piles, :cards
+    add_column :piles, :cards, :integer, default: [].to_yaml
   end
 end
