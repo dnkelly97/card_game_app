@@ -19,13 +19,19 @@
   <% if flash[:notice] %>
     <div class="alert alert-danger">
       <div class="flashMessage" id="notice">
-        <%= flash[:notice] %>
+        <%= flash[:notice].html_safe %>
       </div>
     </div>
   <% elsif flash[:warning] %>
     <div class="alert alert-danger">
       <div class="flashMessage" id="warning">
-        <%= flash[:warning] %>
+        <%= flash[:warning].html_safe %>
+      </div>
+    </div>
+  <% elsif flash[:error] %>
+    <div class="alert alert-danger">
+      <div class="flashMessage" id="error">
+        <%= flash[:error].html_safe %>
       </div>
     </div>
   <% end %>
