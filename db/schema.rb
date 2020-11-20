@@ -10,11 +10,12 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_11_15_224204) do
+ActiveRecord::Schema.define(version: 2020_11_16_221502) do
 
   create_table "cards", force: :cascade do |t|
     t.string "name"
     t.integer "pile_id"
+    t.string "unicode_value"
     t.index ["pile_id"], name: "index_cards_on_pile_id"
   end
 
