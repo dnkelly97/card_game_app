@@ -1,5 +1,6 @@
 <h2>Welcome To <%= @room.name %></h2>
 <h3>To have someone join this room, have them enter the following room code: <%= @room.room_code %></h3>
+<%= button_to('Show Piles', rooms_show_piles_path({:room_id => @room.id}), :method => :get) %>
 <%= react_component("BaseRoom", html_options: {:style => "display:flex; height: 80%;"}) %>
 <!--<p>-->
   <%#= button_to('Create Pile!', create_pile_path({:room_id => @room.id}), method: :get) %>
