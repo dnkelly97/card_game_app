@@ -6,6 +6,7 @@ Given /^that a private pile contains cards$/ do
 end
 
 When /^the pile button is clicked$/ do
+  pending
   visit rooms_show_piles_path
   click_button 'private_pile_1'
 end
