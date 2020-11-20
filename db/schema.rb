@@ -16,12 +16,16 @@ ActiveRecord::Schema.define(version: 2020_11_16_221502) do
     t.string "name"
     t.integer "pile_id"
     t.string "unicode_value"
+    t.index ["pile_id"], name: "index_cards_on_pile_id"
   end
 
   create_table "piles", force: :cascade do |t|
     t.string "name"
     t.string "creator"
     t.boolean "private_pile"
+    t.integer "card_count"
+    t.integer "room_id"
+    t.index ["room_id"], name: "index_piles_on_room_id"
   end
 
   create_table "rooms", force: :cascade do |t|
@@ -43,6 +47,8 @@ ActiveRecord::Schema.define(version: 2020_11_16_221502) do
     t.string "session_token"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "room_id"
+    t.index ["room_id"], name: "index_users_on_room_id"
   end
 
 end

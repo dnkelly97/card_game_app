@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :user do
     email { 'me@you.com' }
     email_confirmation { 'me@you.com' }
