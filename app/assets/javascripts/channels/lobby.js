@@ -1,7 +1,8 @@
-$("#room_id").load(function() {
+const subscribe_to_room = function(room_number) {
+    console.log("Hi, welcome to " + room_number);
     App.lobby = App.cable.subscriptions.create({
             channel: "LobbyChannel",
-            room: $("#room_id").innerText
+            room: room_number
         },
         {
             connected() {
@@ -19,4 +20,4 @@ $("#room_id").load(function() {
             }
         }
     );
-});
+};

@@ -1,5 +1,6 @@
 class LobbyChannel < ApplicationCable::Channel
   def subscribed
+    puts params.to_s
     stream_from lobby
   end
 
@@ -13,13 +14,13 @@ class LobbyChannel < ApplicationCable::Channel
       lobby, format_response(data)
   end
   def lobby
-    "room_#{params[:room]}"
+    "room_#{params[:room].to_s}"
   end
 
   def format_response data
     {
         message: data["pile"],
-        username: current_user.user_id
+        username: self.current_user.user_id
     }
   end
 end

@@ -1,3 +1,4 @@
+<<<<<<< 1729527f7eddca4df98cdd2e36dd159f5adf7f92
 <div id="room-information">
   <h2>Welcome To <%= @room.name %></h2>
   <h2>Room Join Code: <%= @room.room_code %></h2>
@@ -67,3 +68,6 @@
   </div>
 </div>
 <p id="room_id" hidden><%=@room.id%></p>
+<script>
+  subscribe_to_room(<%=@room.id%>)
+</script>
