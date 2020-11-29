@@ -23,7 +23,7 @@ describe RoomsController do
     it 'should go back to login page if not logged in' do
       post :create, params: {room_name: 'Test'}
       # byebug
-      expect(response).to redirect_to(login_path)
+      expect(response).to redirect_to(dashboard_path)
     end
   end
   describe 'joining a new room' do

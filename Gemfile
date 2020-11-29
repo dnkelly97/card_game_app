@@ -52,6 +52,10 @@ group :development, :test do
   gem 'guard-rspec'
   gem 'factory_bot_rails'
   gem 'launchy'
+  gem 'jasmine'
+  gem 'jasmine-core'
+  gem 'jasmine-rails'
+  gem 'jasmine-jquery-rails'
   gem 'rspec', '~>3.5'
   gem 'rspec-rails'
 
@@ -70,7 +74,7 @@ group :development do
   gem 'spring'
 end
 group :test do
-  gem 'cucumber', '< 4.0.0'
+  gem 'cucumber', '<4.0.0'
   gem 'cucumber-rails', :require=>false
   gem 'database_cleaner'
   gem 'rspec-expectations'
