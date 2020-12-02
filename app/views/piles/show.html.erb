@@ -19,7 +19,7 @@
         <% end %>
       </td>
       <td>
-        <%=check_box_tag "the_cards[#{card.name}]", nil, nil, {:id => "checkbox_#{card.name}"}%>
+        <%=check_box_tag "the_cards[#{card.id}]", nil, nil, {:id => "checkbox_#{card.name}"}%>
       </td>
     </tr>
   <% end %>

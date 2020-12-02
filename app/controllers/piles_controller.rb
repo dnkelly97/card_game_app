@@ -93,8 +93,8 @@ class PilesController < ApplicationController
 
   def show
     source_pile = params[:pile][:source_pile]
-    source_pile = Pile.find_by(name: source_pile)
     room_id = params[:room_id]
+    source_pile = Pile.find_by(name: source_pile, room_id: room_id)
     if source_pile.nil?
       flash[:notice] = "This is not a pile in the database. Please try again." #@pile.name
       redirect_to room_path({:id => room_id}) and return
@@ -107,7 +107,6 @@ class PilesController < ApplicationController
   def draw_cards_from_deck
     room_id = params[:room_id]
     num_cards = params[:pile][:num_cards].to_i
-    num_cards_copy = num_cards
     deck = Pile.find_by(name: "Deck", room_id: room_id)
     destination_pile = Pile.find_by(name: "#{@current_user.user_id}'s Hand", room_id: room_id) #this represents the format an automatically created hand should get
 
@@ -115,19 +114,17 @@ class PilesController < ApplicationController
       flash[:notice] = "There aren't enough cards in the deck. Please try again or wait until the deck is replenished." #@pile.name
       redirect_to room_path({:id => room_id}) and return
     end
-
-    until num_cards == 0
-      deck_count = deck.cards.count
-      random_num = rand(deck_count)
-      destination_pile.cards << deck.cards[random_num]
+    deck_count = deck.cards.count
+    list_of_cards = (0...deck_count-1).to_a.sample(num_cards)
+    list_of_cards.each do |card_num|
+      destination_pile.cards << deck.cards[card_num]
       destination_pile[:card_count] = destination_pile[:card_count] + 1
       deck[:card_count] = deck[:card_count] - 1
       deck.save
       destination_pile.save
-      num_cards = num_cards - 1
     end
 
-    flash[:notice] = "#{num_cards_copy} card(s) transferred from Deck!"
+    flash[:notice] = "#{num_cards} card(s) transferred from Deck!"
     redirect_to room_path({:id => room_id})
   end
 
@@ -152,7 +149,7 @@ class PilesController < ApplicationController
     source_pile.save
     params[:the_cards].keys.each do |card|
       flash[:notice] = "#{card}"
-      @destination_pile.cards << Card.find_by(name: card)
+      @destination_pile.cards << Card.find_by(id: card)
     end
     flash[:notice] = "Card(s) successfully transferred!"
     redirect_to room_path({:id => room_id})
