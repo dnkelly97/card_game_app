@@ -118,12 +118,11 @@ class PilesController < ApplicationController
     list_of_cards = (0...deck_count-1).to_a.sample(num_cards)
     list_of_cards.each do |card_num|
       destination_pile.cards << deck.cards[card_num]
-      destination_pile[:card_count] = destination_pile[:card_count] + 1
-      deck[:card_count] = deck[:card_count] - 1
-      deck.save
-      destination_pile.save
     end
-
+    destination_pile[:card_count] = destination_pile[:card_count] + num_cards
+    deck[:card_count] = deck[:card_count] - num_cards
+    deck.save
+    destination_pile.save
     flash[:notice] = "#{num_cards} card(s) transferred from Deck!"
     redirect_to room_path({:id => room_id})
   end
