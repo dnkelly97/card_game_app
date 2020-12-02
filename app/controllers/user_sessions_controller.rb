@@ -7,6 +7,10 @@ class UserSessionsController < ApplicationController
     @current_user ||= session[:session_token] && User.find_by_session_token(session[:session_token])
   end
 
+  def new
+    render(partial: 'partials/login') if request.xhr?
+  end
+
   def create
     if session_params.has_key?(:password) && session_params.has_key?(:email)
       # Check that the combination gets a user with both
