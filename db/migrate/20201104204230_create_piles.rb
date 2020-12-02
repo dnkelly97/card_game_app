@@ -1,10 +1,10 @@
-class CreatePiles < ActiveRecord::Migration
+class CreatePiles < ActiveRecord::Migration[5.2]
   def change
     create_table :piles do |t|
       t.string 'name'
       t.boolean 'private'
       t.string 'creator'
-      t.text :cards, array: true, default: []
+      t.text :cards, default: [].to_yaml
     end
   end
 end

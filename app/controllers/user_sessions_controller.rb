@@ -8,7 +8,6 @@ class UserSessionsController < ApplicationController
   end
 
   def new
-    puts "In the New Controller"
     render(partial: 'partials/login') if request.xhr?
   end
 
