@@ -6,7 +6,8 @@
 
 require 'cucumber/rails'
 require 'rspec/expectations'
-
+require 'simplecov'
+SimpleCov.start
 # frozen_string_literal: true
 
 # Capybara defaults to CSS3 selectors rather than XPath.
