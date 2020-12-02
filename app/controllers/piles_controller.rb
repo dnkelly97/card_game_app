@@ -87,7 +87,7 @@ class PilesController < ApplicationController
     @pile = Pile.create!(name: name, creator: creator, private_pile: private_pile, card_count: 0, room_id: room_id)
     room.piles << @pile
     room.save!
-    flash[:notice] = "#{@pile.serializable_hash} was successfully created." #@pile.name
+    flash[:notice] = "#{@pile.name} was successfully created." #@pile.name
     redirect_to room_path({:id => room_id}) and return
   end
 
@@ -155,7 +155,4 @@ class PilesController < ApplicationController
     redirect_to room_path({:id => room_id})
   end
 
-  def pile_homepage
-    @pile_list = Pile.all
-  end
 end
