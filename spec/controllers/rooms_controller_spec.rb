@@ -51,6 +51,8 @@ describe RoomsController do
   end
 
   describe 'Getting all piles' do
+    it 'should get all the piles objects from the database (if any?)' do
 
+    end
   end
 end
