@@ -51,8 +51,10 @@ describe RoomsController do
   end
 
   describe 'Getting all piles' do
-    it 'should get all the piles objects from the database (if any?)' do
-
+    it 'should get all the piles objects from the database' do
+      FactoryBot.create(:pile)
+      get :show_piles
+      expect(@piles).to eq(Pile.all)
     end
   end
 end
