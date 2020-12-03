@@ -49,4 +49,8 @@ describe RoomsController do
     end
 
   end
+
+  describe 'Getting all piles' do
+
+  end
 end
