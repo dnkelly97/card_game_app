@@ -53,8 +53,9 @@ describe RoomsController do
   describe 'Getting all piles' do
     it 'should get all the piles objects from the database' do
       FactoryBot.create(:pile)
-      get :show_piles
-      expect(@piles).to eq(Pile.all)
+      FactoryBot.create(:room)
+      get :show_piles, params: {room_id: 1}
+      expect(assigns(:piles)).to eq(Pile.all)
     end
   end
 end
