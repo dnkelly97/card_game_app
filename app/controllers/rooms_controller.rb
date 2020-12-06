@@ -105,6 +105,7 @@ class RoomsController < ApplicationController
   end
 
   def show_piles
+    p "made it"
     @piles = Pile.all
   end
 end
