@@ -16,8 +16,28 @@ const subscribe_to_room = function(room_number) {
             received(data) {
                 // Called when there's incoming data on the websocket for this channel
                 // for each data['pile'], updated cards
-                console.log(data);
+                $.ajax({
+                    type: 'GET',
+                    url: "/rooms/show_piles",
+                    timeout: 5000,
+                    success: test,
+                    error: function(xhrObj, testStatus, exception) { alert('Error!'); }
+                });
             }
         }
     );
 };
+let test = function(data, xhrObj, testStatus){
+    let saveValue = -1
+    for (let i = 0; i < $('#card-table tr').length; i++) {
+        if(String($("tr#"+String(i)).css("display")) === "block"){
+            saveValue = i;
+            break;
+        }
+    }
+
+    $("#lol").empty().html(data);
+    if(saveValue !== -1){
+        $("tr#"+String(saveValue)).css("display", "block")
+    }
+}

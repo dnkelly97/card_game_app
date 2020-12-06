@@ -106,5 +106,6 @@ class RoomsController < ApplicationController
 
   def show_piles
     @piles = Pile.all
+    render partial: 'partials/test'  if request.xhr?
   end
 end
