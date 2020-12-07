@@ -30,15 +30,5 @@ class LobbyChannelTest < ActionCable::Channel::TestCase
     # Asserts that the subscription was rejected
     assert subscription.rejected?
   end
-  # test "subscribes and stream for user" do
-  #   User.delete_all
-  #   @user = FactoryBot.create(:user)
-  #   stub_connection current_user: @user
-  #
-  #   subscribe room: 1
-  #
-  #   assert_has_stream "room_1"
-  #
-  #   assert_has_stream_for @user
-  # end
+
 end
