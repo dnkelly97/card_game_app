@@ -1,0 +1,34 @@
+<h3><%= link_to 'Game Room', room_path({:id => params[:room_id]}), :class => 'btn btn-primary' %></h3>
+<h2>Transfer Card!!</h2>
+
+  <%= form_tag piles_transfer_card_path({:room_id => params[:room_id], :source_pile_name => @source_pile.name}), :id => 'the_cards_form' do %>
+  <table class="table table-striped col-md-12">
+    <thead>
+    <tr>
+      <th>Pile</th>
+    </tr>
+    </thead>
+    <tbody>
+    <% @cards.each do |card| %>
+      <tr>
+        <td>
+        <% if (@is_private) %>
+              <%= card.id %>
+          <% elsif !(@is_private) %>
+            <%= card.id %>
+            <%= card.name %>
+          <% end %>
+        </td>
+        <td>
+          <%=check_box_tag "the_cards[#{card.id}]", nil, nil, {:id => "checkbox_#{card.name}"}%>
+        </td>
+      </tr>
+    <% end %>
+    </tbody>
+    </table>
+    <%= label :pile, :name2, 'Destination Pile:', :class => 'col-form-label' %>
+    <%= text_field :pile, 'name2', :class => 'form-control col-1' %>
+    <br/>
+    <%= submit_tag 'Transfer Card(s)', :class => 'btn btn-primary', :id => 'transfer_cards' %>
+  <% end %>
+  <%= button_to 'Cancel', room_path({:id => params[:room_id]}), :method => :get, :id => 'cancel' %>
