@@ -1,6 +1,6 @@
 class LobbyChannel < ApplicationCable::Channel
   def subscribed
-    puts params.to_s
+    reject unless params[:room] && params[:room].positive?
     stream_from lobby
   end
 

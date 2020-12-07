@@ -8,7 +8,6 @@ module ApplicationCable
 
     private
     def find_verified_user
-      puts cookies.encrypted[:user_id]
       if (verified_user = User.find_by(id: cookies.encrypted[:user_id]))
         verified_user
       else
