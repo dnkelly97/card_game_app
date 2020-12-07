@@ -5,6 +5,8 @@ RSpec.describe LobbyChannel, type: :channel do
   pending "add some examples to (or delete) #{__FILE__}"
   before do
     # initialize connection with identifiers
+    User.delete_all
+    user = FactoryBot.create(:user)
     stub_connection user_id: user.id
   end
 
