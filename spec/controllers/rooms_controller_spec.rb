@@ -29,6 +29,7 @@ describe RoomsController do
   end
   describe 'joining a new room' do
     before(:each) do
+      byebug
       allow(SecureRandom).to receive(:random_number).and_return(1111111111)
       post :create, params: {room_name: "Dan's Test Room", max_players: 1}, session: {session_token: @user.session_token}
     end
@@ -67,6 +68,32 @@ describe RoomsController do
       end
       it 'the dashboard page should flash a warning if the room a user tried to join was full' do
         expect(flash[:notice]).to eq("Sorry, Dan's Test Room is already at full capacity")
+      end
+    end
+    describe 'on successfully joining a room for the first time' do
+      it 'should add the user to the room' do
+        @room = Room.find_by_name("Dan's Test Room")
+        @room.max_players = 2
+        @room.save
+        @user2 = FactoryBot.create(:user, :email => 'you@you.com', :email_confirmation => 'you@you.com')
+        old_controller = @controller
+        @controller = ApplicationController.new
+        @controller.send(:clear_current_user)
+        @controller = old_controller
+        post :create_join, params: {id: 1111111111}, session: {session_token: @user2.session_token}
+        expect(@room.users).to include(@user2)
+      end
+      it 'should create a pile for the user\'s hand' do
+
+      end
+      it 'should add the pile for the user\'s hand to the room' do
+
+      end
+      it 'should redirect to the room\'s page' do
+
+      end
+      it 'should display a flash message on the room page welcoming the user to the room' do
+
       end
     end
 
