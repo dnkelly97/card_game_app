@@ -49,7 +49,14 @@ describe RoomsController do
       expect(flash[:warning]).to eq("A room with that code does not exist.")
     end
     it 'should not let a user join a room if the room is full' do
-
+      post :create_join, params: {id: 1111111111}
+      @user2 = FactoryBot.create(:user, :email => 'you@you.com', :email_confirmation => 'you@you.com')
+      old_controller = @controller
+      @conroller = ApplicationController.new
+      @controller.send(:clear_current_user)
+      @controller = old_controller
+      post :create_join, params: {id: 1111111111}, session: {session_token: @user2.session_token}
+      expect(@room.users).not_to include(@user2)
     end
     it 'should redirect to the dashboard page if a user tries to join a full room' do
       post :create_join, params: {id: 1111111111}
