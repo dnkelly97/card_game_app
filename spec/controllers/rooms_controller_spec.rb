@@ -56,7 +56,8 @@ describe RoomsController do
       @controller.send(:clear_current_user)
       @controller = old_controller
       post :create_join, params: {id: 1111111111}, session: {session_token: @user2.session_token}
-      expect(@room.users).not_to include(@user2)
+      room = Room.find_by_name("Dan's Test Room")
+      expect(room.users).not_to include(@user2)
     end
     it 'should redirect to the dashboard page if a user tries to join a full room' do
       post :create_join, params: {id: 1111111111}
