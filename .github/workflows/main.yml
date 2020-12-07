@@ -43,6 +43,6 @@ jobs:
       - name: run rspec tests
         run: bundle exec rspec
       - name: run minitest tests
-        run: bundle exec test
+        run: bundle exec rake test
       - name: run cucumber tests
         run: bundle exec cucumber
