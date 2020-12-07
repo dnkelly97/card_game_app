@@ -2,11 +2,6 @@ require 'spec_helper'
 require 'rails_helper'
 
 describe RoomsController do
-  # controller(UserSessionsController) do
-  #   def destroy
-  #     session[:session_token] = nil
-  #   end
-  # end
 
   before(:all) do
     User.delete_all
@@ -58,18 +53,10 @@ describe RoomsController do
     end
     it 'should redirect to the dashboard page if a user tries to join a full room' do
       post :create_join, params: {id: 1111111111}
-      p @user.session_token
       @user2 = FactoryBot.create(:user, :email => 'you@you.com', :email_confirmation => 'you@you.com')
-      p @user2.session_token
       old_controller = @controller
-      controller do
-        def reset_current_user
-          @current_user = nil
-        end
-      end
-      get :reset_current_user
-      @controller = old_controller
-      post :destroy, session: {session_token: @user.session_token}
+      @conroller = ApplicationController.new
+      @controller.send(:clear_current_user)
       @controller = old_controller
       post :create_join, params: {id: 1111111111}, session: {session_token: @user2.session_token}
       expect(response).to redirect_to '/dashboard'
