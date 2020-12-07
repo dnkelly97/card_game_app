@@ -2,18 +2,38 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
-html, body, .App, .base-room{
-  height: 100%;
-}
+//html, body, .App, .base-room{
+//  height: 100%;
+//}
 
-.App {
-  display: flex;
-}
 
 .base-room {
   display: flex;
   flex-direction: row;
   width: 100%;
+  height: 80vh;
+}
+
+#room-information{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding-left: 10%;
+  padding-right: 10%;
+}
+
+#game-actions{
+  display: flex;
+  flex-direction: column;
+  height: 40vh;
+  justify-content: space-evenly;
+}
+
+#dangerous-game-actions{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  height: 20vh;
 }
 
 .left-panel {
