@@ -5,19 +5,12 @@
 <div class="base-room">
   <div class="left-panel">
 <!--    TODO: Add dynamic button generation -->
+    </br>
     <% @room.piles.each do |pile| %>
       <%= button_tag "#{pile.name}", type: "button", class: "btn btn-outline-dark", onclick: "show_pile(#{pile.id})"%>
-      <Button class="btn btn-outline-dark ">View Player X's Hand</Button>
+      </br>
     <% end %>
-    <Button class="btn btn-outline-dark ">View Player X's Hand</Button>
-    <Button class="btn btn-outline-dark ">View Player X's Hand</Button>
-    <Button class="btn btn-outline-dark ">View Player X's Hand</Button>
-    <Button class="btn btn-outline-dark ">View Player X's Hand</Button>
-    <Button class="btn btn-outline-dark ">View Player X's Hand</Button>
-    <Button class="btn btn-outline-dark ">View Player X's Hand</Button>
-    <Button class="btn btn-outline-dark ">View Player X's Hand</Button>
-    <Button class="btn btn-outline-dark ">View Player X's Hand</Button>
-    <Button class="btn btn-outline-dark ">View Player X's Hand</Button>
+
 
   </div>
   <div class="center-panel">
@@ -38,8 +31,7 @@
           </tr>
         <% end %>
       </table>
-      <h2>EXAMPLE: Interacting with players on the left column will show a more detailed view of their hands here</h2>
-    </div>
+       </div>
     <div class="middle-center-panel">
       <div class="draw-discard">
         <Button type="button" class="btn blank-card btn-outline-secondary">Draw Pile</Button>
