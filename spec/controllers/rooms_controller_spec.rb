@@ -62,7 +62,14 @@ describe RoomsController do
       expect(response).to redirect_to '/dashboard'
     end
     it 'the dashboard page should flash a warning if the room a user tried to join was full' do
-
+      post :create_join, params: {id: 1111111111}
+      @user2 = FactoryBot.create(:user, :email => 'you@you.com', :email_confirmation => 'you@you.com')
+      old_controller = @controller
+      @conroller = ApplicationController.new
+      @controller.send(:clear_current_user)
+      @controller = old_controller
+      post :create_join, params: {id: 1111111111}, session: {session_token: @user2.session_token}
+      expect(flash[:notice]).to eq("Sorry, Dan's Test Room is already at full capacity")
     end
 
   end
