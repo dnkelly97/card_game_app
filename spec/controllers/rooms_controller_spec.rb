@@ -2,6 +2,12 @@ require 'spec_helper'
 require 'rails_helper'
 
 describe RoomsController do
+  # controller(UserSessionsController) do
+  #   def destroy
+  #     session[:session_token] = nil
+  #   end
+  # end
+
   before(:all) do
     User.delete_all
     @user = FactoryBot.create(:user)
@@ -29,7 +35,7 @@ describe RoomsController do
   describe 'joining a new room' do
     before(:each) do
       allow(SecureRandom).to receive(:random_number).and_return(1111111111)
-      post :create, params: {room_name: "Dan's Test Room"}, session: {session_token: @user.session_token}
+      post :create, params: {room_name: "Dan's Test Room", max_players: 1}, session: {session_token: @user.session_token}
     end
     it 'should redirect to the room page corresponding to the valid id given' do
 
@@ -46,6 +52,30 @@ describe RoomsController do
       post :create_join, params: {id: 1111111110}
       # byebug
       expect(flash[:warning]).to eq("A room with that code does not exist.")
+    end
+    it 'should not let a user join a room if the room is full' do
+
+    end
+    it 'should redirect to the dashboard page if a user tries to join a full room' do
+      post :create_join, params: {id: 1111111111}
+      p @user.session_token
+      @user2 = FactoryBot.create(:user, :email => 'you@you.com', :email_confirmation => 'you@you.com')
+      p @user2.session_token
+      old_controller = @controller
+      controller do
+        def reset_current_user
+          @current_user = nil
+        end
+      end
+      get :reset_current_user
+      @controller = old_controller
+      post :destroy, session: {session_token: @user.session_token}
+      @controller = old_controller
+      post :create_join, params: {id: 1111111111}, session: {session_token: @user2.session_token}
+      expect(response).to redirect_to '/dashboard'
+    end
+    it 'the dashboard page should flash a warning if the room a user tried to join was full' do
+
     end
 
   end
