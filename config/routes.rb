@@ -29,6 +29,7 @@ Rails.application.routes.draw do
   post 'piles/show'
   post 'piles/draw_cards_from_deck'
   post 'piles/transfer_card'
+  post 'piles/draw_cards'
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
 
