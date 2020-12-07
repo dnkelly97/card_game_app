@@ -1,7 +1,41 @@
 <h2>Welcome To <%= @room.name %></h2>
 <h3>To have someone join this room, have them enter the following room code: <%= @room.room_code %></h3>
-<%= button_to('Show Piles', rooms_show_piles_path({:room_id => @room.id}), :method => :get) %>
 <%= react_component("BaseRoom", html_options: {:style => "display:flex; height: 80%;"}) %>
+<br>
+<br>
+<br>
+<table class="table table-striped col-md-12">
+  <thead>
+  <tr>
+    <th>Name</th>
+    <th>Owner</th>
+    <th>Count</th>
+    <th>Cards</th>
+  </tr>
+  </thead>
+  <tbody>
+  <% @piles.each do |pile| %>
+    <% if pile.room_id == @room.id%>
+      <tr>
+        <td>
+          <%= pile.name%>
+        </td>
+        <td>
+          <%= pile.creator%>
+        </td>
+        <td>
+          <%= pile.card_count%>
+        </td>
+        <td>
+          <%= form_tag piles_show_path({:room_id => @room.id, :source_pile_id => pile.id}), :class => 'form' do %>
+            <%= submit_tag 'Details',  :class => 'btn btn-primary', :id => 'pile_details' %>
+          <% end %>
+        </td>
+      </tr>
+    <% end %>
+  <% end %>
+  </tbody>
+</table>
 <!--<p>-->
   <%#= button_to('Create Pile!', create_pile_path({:room_id => @room.id}), method: :get) %>
   <%#= button_to('View All Piles!', piles_path({:room_id => @room.id}), method: :get) %>
