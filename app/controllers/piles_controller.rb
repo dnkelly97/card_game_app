@@ -97,7 +97,7 @@ class PilesController < ApplicationController
     # source_pile = Pile.find_by(name: params[:pile][:source_pile], room_id: params[:room_id])
     source_pile = Pile.find_by(id: params[:source_pile_id])
     if source_pile.nil?
-      redirect_to room_path({:id => params[:room_id]}), flash: { notice: 'This is not a pile in the database. Please try again.'}
+      redirect_to room_path({:id => params[:room_id]}), flash: { notice: 'This is not a pile in the database. Please try again.'} and return
       # flash[:notice] = "This is not a pile in the database. Please try again." #@pile.name
       #redirect_to room_path({:id => room_id}) and return
     end
@@ -130,7 +130,10 @@ class PilesController < ApplicationController
     #flash[:notice] = "#{num_cards} card(s) transferred from Deck!"
     redirect_to room_path({:id => params[:room_id]}), flash: { notice: "#{num_cards} card(s) transferred from Deck!"} and return
   end
-
+  def draw_cards
+    @room = Room.find_by(id: params[:room_id])
+    render(partial: 'partials/draw_card') if request.xhr?
+  end
 
   def transfer_card
     #room_id = params[:room_id]
