@@ -3,6 +3,9 @@
 <%= react_component("BaseRoom", html_options: {:style => "display:flex; height: 80%;"}) %>
 <br>
 <br>
+<%= form_tag piles_draw_cards_path({:room_id => @room.id}), :class => 'form' do %>
+  <%= submit_tag 'Draw',  :class => 'btn btn-primary', :id => 'draw_button' %>
+<% end %>
 <br>
 <table class="table table-striped col-md-12">
   <thead>
