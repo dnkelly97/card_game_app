@@ -5,7 +5,7 @@
       <tr id=<%="#{pile.id}"%> style="display:none;">
         <% Card.where(pile_id: pile.id).each do |card| %>
           <td>
-            <% if pile.private_pile %>
+            <% if pile.private_pile and not @current_user.user_id == pile.creator %>
               <p style="font-size:128px;">&#x1F0F4;</p>
             <% else %>
               <p style="font-size:128px;">&#x<%= card.unicode_value %>;</p>
