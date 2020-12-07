@@ -16,14 +16,11 @@ let DrawsPopup = {
         return(false);
     },
     showNumForm: function (data, requestStatus, xhrObject) {
-        console.log("Hello")
         let oneFourth = Math.ceil($(window).width()/4);
-        console.log("It's me")
         $('#MainWindow').css({'opacity': 0.4})
         $('#drawPopup').
         css({'left': oneFourth,'width': 2*oneFourth, 'top':250, 'opacity': 1.0}).html(data).show();
-        console.log("I've been wondering if after all these years")
-        $(document).on('click', '#cancelLogin', DrawsPopup.hideForm);
+        $(document).on('click', '#cancel', DrawsPopup.hideForm);
         $('#draw_button').prop("disabled", true);
         return(false);
 
