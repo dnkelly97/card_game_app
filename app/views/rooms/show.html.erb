@@ -72,6 +72,10 @@
   <%= submit_tag 'Draw',  :class => 'btn btn-primary', :id => 'draw_button' %>
 <% end %>
 <br>
+<%= form_tag create_pile_path({:room_id => @room.id}), :class => 'form' do %>
+  <%= submit_tag 'Create New Pile',  :class => 'btn btn-primary', :id => 'create_pile' %>
+<% end %>
+<br>
 <table class="table table-striped col-md-12">
   <thead>
   <tr>
