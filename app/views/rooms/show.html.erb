@@ -92,7 +92,7 @@
           <%= pile.creator%>
         </td>
         <td>
-          <%= pile.card_count%>
+          <%= pile.cards.count%>
         </td>
         <td>
           <%= form_tag piles_show_path({:room_id => @room.id, :source_pile_id => pile.id}), :class => 'form' do %>

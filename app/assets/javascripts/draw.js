@@ -3,7 +3,7 @@ let DrawsPopup = {
     setup: function() {
         let popupDive = $('<div id="drawPopup"></div>');
         popupDive.hide().appendTo($('body'));
-        $(document).on('click', '#draw_button', DrawsPopup.getNum)
+        $(document).on('click', '#draw_button...', DrawsPopup.getNum)
     },
     getNum: function (){
         $.ajax({
@@ -17,6 +17,7 @@ let DrawsPopup = {
     },
     showNumForm: function (data, requestStatus, xhrObject) {
         let oneFourth = Math.ceil($(window).width()/4);
+        console.log($(this).parent().attr('action'))
         $('#MainWindow').css({'opacity': 0.4})
         $('#drawPopup').
         css({'left': oneFourth,'width': 2*oneFourth, 'top':250, 'opacity': 1.0}).html(data).show();

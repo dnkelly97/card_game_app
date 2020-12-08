@@ -97,7 +97,7 @@ class PilesController < ApplicationController
     # source_pile = Pile.find_by(name: params[:pile][:source_pile], room_id: params[:room_id])
     source_pile = Pile.find_by(id: params[:source_pile_id])
     if source_pile.nil?
-      redirect_to room_path({:id => params[:room_id]}), flash: { notice: 'This is not a pile in the database. Please try again.'} and return
+      redirect_to room_path({:id => params[:room_id]}), flash: { notice: '(Show) This is not a pile in the database. Please try again.'} and return
       # flash[:notice] = "This is not a pile in the database. Please try again." #@pile.name
       #redirect_to room_path({:id => room_id}) and return
     end
@@ -132,7 +132,8 @@ class PilesController < ApplicationController
   end
   def draw_cards
     @room = Room.find_by(id: params[:room_id])
-    render(partial: 'partials/draw_card') if request.xhr?
+    #console.log("draw_cards method was callllllllllllllllllled")
+    #render(partial: 'partials/draw_card') if request.xhr?
   end
 
   def transfer_card
@@ -142,7 +143,7 @@ class PilesController < ApplicationController
     @destination_pile = Pile.find_by(name: params[:pile][:name2], room_id: params[:room_id])
     if @destination_pile.nil?
       #flash[:notice] = "This is not a pile in the database. Please try again." #@pile.name
-      redirect_to room_path({:id => params[:room_id]}), flash: { notice: "This is not a pile in the database. Please try again."} and return #piles_pile_homepage_path and return
+      redirect_to room_path({:id => params[:room_id]}), flash: { notice: "(transfer_card) This is not a pile in the database. Please try again."} and return #piles_pile_homepage_path and return
     end
     if params[:the_cards].nil?
       #flash[:notice] = "No cards selected"
