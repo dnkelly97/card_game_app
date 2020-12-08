@@ -1,0 +1,13 @@
+<h2>Create Pile!!</h2>
+
+<%= form_tag piles_path({:room_id => params[:room_id]}), :class => 'form' do %>
+  <%= label :pile, :name, 'Pile Name:', :class => 'col-form-label' %>
+  <%= text_field :pile, 'name', :class => 'form-control col-1' %>
+  <%= label :pile, :creator, 'Your Name:', :class => 'col-form-label'  %>
+  <%= text_field :pile, 'creator', :class => 'form-control col-1' %>
+  <%= label :pile, :private_pile, 'Pile is private?:', :class => 'col-form-label'  %>
+  <%= select_tag :private_pile, options_for_select([:true, :false]) %>
+  <br/>
+  <%= submit_tag 'Create my pile!', :class => 'btn btn-primary' %>
+<% end %>
+<%= button_to 'Cancel', room_path({:id => params[:room_id]}), :method => :get, :id => 'cancel' %>
