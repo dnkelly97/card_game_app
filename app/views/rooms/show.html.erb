@@ -17,23 +17,8 @@
   </div>
   <div class="center-panel">
     <div class="top-center-panel w3-panel" id="show-pile-panel">
-<!--      TODO: Show Pile Interaction Goes Here -->
-      <table class="cardsTable dataTable" id="card-table">
-        <% @room.piles.each do |pile| %>
-          <tr id=<%="#{pile.id}"%> style="display:none;">
-            <% Card.where(pile_id: pile.id).each do |card| %>
-              <td>
-                <% if pile.private_pile %>
-                  <p style="font-size:128px;">&#x1F0F4;</p>
-                <% else %>
-                  <p style="font-size:128px;">&#x<%= card.unicode_value %>;</p>
-                <% end %>
-              </td>
-            <% end %>
-          </tr>
-        <% end %>
-      </table>
-       </div>
+      <%= render "partials/show_pile" %>
+    </div>
     <div class="middle-center-panel">
       <div class="draw-discard">
         <Button type="button" class="btn blank-card btn-outline-secondary">Draw Pile</Button>
