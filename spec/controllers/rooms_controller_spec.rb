@@ -29,7 +29,6 @@ describe RoomsController do
   end
   describe 'joining a new room' do
     before(:each) do
-      byebug
       allow(SecureRandom).to receive(:random_number).and_return(1111111111)
       post :create, params: {room_name: "Dan's Test Room", max_players: 1}, session: {session_token: @user.session_token}
     end
@@ -53,10 +52,7 @@ describe RoomsController do
       before(:each) do
         post :create_join, params: {id: 1111111111}
         @user2 = FactoryBot.create(:user, :email => 'you@you.com', :email_confirmation => 'you@you.com')
-        old_controller = @controller
-        @conroller = ApplicationController.new
         @controller.send(:clear_current_user)
-        @controller = old_controller
         post :create_join, params: {id: 1111111111}, session: {session_token: @user2.session_token}
       end
       it 'should not let a user join a room if the room is full' do
@@ -76,10 +72,7 @@ describe RoomsController do
         @room.max_players = 2
         @room.save
         @user2 = FactoryBot.create(:user, :email => 'you@you.com', :email_confirmation => 'you@you.com')
-        old_controller = @controller
-        @controller = ApplicationController.new
         @controller.send(:clear_current_user)
-        @controller = old_controller
         post :create_join, params: {id: 1111111111}, session: {session_token: @user2.session_token}
         expect(@room.users).to include(@user2)
       end
