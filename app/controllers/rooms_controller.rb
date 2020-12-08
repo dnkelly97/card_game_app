@@ -107,4 +107,17 @@ class RoomsController < ApplicationController
   def show_piles
     @piles = Pile.all
   end
+
+  def show_hand
+    room_id = params[:id]
+    user_hand = @current_user.user_id +"'s Hand"
+    pile = Pile.where(room_id: room_id, name: user_hand)
+    if pile.private_pile
+      pile.private_pile = false
+      pile.save
+    else
+      pile.private_pile = true
+      pile.save
+    end
+  end
 end
