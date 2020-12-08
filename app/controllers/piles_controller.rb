@@ -1,5 +1,6 @@
 class PilesController < ApplicationController
   before_action :set_current_user
+  protect_from_forgery with: :null_session
   # def pile_params
   #   params.require(:pile).permit(:name, :private_pile, :creator)
   # end
@@ -8,7 +9,7 @@ class PilesController < ApplicationController
   end
 
   def new
-
+    render(partial: 'partials/create_pile') if request.xhr?
   end
   def new_deck
 
