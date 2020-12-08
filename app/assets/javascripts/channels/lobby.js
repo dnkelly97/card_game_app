@@ -18,7 +18,7 @@ const subscribe_to_room = function(room_number) {
                 // for each data['pile'], updated cards
                 $.ajax({
                     type: 'GET',
-                    url: "/rooms/show_piles",
+                    url: "/rooms/"+String(room_number)+"/show_piles",
                     timeout: 5000,
                     success: test,
                     error: function(xhrObj, testStatus, exception) { alert('Error!'); }
@@ -36,7 +36,7 @@ let test = function(data, xhrObj, testStatus){
         }
     }
 
-    $("#lol").empty().html(data);
+    $(".top-center-panel").empty().html(data);
     if(saveValue !== -1){
         $("tr#"+String(saveValue)).css("display", "block")
     }
