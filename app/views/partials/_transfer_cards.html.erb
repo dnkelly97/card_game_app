@@ -2,6 +2,10 @@
 <h2>Transfer Card!!</h2>
 
   <%= form_tag piles_transfer_card_path({:room_id => params[:room_id], :source_pile_name => @source_pile.name}), :id => 'the_cards_form' do %>
+  <%= label :pile, :source_pile_name, 'Transfer From:', :class => 'row-form-label' %>
+  <%= select_tag "source_pile", options_from_collection_for_select(@piles, "id", "name"), :include_blank => true %>
+  <%= label :pile, :destination_pile_name, 'To:', :class => 'row-form-label' %>
+  <%= select_tag "destination_pile", options_from_collection_for_select(@piles, "id", "name"), :include_blank => true %>
   <table class="table table-striped col-md-12">
     <thead>
     <tr>
