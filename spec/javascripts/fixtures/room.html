@@ -2,11 +2,11 @@
 <div class="left-panel">
     <!--    TODO: Add dynamic button generation -->
     <br>
-    <button name="button" type="button" class="btn btn-outline-dark" onclick="show_pile(1)">dan's Hand</button>
+    <button name="button" type="button" id="b1" class="btn btn-outline-dark" onclick="show_pile(1)">dan's Hand</button>
     <br>
-    <button name="button" type="button" class="btn btn-outline-dark" onclick="show_pile(2)">danish's Hand</button>
+    <button name="button" type="button" id="b2" class="btn btn-outline-dark" onclick="show_pile(2)">danish's Hand</button>
     <br>
-    <button name="button" type="button" class="btn btn-outline-dark" onclick="show_pile(3)">kevin's Hand</button>
+    <button name="button" type="button" id="b3" class="btn btn-outline-dark" onclick="show_pile(3)">kevin's Hand</button>
     <br>
 
 
@@ -29,14 +29,25 @@
             <td>
                 <p style="font-size:128px;">&#x1F0A4</p>
             </td>
-        </tr>
-        <tr id="3" style="display: none;">
             <td>
                 <p style="font-size:128px;">&#x1F0A5</p>
             </td>
+        </tr>
+        <tr id="3" style="display: none;">
             <td>
                 <p style="font-size:128px;">&#x1F0A6</p>
             </td>
         </tr>
         </tbody></table>
 </div>
+
+<script>
+    function show_pile(id){
+        let arr = document.querySelectorAll(".cardsTable tr")
+        for(let i=0; i<arr.length; i++){
+            arr.item(i).style.display = "none"
+        }
+        id = parseInt(id)
+        document.getElementById(id).style.display = "block"
+    }
+</script>
