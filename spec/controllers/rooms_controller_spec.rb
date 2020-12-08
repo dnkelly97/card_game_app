@@ -67,26 +67,28 @@ describe RoomsController do
       end
     end
     describe 'on successfully joining a room for the first time' do
-      it 'should add the user to the room' do
+      before(:each) do
         @room = Room.find_by_name("Dan's Test Room")
         @room.max_players = 2
         @room.save
         @user2 = FactoryBot.create(:user, :email => 'you@you.com', :email_confirmation => 'you@you.com')
+        @user2.user_id = "dan"
+        @user2.save
         @controller.send(:clear_current_user)
         post :create_join, params: {id: 1111111111}, session: {session_token: @user2.session_token}
+      end
+      it 'should add the user to the room' do
         expect(@room.users).to include(@user2)
       end
-      it 'should create a pile for the user\'s hand' do
-
-      end
-      it 'should add the pile for the user\'s hand to the room' do
-
+      it 'should create a pile belonging to the room for the user\'s hand' do
+        pile = Pile.find_by_creator("dan")
+        expect(@room.piles).to include(pile)
       end
       it 'should redirect to the room\'s page' do
-
+        expect(response).to redirect_to('/rooms/1')
       end
       it 'should display a flash message on the room page welcoming the user to the room' do
-
+        expect(flash[:notice]).to eq("#{@user2.user_id}, welcome to #{@room.name}")
       end
     end
 
