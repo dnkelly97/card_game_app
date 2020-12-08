@@ -49,13 +49,4 @@ describe RoomsController do
     end
 
   end
-
-  describe 'Getting all piles' do
-    it 'should get all the piles objects from the database' do
-      FactoryBot.create(:pile)
-      FactoryBot.create(:room)
-      get :show_piles, session: {session_token: @user.session_token}
-      expect(assigns(:piles)).to eq(Pile.all)
-    end
-  end
 end
