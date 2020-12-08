@@ -28,6 +28,7 @@
       </div>
       <div class="piles">
         <div class="piles-top">
+          <!--TODO: Add if for if there is a deck here. If yes, use deck prop. If not, display button-->
           <Button type="button" class="btn blank-card btn-outline-secondary">+</Button>
           <Button type="button" class="btn blank-card btn-outline-secondary">+</Button>
           <Button type="button" class="btn blank-card btn-outline-secondary">+</Button>
@@ -43,13 +44,60 @@
         </div>
       </div>
     </div>
-    <div class="bottom-center-panel">
+    <div class="playingCards simpleCards faceImages bottom-center-panel" id="root-playing-card">
 <!--      TODO: Replace with dynamically generated hand-->
-      <Button type="button" class="btn blank-card btn-outline-primary">+</Button>
-      <Button type="button" class="btn blank-card btn-outline-primary">+</Button>
-      <Button type="button" class="btn blank-card btn-outline-primary">+</Button>
-      <Button type="button" class="btn blank-card btn-outline-primary">+</Button>
-      <Button type="button" class="btn blank-card btn-outline-primary">+</Button>
+      <% pile = Pile.where(room_id: @room, creator: @current_user.user_id)[0] %>
+      <ul class="hand" id ="users-cards">
+      <% Card.where(pile_id: pile.id).each do |card| %>
+        <li>
+          <% if pile.private_pile %>
+            <a class="card back">*</a>
+          <% else %>
+            <% if card.name.split[2] == "Diamonds" %>
+              <% suit = "diams" %>
+            <% else %>
+              <% suit = card.name.split[2].downcase %>
+            <% end %>
+            <% if card.name.split[0].match(/^\d+$/) %>
+              <% card_name = card.name.split[0] %>
+            <% else %>
+              <% card_name = card.name[0] %>
+            <% end %>
+            <a class="card rank-<%= card_name %> <%=suit%>">
+              <span class="rank"><%=card_name%></span>
+              <span class="suit">&<%=suit%>;</span>
+            </a>
+          <% end %>
+        </li> 
+          <% end %>
+
+      </ul>
+      <div class="card-action-buttons">
+        <Button type="button" class="btn btn-outline-primary spread-button" onclick="changeCards()">Spread/Unspread Cards</Button>
+        <Button type="button" class="btn btn-outline-primary spread-button" onclick="fanCards()">Fan/Unfan Cards</Button>
+      </div>
+      <script>
+        function changeCards(){
+            if(document.getElementById('users-cards').getAttribute('class') === 'hand'){
+                document.getElementById('users-cards').setAttribute('class', 'table')
+            } else {
+                document.getElementById('users-cards').setAttribute('class', 'hand')
+            }
+        }
+
+        function fanCards(){
+            if(document.getElementById('root-playing-card').getAttribute('class').match(/rotateHand/)){
+                document.getElementById('root-playing-card').classList.remove('rotateHand')
+            
+            } else {
+                document.getElementById('root-playing-card').classList.add('rotateHand')
+                if(document.getElementById('user-cards').getAttribute('class')=== 'table'){
+                    document.getElementById('user-cards').classList.remove('table')
+                    document.getElementById('user-cards').classList.add('hand')
+                }
+            }
+        }
+      </script>
     </div>
   </div>
   <div class="right-panel">
