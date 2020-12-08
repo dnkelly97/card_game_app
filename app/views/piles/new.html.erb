@@ -10,3 +10,4 @@
   <br/>
   <%= submit_tag 'Create my pile!', :class => 'btn btn-primary' %>
 <% end %>
+<%= button_to 'Cancel', room_path({:id => params[:room_id]}), :method => :get, :id => 'cancel' %>
