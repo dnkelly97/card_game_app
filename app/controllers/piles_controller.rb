@@ -101,6 +101,7 @@ class PilesController < ApplicationController
       # flash[:notice] = "This is not a pile in the database. Please try again." #@pile.name
       #redirect_to room_path({:id => room_id}) and return
     end
+    @piles = Room.find_by_id(params[:room_id]).piles
     @is_private = source_pile.private_pile
     @cards = source_pile.cards
     @source_pile = source_pile
