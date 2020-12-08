@@ -5,7 +5,7 @@ Rails.application.routes.draw do
   get '/rooms/new_join', to: 'rooms#new_join'
   post '/rooms/create_join', to: 'rooms#create_join'
 
-  patch 'rooms/show_hand', to: 'rooms#show_hand'
+  get 'rooms/show_hand', to: 'rooms#show_hand'
   resources :rooms
 
 
