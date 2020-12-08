@@ -1,4 +1,4 @@
-<%= form_tag piles_draw_cards_from_deck_path({:room_id => params[:room_id]}), :class => 'form' do %>
+<%= form_tag draw_cards_from_deck_piles_path({:room_id => params[:room_id]}), :class => 'form' do %>
   <%= label :pile, :num_cards, "How many?", :class => 'col-form-label' %>
   <%= text_field :pile, 'num_cards', :class => 'form-control'%>
   <%= submit_tag 'Submit',  :class => 'btn btn-primary'%>

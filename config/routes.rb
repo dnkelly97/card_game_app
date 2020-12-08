@@ -23,13 +23,16 @@ Rails.application.routes.draw do
 
   root to: redirect('/dashboard')
 
-  resources :piles
+  resources :piles do
+    collection do
+      get 'get_from_draw'
+      get 'show_pile'
+      post 'draw_cards_from_deck'
+      post 'transfer_card'
+    end
+  end
   match '/create_pile', to: 'piles#new', via: :post
   match '/create_deck', to: 'piles#create_deck', via: :post
-  post 'piles/show'
-  post 'piles/draw_cards_from_deck'
-  post 'piles/transfer_card'
-  post 'piles/draw_cards'
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
 

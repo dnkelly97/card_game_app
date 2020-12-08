@@ -3,7 +3,7 @@ let DrawsPopup = {
     setup: function() {
         let popupDive = $('<div id="drawPopup"></div>');
         popupDive.hide().appendTo($('body'));
-        $(document).on('click', '#draw_button...', DrawsPopup.getNum)
+        $(document).on('click', '#draw_button', DrawsPopup.getNum)
     },
     getNum: function (){
         $.ajax({

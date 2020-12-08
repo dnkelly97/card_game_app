@@ -68,7 +68,7 @@
 </div>
 <br>
 <br>
-<%= form_tag piles_draw_cards_path({:room_id => @room.id}), :class => 'form' do %>
+<%= form_tag get_from_draw_piles_path({:room_id => @room.id}), :class => 'form' do %>
   <%= submit_tag 'Draw',  :class => 'btn btn-primary', :id => 'draw_button' %>
 <% end %>
 <br>
@@ -95,7 +95,7 @@
           <%= pile.cards.count%>
         </td>
         <td>
-          <%= form_tag piles_show_path({:room_id => @room.id, :source_pile_id => pile.id}), :class => 'form' do %>
+          <%= form_tag show_pile_piles_path({:room_id => @room.id, :source_pile_id => pile.id}), :class => 'form' do %>
             <%= submit_tag 'Details',  :class => 'btn btn-primary', :id => 'pile_details' %>
           <% end %>
         </td>

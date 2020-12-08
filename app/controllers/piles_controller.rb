@@ -91,7 +91,7 @@ class PilesController < ApplicationController
     # redirect_to room_path({:id => room_id}) and return
   end
 
-  def show
+  def show_pile
     #source_pile = params[:pile][:source_pile]
     #room_id = params[:room_id]
     # source_pile = Pile.find_by(name: params[:pile][:source_pile], room_id: params[:room_id])
@@ -130,10 +130,11 @@ class PilesController < ApplicationController
     #flash[:notice] = "#{num_cards} card(s) transferred from Deck!"
     redirect_to room_path({:id => params[:room_id]}), flash: { notice: "#{num_cards} card(s) transferred from Deck!"} and return
   end
-  def draw_cards
+
+  def get_from_draw
     @room = Room.find_by(id: params[:room_id])
     #console.log("draw_cards method was callllllllllllllllllled")
-    #render(partial: 'partials/draw_card') if request.xhr?
+    render(partial: 'partials/draw_card') if request.xhr?
   end
 
   def transfer_card
