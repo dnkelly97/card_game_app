@@ -7,8 +7,10 @@
 <!--    TODO: Add dynamic button generation -->
     </br>
     <% @room.piles.each do |pile| %>
-      <%= button_tag "#{pile.name}", type: "button", class: "btn btn-outline-dark", onclick: "show_pile(#{pile.id})"%>
-      </br>
+      <% if !(pile.name=="Deck") %>
+        <%= button_tag "#{pile.name}", type: "button", class: "btn btn-outline-dark", onclick: "show_pile(#{pile.id})"%>
+        </br>
+      <% end %>
     <% end %>
 
 
