@@ -2,7 +2,11 @@ let TransferCardsPopup = {
     setup: function() {
         let popupDive = $('<div id="transferCardsPopup"></div>');
         popupDive.hide().appendTo($('body'));
+        $('#source_pile').change(TransferCardsPopup.showSourcePileCards);
         $(document).on('click', '#pile_details', TransferCardsPopup.getCardInfo)
+    },
+    showSourcePileCards: function(){
+        //set selected thing visible
     },
     getCardInfo: function (){
         $.ajax({
