@@ -6,32 +6,34 @@
   <%= select_tag "source_pile", options_from_collection_for_select(@piles, "id", "name"), :include_blank => true %>
   <%= label :pile, :destination_pile_name, 'To:', :class => 'row-form-label' %>
   <%= select_tag "destination_pile", options_from_collection_for_select(@piles, "id", "name"), :include_blank => true %>
-  <table class="table table-striped col-md-12">
-    <thead>
-    <tr>
-      <th>Pile</th>
-    </tr>
-    </thead>
-    <tbody>
-    <% @cards.each do |card| %>
-      <tr>
-        <td>
-        <% if (@is_private) %>
+  <% @piles.each do |pile| %>
+    <% pile_table_elem_id = "pile_table_#{pile.id}" %>
+    <table class="table table-striped card-table col-md-12" id=<%= pile_table_elem_id %> style="display:none;">
+      <tbody>
+      <% is_private = pile.private_pile %>
+      <% pile.cards.each do |card| %>
+        <tr>
+          <td>
+            <% if (is_private) %>
               <%= card.id %>
-          <% elsif !(@is_private) %>
-            <%= card.id %>
-            <%= card.name %>
-          <% end %>
-        </td>
-        <td>
-          <%=check_box_tag "the_cards[#{card.id}]", nil, nil, {:id => "checkbox_#{card.name}"}%>
-        </td>
-      </tr>
-    <% end %>
-    </tbody>
+            <% elsif !(is_private) %>
+              <%= card.id %>
+              <%= card.name %>
+            <% end %>
+          </td>
+          <td>
+            <%=check_box_tag "the_cards[#{card.id}]", nil, nil, {:id => "checkbox_#{card.name}"}%>
+          </td>
+        </tr>
+      <% end %>
+      </tbody>
     </table>
-    <%= label :pile, :name2, 'Destination Pile:', :class => 'col-form-label' %>
-    <%= text_field :pile, 'name2', :class => 'form-control col-1' %>
+    </br>
+    </br>
+  <% end %>
+  </br>
+    <%# label :pile, :name2, 'Destination Pile:', :class => 'col-form-label' %>
+    <%# text_field :pile, 'name2', :class => 'form-control col-1' %>
     <br/>
     <%= submit_tag 'Transfer Card(s)', :class => 'btn btn-primary', :id => 'transfer_cards' %>
   <% end %>
