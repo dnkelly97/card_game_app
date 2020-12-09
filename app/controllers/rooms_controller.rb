@@ -11,7 +11,9 @@ class RoomsController < ApplicationController
     @room.users << @current_user
     pile = Pile.create(name: "#{@current_user.user_id}'s Hand", creator: @current_user.user_id, private_pile: true, card_count: 0)
     @pile = Pile.create!(name: "Deck", creator: "The Game", private_pile: true, card_count: 52, room_id: @room.id)
+    discard_pile = Pile.create!(name: "Discard Pile", creator: "The Game", private_pile: true, card_count: 0, room_id: @room.id)
     @room.piles << @pile
+    @room.piles << discard_pile
     Card.create([{name: "Ace of Spades", pile_id: @pile.id, unicode_value: "1F0A1"},
                  {name: "Two of Spades", pile_id: @pile.id, unicode_value: "1F0A2"},
                  {name: "Three of Spades", pile_id: @pile.id, unicode_value: "1F0A3"},
