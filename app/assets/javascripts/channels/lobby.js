@@ -53,7 +53,7 @@ let updateLobby = function(data, xhrObj, testStatus){
     let stateReload = null;
     let stateId = null;
     $('.popup').each(()=>{
-        if($(this).css('display') == ""){
+        if($(this).css('display') == "" || $(this).css('display') == "block"){
             stateReload = $(this).html();
             stateId = this.id;
         }
@@ -72,17 +72,19 @@ let updateLobby = function(data, xhrObj, testStatus){
 
 
     // Create Piles Popup
-    if(stateReload != null){
+    if(transferReload){
+        // TODO: replace with element's actual show function, or an alias of it
+        $('#transferCardsPopup').html(transferHtml);
+        document.getElementById('transferCardsPopup').style.display = "";
+    } else if(stateReload != null){
         $('#'+stateId).html(stateReload)
+        document.getElementById(stateId).style.display="";
     } else if(createPilesReload){
         $('#createPilesPopup').html(CPHtml);
         document.getElementById('createPilesPopup').style.display = "";
     } else if(drawReload){
         $('#drawPopup').html(drawHtml);
         document.getElementById('drawPopup').style.display = "";
-    } else if(transferReload){
-        $('#transferCardsPopup').html(transferHtml);
-        document.getElementById('transferCardsPopup').style.display = "";
     }
 
 
