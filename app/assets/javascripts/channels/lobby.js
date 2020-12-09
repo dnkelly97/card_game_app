@@ -52,12 +52,15 @@ let updateLobby = function(data, xhrObj, testStatus){
 
     let stateReload = null;
     let stateId = null;
-    $('.popup').each(()=>{
-        if($(this).css('display') == "" || $(this).css('display') == "block"){
-            stateReload = $(this).html();
-            stateId = this.id;
-        }
-    });
+    if(!transferReload){
+        $('.popup').each(()=>{
+            if($(this).css('display') == "" || $(this).css('display') == "block"){
+                stateReload = $(this).html();
+                stateId = this.id;
+            }
+        });
+    }
+
 
     //------------ Reset game room ----------------
     $("#game-room").empty().html(data);
