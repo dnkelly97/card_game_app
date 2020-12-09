@@ -1,0 +1,68 @@
+<div id="room-information">
+  <h2>Welcome To <%= @room.name %></h2>
+  <h2>Room Join Code: <%= @room.room_code %></h2>
+</div>
+<div class="base-room">
+  <div class="left-panel">
+    <!--    TODO: Add dynamic button generation -->
+    <Button class="btn btn-outline-dark ">View Player X's Hand</Button>
+    <Button class="btn btn-outline-dark ">View Player X's Hand</Button>
+    <Button class="btn btn-outline-dark ">View Player X's Hand</Button>
+    <Button class="btn btn-outline-dark ">View Player X's Hand</Button>
+    <Button class="btn btn-outline-dark ">View Player X's Hand</Button>
+    <Button class="btn btn-outline-dark ">View Player X's Hand</Button>
+    <Button class="btn btn-outline-dark ">View Player X's Hand</Button>
+    <Button class="btn btn-outline-dark ">View Player X's Hand</Button>
+    <Button class="btn btn-outline-dark ">View Player X's Hand</Button>
+
+  </div>
+  <div class="center-panel">
+    <div class="top-center-panel">
+      <!--      TODO: Show Pile Interaction Goes Here -->
+      <h2>EXAMPLE: Interacting with players on the left column will show a more detailed view of their hands here</h2>
+    </div>
+    <div class="middle-center-panel">
+      <div class="draw-discard">
+        <Button type="button" class="btn blank-card btn-outline-secondary">Draw Pile</Button>
+        <Button type="button" class="btn blank-card btn-outline-secondary">Discard Pile</Button>
+      </div>
+      <div class="piles">
+        <div class="piles-top">
+          <Button type="button" class="btn blank-card btn-outline-secondary">+</Button>
+          <Button type="button" class="btn blank-card btn-outline-secondary">+</Button>
+          <Button type="button" class="btn blank-card btn-outline-secondary">+</Button>
+          <Button type="button" class="btn blank-card btn-outline-secondary">+</Button>
+          <Button type="button" class="btn blank-card btn-outline-secondary">+</Button>
+        </div>
+        <div class="piles-bottom">
+          <Button type="button" class="btn blank-card btn-outline-secondary">+</Button>
+          <Button type="button" class="btn blank-card btn-outline-secondary">+</Button>
+          <Button type="button" class="btn blank-card btn-outline-secondary">+</Button>
+          <Button type="button" class="btn blank-card btn-outline-secondary">+</Button>
+          <Button type="button" class="btn blank-card btn-outline-secondary">+</Button>
+        </div>
+      </div>
+    </div>
+    <div class="bottom-center-panel">
+      <!--      TODO: Replace with dynamically generated hand-->
+      <Button type="button" class="btn blank-card btn-outline-primary">+</Button>
+      <Button type="button" class="btn blank-card btn-outline-primary">+</Button>
+      <Button type="button" class="btn blank-card btn-outline-primary">+</Button>
+      <Button type="button" class="btn blank-card btn-outline-primary">+</Button>
+      <Button type="button" class="btn blank-card btn-outline-primary">+</Button>
+    </div>
+  </div>
+  <div class="right-panel">
+    <!--    <ActionsPanel/>-->
+    <div id="game-actions">
+      <Button type="button" class="btn btn-outline-primary">Draw</Button>
+      <Button type="button" class="btn btn-outline-primary">Transfer</Button>
+      <Button type="button" class="btn btn-outline-primary">Reset Deck</Button>
+      <Button type="button" class="btn btn-outline-primary">Show Hand</Button>
+    </div>
+    <div id="dangerous-game-actions">
+      <Button type="button" class="btn btn-danger">Reset Game</Button>
+      <Button type="button" class="btn btn-danger">Quit Game</Button>
+    </div>
+  </div>
+</div>
