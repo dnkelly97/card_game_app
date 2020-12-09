@@ -66,38 +66,3 @@
     </div>
   </div>
 </div>
-<br>
-<br>
-<br>
-<table class="table table-striped col-md-12">
-  <thead>
-  <tr>
-    <th>Name</th>
-    <th>Owner</th>
-    <th>Count</th>
-    <th>Cards</th>
-  </tr>
-  </thead>
-  <tbody>
-  <% @piles.each do |pile| %>
-    <% if pile.room_id == @room.id%>
-      <tr>
-        <td>
-          <%= pile.name%>
-        </td>
-        <td>
-          <%= pile.creator%>
-        </td>
-        <td>
-          <%= pile.card_count%>
-        </td>
-        <td>
-          <%= form_tag piles_show_path({:room_id => @room.id, :source_pile_id => pile.id}), :class => 'form' do %>
-            <%= submit_tag 'Details',  :class => 'btn btn-primary', :id => 'pile_details' %>
-          <% end %>
-        </td>
-      </tr>
-    <% end %>
-  <% end %>
-  </tbody>
-</table>
