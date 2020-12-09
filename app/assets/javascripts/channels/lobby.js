@@ -49,6 +49,16 @@ let updateLobby = function(data, xhrObj, testStatus){
 
     let transferReload = document.getElementById('transferCardsPopup').style.display === "";
     let transferHtml = $('#transferCardsPopup').html();
+
+    let stateReload = null;
+    let stateId = null;
+    $('.popup').each(()=>{
+        if($(this).css('display') == ""){
+            stateReload = $(this).html();
+            stateId = this.id;
+        }
+    });
+
     //------------ Reset game room ----------------
     $("#game-room").empty().html(data);
 
@@ -62,7 +72,9 @@ let updateLobby = function(data, xhrObj, testStatus){
 
 
     // Create Piles Popup
-    if(createPilesReload){
+    if(stateReload != null){
+        $('#'+stateId).html(stateReload)
+    } else if(createPilesReload){
         $('#createPilesPopup').html(CPHtml);
         document.getElementById('createPilesPopup').style.display = "";
     } else if(drawReload){
