@@ -3,7 +3,7 @@ let TransferCardsPopup = {
         let popupDive = $('<div id="transferCardsPopup"></div>');
         popupDive.hide().appendTo($('body'));
         $(document).on('change', '#pile_source_pile_id', TransferCardsPopup.showSourcePileCards);
-        $(document).on('click', '#pile_details', TransferCardsPopup.getCardInfo);
+        $(document).on('click', '#initiate_transfer_button', TransferCardsPopup.getCardInfo);
     },
     showSourcePileCards: function(){
         var source_pile = $('#pile_source_pile_id').val();
@@ -19,7 +19,7 @@ let TransferCardsPopup = {
     getCardInfo: function (){
         $.ajax({
             type: 'GET',
-            url: $(this).parent().attr('action'),
+            url: $(this).attr('action'),
             timeout: 50000,
             success: TransferCardsPopup.showCards,
             error: function(xhrObj, testStatus, exception) { console.log(exception); }
