@@ -2,11 +2,11 @@ let TransferCardsPopup = {
     setup: function() {
         let popupDive = $('<div id="transferCardsPopup"></div>');
         popupDive.hide().appendTo($('body'));
-        $(document).on('change', '#source_pile', TransferCardsPopup.showSourcePileCards);
+        $(document).on('change', '#pile_source_pile_id', TransferCardsPopup.showSourcePileCards);
         $(document).on('click', '#pile_details', TransferCardsPopup.getCardInfo);
     },
     showSourcePileCards: function(){
-        var source_pile = $('#source_pile').val();
+        var source_pile = $('#pile_source_pile_id').val();
         console.log(source_pile);
         var pile_id = "pile_table_".concat(source_pile);
         // todo: hide all tables that aren't the selected one
