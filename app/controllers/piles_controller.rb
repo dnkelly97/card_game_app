@@ -1,8 +1,8 @@
 class PilesController < ApplicationController
   before_action :set_current_user
-  # def pile_params
-  #   params.require(:pile).permit(:name, :private_pile, :creator)
-  # end
+  def pile_params
+    params.require(:pile).permit(:name, :private_pile, :creator, :source_pile_id, :destination_pile_id)
+  end
   def index
     @piles = Pile.all
   end
