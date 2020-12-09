@@ -130,6 +130,12 @@ class PilesController < ApplicationController
     render(partial: 'partials/draw_card') if request.xhr?
   end
 
+  def discard
+    @player_pile = Pile.find_by(name: "#{@current_user.user_id}'s Hand", room_id: params[:room_id])
+    @thecards = @player_pile.cards
+    render(partial: 'partials/discard_cardy') if request.xhr? and return
+  end
+
   def transfer_card
     source_pile = Pile.find_by(name: params[:source_pile_name], room_id: params[:room_id])
     @destination_pile = Pile.find_by(name: params[:pile][:name2], room_id: params[:room_id])
