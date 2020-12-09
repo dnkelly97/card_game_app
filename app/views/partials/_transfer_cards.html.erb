@@ -8,17 +8,17 @@
   <%= select_tag "destination_pile", options_from_collection_for_select(@piles, "id", "name"), :include_blank => true %>
   <% @piles.each do |pile| %>
     <% pile_table_elem_id = "pile_table_#{pile.id}" %>
-    <div style="padding-top: 10px; padding-bottom: 5px; height: 210px; overflow-y: auto; display: none;">
+    <div style="padding-top: 20px; padding-bottom: 5px; height: 210px; overflow-y: auto; display: none;">
       <table class="table table-striped card-table col-md-12" id=<%= pile_table_elem_id %> style="display:table;">
         <tbody>
         <% is_private = pile.private_pile %>
         <% pile.cards.each do |card| %>
           <tr>
-            <td>
-              <% if (is_private) %>
+            <td style="color:white;">
+              <% if is_private and pile.creator != @current_user.user_id %>
                 <span style="font-size:25px; padding-right: 5px;">&#x1F0F4;</span>
                 Facedown Card
-              <% elsif !(is_private) %>
+              <% elsif !is_private or pile.creator == @current_user.user_id %>
                 <span style="font-size:25px; padding-right: 5px;">&#x<%= card.unicode_value %></span>
                 <%= card.name %>
               <% end %>
