@@ -28,5 +28,6 @@
   <%= label :pile, :name2, 'Destination Pile:', :class => 'col-form-label' %>
   <%= text_field :pile, 'name2', :class => 'form-control col-1' %>
   <br/>
-  <%= submit_tag 'Transfer Card(s)', :class => 'btn btn-primary' %>
+  <%= submit_tag 'Transfer Card(s)', :class => 'btn btn-primary', :id => 'transfer_cards' %>
 <% end %>
+<%= button_to 'Cancel', room_path({:id => params[:room_id]}), :method => :get, :id => 'cancel' %>

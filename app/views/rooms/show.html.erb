@@ -4,7 +4,7 @@
 </div>
 <div class="base-room">
   <div class="left-panel">
-<!--    TODO: Add dynamic button generation -->
+    <!--    TODO: Add dynamic button generation -->
     <Button class="btn btn-outline-dark ">View Player X's Hand</Button>
     <Button class="btn btn-outline-dark ">View Player X's Hand</Button>
     <Button class="btn btn-outline-dark ">View Player X's Hand</Button>
@@ -18,7 +18,7 @@
   </div>
   <div class="center-panel">
     <div class="top-center-panel">
-<!--      TODO: Show Pile Interaction Goes Here -->
+      <!--      TODO: Show Pile Interaction Goes Here -->
       <h2>EXAMPLE: Interacting with players on the left column will show a more detailed view of their hands here</h2>
     </div>
     <div class="middle-center-panel">
@@ -44,7 +44,7 @@
       </div>
     </div>
     <div class="bottom-center-panel">
-<!--      TODO: Replace with dynamically generated hand-->
+      <!--      TODO: Replace with dynamically generated hand-->
       <Button type="button" class="btn blank-card btn-outline-primary">+</Button>
       <Button type="button" class="btn blank-card btn-outline-primary">+</Button>
       <Button type="button" class="btn blank-card btn-outline-primary">+</Button>
@@ -53,7 +53,7 @@
     </div>
   </div>
   <div class="right-panel">
-<!--    <ActionsPanel/>-->
+    <!--    <ActionsPanel/>-->
     <div id="game-actions">
       <Button type="button" class="btn btn-outline-primary">Draw</Button>
       <Button type="button" class="btn btn-outline-primary">Transfer</Button>
@@ -66,3 +66,38 @@
     </div>
   </div>
 </div>
+<br>
+<br>
+<br>
+<table class="table table-striped col-md-12">
+  <thead>
+  <tr>
+    <th>Name</th>
+    <th>Owner</th>
+    <th>Count</th>
+    <th>Cards</th>
+  </tr>
+  </thead>
+  <tbody>
+  <% @piles.each do |pile| %>
+    <% if pile.room_id == @room.id%>
+      <tr>
+        <td>
+          <%= pile.name%>
+        </td>
+        <td>
+          <%= pile.creator%>
+        </td>
+        <td>
+          <%= pile.card_count%>
+        </td>
+        <td>
+          <%= form_tag piles_show_path({:room_id => @room.id, :source_pile_id => pile.id}), :class => 'form' do %>
+            <%= submit_tag 'Details',  :class => 'btn btn-primary', :id => 'pile_details' %>
+          <% end %>
+        </td>
+      </tr>
+    <% end %>
+  <% end %>
+  </tbody>
+</table>
