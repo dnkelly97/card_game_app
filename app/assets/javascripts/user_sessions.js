@@ -33,4 +33,3 @@ let LoginPopup = {
         return(false);
     }
 };
-jQuery(LoginPopup.setup);
