@@ -1,14 +1,16 @@
 <h3><%= link_to 'Game Room', room_path({:id => params[:room_id]}), :class => 'btn btn-primary' %></h3>
-<h2>Transfer Card!!</h2>
+<h3 style="color: white;">Transfer Card!!</h3>
 
   <%= form_tag piles_transfer_card_path({:room_id => params[:room_id]}), :id => 'the_cards_form' do %>
-  <%= label :pile, :source_pile_name, 'Transfer From:', :class => 'row-form-label' %>
-  <%= select :pile, :source_pile_id, options_from_collection_for_select(@piles, "id", "name"), :include_blank => true %>
-  <%= label :pile, :destination_pile_name, 'To:', :class => 'row-form-label' %>
+  <%= label :pile, :source_pile_name, 'Transfer From:', :class => 'row-form-label', style: "color: white" %>
+  <%= select :pile, :source_pile_id, options_from_collection_for_select(
+      @piles.select { |pile| !pile.private_pile or pile.creator == @current_user.user_id }, "id", "name"), :include_blank => true %>
+  <%= label :pile, :destination_pile_name, 'To:', :class => 'row-form-label', style: "color: white" %>
   <%= select :pile, :destination_pile_id, options_from_collection_for_select(@piles, "id", "name"), :include_blank => true %>
   <% @piles.each do |pile| %>
     <% pile_table_elem_id = "pile_table_#{pile.id}" %>
     <div style="padding-top: 20px; padding-bottom: 5px; height: 210px; overflow-y: auto; display: none;">
+      <p style="color: white;">Select Cards to Transfer</p>
       <table class="table table-striped card-table col-md-12" id=<%= pile_table_elem_id %> style="display:table;">
         <tbody>
         <% is_private = pile.private_pile %>
