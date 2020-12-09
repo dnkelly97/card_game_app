@@ -2,11 +2,19 @@ let TransferCardsPopup = {
     setup: function() {
         let popupDive = $('<div id="transferCardsPopup"></div>');
         popupDive.hide().appendTo($('body'));
-        $('#source_pile').change(TransferCardsPopup.showSourcePileCards);
-        $(document).on('click', '#pile_details', TransferCardsPopup.getCardInfo)
+        $(document).on('change', '#source_pile', TransferCardsPopup.showSourcePileCards);
+        $(document).on('click', '#pile_details', TransferCardsPopup.getCardInfo);
     },
     showSourcePileCards: function(){
-        //set selected thing visible
+        var source_pile = $('#source_pile').val();
+        console.log(source_pile);
+        var pile_id = "pile_table_".concat(source_pile);
+        // todo: hide all tables that aren't the selected one
+        var piles = document.querySelectorAll(".card-table")
+        for (var i = 0; i < piles.length; i ++) {
+            piles[i].style.display = "none";
+        }
+        document.getElementById(pile_id).style.display = "table";
     },
     getCardInfo: function (){
         $.ajax({
