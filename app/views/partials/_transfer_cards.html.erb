@@ -8,28 +8,29 @@
   <%= select_tag "destination_pile", options_from_collection_for_select(@piles, "id", "name"), :include_blank => true %>
   <% @piles.each do |pile| %>
     <% pile_table_elem_id = "pile_table_#{pile.id}" %>
-    <table class="table table-striped card-table col-md-12" id=<%= pile_table_elem_id %> style="display:none;">
-      <tbody>
-      <% is_private = pile.private_pile %>
-      <% pile.cards.each do |card| %>
-        <tr>
-          <td>
-            <% if (is_private) %>
-              <%= card.id %>
-            <% elsif !(is_private) %>
-              <%= card.id %>
-              <%= card.name %>
-            <% end %>
-          </td>
-          <td>
-            <%=check_box_tag "the_cards[#{card.id}]", nil, nil, {:id => "checkbox_#{card.name}"}%>
-          </td>
-        </tr>
-      <% end %>
-      </tbody>
-    </table>
-    </br>
-    </br>
+    <div style="padding-top: 10px; padding-bottom: 5px; height: 210px; overflow-y: auto; display: none;">
+      <table class="table table-striped card-table col-md-12" id=<%= pile_table_elem_id %> style="display:table;">
+        <tbody>
+        <% is_private = pile.private_pile %>
+        <% pile.cards.each do |card| %>
+          <tr>
+            <td>
+              <% if (is_private) %>
+                <span style="font-size:25px; padding-right: 5px;">&#x1F0F4;</span>
+                Facedown Card
+              <% elsif !(is_private) %>
+                <span style="font-size:25px; padding-right: 5px;">&#x<%= card.unicode_value %></span>
+                <%= card.name %>
+              <% end %>
+            </td>
+            <td>
+              <%=check_box_tag "the_cards[#{card.id}]", nil, nil, {:id => "checkbox_#{card.name}"}%>
+            </td>
+          </tr>
+        <% end %>
+        </tbody>
+      </table>
+    </div>
   <% end %>
   </br>
     <%# label :pile, :name2, 'Destination Pile:', :class => 'col-form-label' %>
