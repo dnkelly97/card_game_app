@@ -20,14 +20,17 @@ const subscribe_to_room = function(room_number) {
                     type: 'GET',
                     url: "/rooms/"+String(room_number),
                     timeout: 5000,
-                    success: test,
+                    success: updateLobby,
                     error: function(xhrObj, testStatus, exception) { alert('Error!'); }
                 });
             }
         }
     );
 };
-let test = function(data, xhrObj, testStatus){
+let updateLobby = function(data, xhrObj, testStatus){
+    //------------- PreCondition ---------------
+
+    // Show cards center-top table
     let saveValue = -1
     for (let i = 0; i < $('#card-table tr').length; i++) {
         if(String($("tr#"+String(i)).css("display")) === "block"){
@@ -35,9 +38,40 @@ let test = function(data, xhrObj, testStatus){
             break;
         }
     }
+    // Create Piles Popup
+    let createPilesReload = document.getElementById('createPilesPopup').style.display === "";
+    let CPHtml =  $('#createPilesPopup').html();
 
+    // Draw Popup
+    let drawReload = document.getElementById('drawPopup').style.display === "";
+    let drawHtml = $('#drawPopup').html();
+
+
+    let transferReload = document.getElementById('transferCardsPopup').style.display === "";
+    let transferHtml = $('#transferCardsPopup').html();
+    //------------ Reset game room ----------------
     $("#game-room").empty().html(data);
+
+
+    //------------ Post Condition -------------
+
+    // Show piles
     if(saveValue !== -1){
         $("tr#"+String(saveValue)).css("display", "block")
     }
+
+
+    // Create Piles Popup
+    if(createPilesReload){
+        $('#createPilesPopup').html(CPHtml);
+        document.getElementById('createPilesPopup').style.display = "";
+    } else if(drawReload){
+        $('#drawPopup').html(drawHtml);
+        document.getElementById('drawPopup').style.display = "";
+    } else if(transferReload){
+        $('#transferCardsPopup').html(transferHtml);
+        document.getElementById('transferCardsPopup').style.display = "";
+    }
+
+
 }
