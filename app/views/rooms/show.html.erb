@@ -68,6 +68,10 @@
 </div>
 <br>
 <br>
+<%= form_tag discard_piles_path({:room_id => @room.id}), :class => 'form' do %>
+  <%= submit_tag 'Discard',  :class => 'btn btn-primary', :id => 'discard_button' %>
+<% end %>
+<br>
 <%= form_tag get_from_draw_piles_path({:room_id => @room.id}), :class => 'form' do %>
   <%= submit_tag 'Draw',  :class => 'btn btn-primary', :id => 'draw_button' %>
 <% end %>
