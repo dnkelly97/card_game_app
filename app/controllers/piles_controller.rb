@@ -92,14 +92,9 @@ class PilesController < ApplicationController
   end
 
   def show
-    #source_pile = params[:pile][:source_pile]
-    #room_id = params[:room_id]
-    # source_pile = Pile.find_by(name: params[:pile][:source_pile], room_id: params[:room_id])
     source_pile = Pile.find_by(id: params[:source_pile_id])
     if source_pile.nil?
       redirect_to room_path({:id => params[:room_id]}), flash: { notice: 'This is not a pile in the database. Please try again.'}
-      # flash[:notice] = "This is not a pile in the database. Please try again." #@pile.name
-      #redirect_to room_path({:id => room_id}) and return
     end
     @piles = Room.find_by_id(params[:room_id]).piles
     @is_private = source_pile.private_pile
@@ -134,27 +129,23 @@ class PilesController < ApplicationController
 
 
   def transfer_card
-    #room_id = params[:room_id]
-    #destination_pile = params[:pile][:name2]
-    source_pile = Pile.find_by(name: params[:source_pile_name], room_id: params[:room_id])
-    @destination_pile = Pile.find_by(name: params[:pile][:name2], room_id: params[:room_id])
-    if @destination_pile.nil?
-      #flash[:notice] = "This is not a pile in the database. Please try again." #@pile.name
-      redirect_to room_path({:id => params[:room_id]}), flash: { notice: "This is not a pile in the database. Please try again."} and return #piles_pile_homepage_path and return
+    source_pile = Pile.find pile_params[:source_pile_id]
+    destination_pile = Pile.find pile_params[:destination_pile_id]
+    if destination_pile.nil?
+      redirect_to room_path({:id => params[:room_id]}),
+                  flash: { notice: "You must select which pile to transfer cards to. Please try again."} and return
     end
     if params[:the_cards].nil?
-      #flash[:notice] = "No cards selected"
-      redirect_to room_path({:id => params[:room_id]}), flash: { notice: "No cards selected"} and return
+      redirect_to room_path({:id => params[:room_id]}), flash: { notice: "No cards selected."} and return
     end
     card_difference = params[:the_cards].keys.count
-    @destination_pile[:card_count] = @destination_pile.cards.count + card_difference
+    destination_pile[:card_count] = destination_pile.cards.count + card_difference
     source_pile[:card_count] = source_pile.cards.count - card_difference
-    @destination_pile.save
+    destination_pile.save
     source_pile.save
     params[:the_cards].keys.each do |card|
-      @destination_pile.cards << Card.find_by(id: card)
+      destination_pile.cards << Card.find_by(id: card)
     end
-    #flash[:notice] = "Card(s) successfully transferred!"
     redirect_to room_path({:id => params[:room_id]}), flash: { notice: "Card(s) successfully transferred!"}
   end
 
