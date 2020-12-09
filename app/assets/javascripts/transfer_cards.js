@@ -12,9 +12,9 @@ let TransferCardsPopup = {
         // todo: hide all tables that aren't the selected one
         var piles = document.querySelectorAll(".card-table")
         for (var i = 0; i < piles.length; i ++) {
-            piles[i].style.display = "none";
+            piles[i].parentElement.style.display = "none";
         }
-        document.getElementById(pile_id).style.display = "table";
+        document.getElementById(pile_id).parentElement.style.display = "block";
     },
     getCardInfo: function (){
         $.ajax({
