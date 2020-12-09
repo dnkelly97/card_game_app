@@ -58,7 +58,10 @@
       <Button type="button" class="btn btn-outline-primary">Draw</Button>
       <Button type="button" class="btn btn-outline-primary">Transfer</Button>
       <Button type="button" class="btn btn-outline-primary">Reset Deck</Button>
-      <%= button_to "Show Hand", rooms_show_hand_path, method: :get, type: "button",  class: "btn btn-outline-primary"%>
+
+      <%= form_tag rooms_show_hand_path, :class => 'form' do %>
+        <%= submit_tag "Show Hand", onclick: "show_hand()", :class => 'btn btn-primary' %>
+      <% end %>
     </div>
     <div id="dangerous-game-actions">
       <Button type="button" class="btn btn-danger">Reset Game</Button>

@@ -112,8 +112,6 @@ class RoomsController < ApplicationController
     room_id = @current_user.room_id
     user_hand = "#{@current_user.user_id}'s Hand"
     pile = Pile.find_by(room_id: room_id, name: user_hand)
-    p room_id
-    p pile
     if pile.private_pile
       pile.private_pile = false
       pile.save
@@ -121,7 +119,5 @@ class RoomsController < ApplicationController
       pile.private_pile = true
       pile.save
     end
-    #redirect_to rooms_new_join_path
-    render body: nil
   end
 end
