@@ -35,8 +35,8 @@ let TransferCardsPopup = {
         css({'left': oneFourth,'width': 2*oneFourth, 'top':drop, 'opacity': 1.0}).html(data).show();
         $(document).on('click', '#cancel', TransferCardsPopup.hideTransfer);
         $('#pile_details').prop("disabled", true);
+        $(document).on('ajax:complete', '#transfer_cards_form', TransferCardsPopup.hideTransfer);
         return(false);
-
     },
     hideTransfer: function() {
         $('#transferCardsPopup').hide();

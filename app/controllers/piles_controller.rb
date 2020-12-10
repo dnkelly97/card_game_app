@@ -139,7 +139,6 @@ class PilesController < ApplicationController
     params[:the_cards].keys.each do |card|
       destination_pile.cards << Card.find_by(id: card)
     end
-    redirect_to room_path({:id => params[:room_id]}), flash: { notice: "Card(s) successfully transferred!"}
   end
 
 end

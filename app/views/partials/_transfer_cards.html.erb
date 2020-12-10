@@ -1,6 +1,6 @@
 <h3 style="color: white;">Transfer Card!!</h3>
 
-  <%= form_tag piles_transfer_card_path({:room_id => params[:room_id]}), :id => 'the_cards_form' do %>
+  <%= form_tag piles_transfer_card_path({:room_id => params[:room_id]}), :id => 'transfer_cards_form', remote: true, :authenticity_token => true do %>
   <%= label :pile, :source_pile_name, 'Transfer From:', :class => 'row-form-label', style: "color: white" %>
   <%= select :pile, :source_pile_id, options_from_collection_for_select(
       @piles.select { |pile| !pile.private_pile or pile.creator == @current_user.user_id }, "id", "name"), :include_blank => true %>
