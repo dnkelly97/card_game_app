@@ -14,8 +14,8 @@ describe('TransferCardsPopup', function(){
             it('calls correct URL', function(){
                 loadFixtures("transfer_card.html");
                 spyOn($, 'ajax');
-                $('#pile_details').trigger('click');
-                expect($.ajax.calls.mostRecent().args[0]['url']).toEqual('/piles_show');
+                $('#initiate_transfer_button').trigger('click');
+                expect($.ajax.calls.mostRecent().args[0]['url']).toEqual('/piles/show');
             });
             describe('when successful server call', function (){
                 beforeEach(function (){
@@ -28,7 +28,7 @@ describe('TransferCardsPopup', function(){
                         console.log("This is a spy call for success handler");
                         ajaxArgs.success(fixHtml, '200', null);
                     });
-                    $('#pile_details').trigger('click');
+                    $('#initiate_transfer_button').trigger('click');
                 });
                 it('popup is Visible', function(){
                     expect($('#transferCardsPopup')).toBeVisible();
