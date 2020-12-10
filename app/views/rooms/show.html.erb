@@ -6,8 +6,8 @@
   <div class="left-panel">
 <!--    TODO: Add dynamic button generation -->
     </br>
-    <% @room.piles.each do |pile| %>
-      <% if !(pile.name=="Deck") %>
+    <% @room.piles.select{ |pile| pile.name.include? "'s Hand" }.each do |pile| %>
+      <% if pile.creator != @current_user.user_id %>
         <%= button_tag "#{pile.name}", type: "button", class: "btn btn-outline-dark", onclick: "show_pile(#{pile.id})"%>
         </br>
       <% end %>
@@ -75,7 +75,7 @@
   </tr>
   </thead>
   <tbody>
-  <% @piles.each do |pile| %>
+  <% @room.piles.each do |pile| %>
     <% if pile.room_id == @room.id%>
       <tr>
         <td>
