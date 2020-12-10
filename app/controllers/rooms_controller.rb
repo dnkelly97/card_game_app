@@ -91,7 +91,6 @@ class RoomsController < ApplicationController
       end
       [card_name, suit]
     end
-
   end
 
   def new_join
@@ -119,9 +118,5 @@ class RoomsController < ApplicationController
       flash[:warning] = "A room with that code does not exist."
       redirect_to rooms_new_join_path
     end
-  end
-
-  def show_piles
-    @piles = Pile.all
   end
 end

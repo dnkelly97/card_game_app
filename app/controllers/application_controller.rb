@@ -9,4 +9,8 @@ class ApplicationController < ActionController::Base
     @current_user ||= session[:session_token] && User.find_by_session_token(session[:session_token])
     redirect_to dashboard_path, notice: "You must be logged in to do that" unless @current_user
   end
+
+  def clear_current_user
+    @current_user = nil
+  end
 end
