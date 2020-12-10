@@ -1,8 +1,8 @@
 class PilesController < ApplicationController
   before_action :set_current_user
-  def pile_params
-    params.require(:pile).permit(:name, :private_pile, :creator)
-  end
+  # def pile_params
+  #   params.require(:pile).permit(:name, :private_pile, :creator)
+  # end
   def index
     @piles = Pile.all
   end
@@ -14,9 +14,9 @@ class PilesController < ApplicationController
 
   end
   def create_deck
-    room_id = params[:room_id]
-    room = Room.find_by(id: room_id)
-    @pile = Pile.create!(name: "Deck", creator: "The Game", private_pile: true, card_count: 52, room_id: room_id)
+    #room_id = params[:room_id]
+    room = Room.find_by(id: params[:room_id])
+    @pile = Pile.create!(name: "Deck", creator: "The Game", private_pile: true, card_count: 52, room_id: params[:room_id])
     room.piles << @pile
     Card.create([{name: "Ace of Spades", pile_id: @pile.id},
                  {name: "Two of Spades", pile_id: @pile.id},
@@ -73,46 +73,49 @@ class PilesController < ApplicationController
                 ])
     room.save!
 
-
-    flash[:notice] = "Another deck added to the room"
-    redirect_to room_path({:id => room_id}) and return
+    # flash[:notice] = "Another deck added to the room"
+    redirect_to room_path({:id => params[:room_id]}), flash: { notice: "Another deck added to the room"} and return
   end
 
   def create
-    room_id = params[:room_id]
-    room = Room.find_by(id: room_id)
+    #room_id = params[:room_id]
+    room = Room.find_by(id: params[:room_id])
     private_pile = params[:private_pile]
-    name = params[:pile][:name]
-    creator = params[:pile][:creator]
-    @pile = Pile.create!(name: name, creator: creator, private_pile: private_pile, card_count: 0, room_id: room_id)
+    #name = params[:pile][:name]
+    #creator = params[:pile][:creator]
+    @pile = Pile.create!(name: params[:pile][:name], creator: params[:pile][:creator], private_pile: private_pile, card_count: 0, room_id: params[:room_id])
     room.piles << @pile
     room.save!
-    flash[:notice] = "#{@pile.serializable_hash} was successfully created." #@pile.name
-    redirect_to room_path({:id => room_id}) and return
+    redirect_to room_path({:id => params[:room_id]}), flash: { notice: "#{@pile.name} was successfully created."}
+    #flash[:notice] = "#{@pile.name} was successfully created." #@pile.name
+    # redirect_to room_path({:id => room_id}) and return
   end
 
   def show
-    source_pile = params[:pile][:source_pile]
-    room_id = params[:room_id]
-    source_pile = Pile.find_by(name: source_pile, room_id: room_id)
+    #source_pile = params[:pile][:source_pile]
+    #room_id = params[:room_id]
+    # source_pile = Pile.find_by(name: params[:pile][:source_pile], room_id: params[:room_id])
+    source_pile = Pile.find_by(id: params[:source_pile_id])
     if source_pile.nil?
-      flash[:notice] = "This is not a pile in the database. Please try again." #@pile.name
-      redirect_to room_path({:id => room_id}) and return
+      redirect_to room_path({:id => params[:room_id]}), flash: { notice: 'This is not a pile in the database. Please try again.'}
+      # flash[:notice] = "This is not a pile in the database. Please try again." #@pile.name
+      #redirect_to room_path({:id => room_id}) and return
     end
     @is_private = source_pile.private_pile
     @cards = source_pile.cards
     @source_pile = source_pile
+    render(partial: 'partials/transfer_cards') if request.xhr?
   end
 
   def draw_cards_from_deck
-    room_id = params[:room_id]
+    #room_id = params[:room_id]
     num_cards = params[:pile][:num_cards].to_i
-    deck = Pile.find_by(name: "Deck", room_id: room_id)
-    destination_pile = Pile.find_by(name: "#{@current_user.user_id}'s Hand", room_id: room_id) #this represents the format an automatically created hand should get
+    deck = Pile.find_by(name: "Deck", room_id: params[:room_id])
+    destination_pile = Pile.find_by(name: "#{@current_user.user_id}'s Hand", room_id: params[:room_id]) #this represents the format an automatically created hand should get
 
     if num_cards > deck.cards.count
-      flash[:notice] = "There aren't enough cards in the deck. Please try again or wait until the deck is replenished." #@pile.name
-      redirect_to room_path({:id => room_id}) and return
+      #flash[:notice] = "There aren't enough cards in the deck. Please try again or wait until the deck is replenished." #@pile.name
+      redirect_to room_path({:id => params[:room_id]}), flash: { notice: 'There are not enough cards in the deck. Please try again or wait until the deck is replenished.'} and return
     end
     deck_count = deck.cards.count
     list_of_cards = (0...deck_count-1).to_a.sample(num_cards)
@@ -123,23 +126,23 @@ class PilesController < ApplicationController
     deck[:card_count] = deck[:card_count] - num_cards
     deck.save
     destination_pile.save
-    flash[:notice] = "#{num_cards} card(s) transferred from Deck!"
-    redirect_to room_path({:id => room_id})
+
+    redirect_to room_path({:id => params[:room_id]}), flash: { notice: "#{num_cards} card(s) transferred from Deck!"} and return
   end
 
 
   def transfer_card
-    room_id = params[:room_id]
-    destination_pile = params[:pile][:name2]
-    source_pile = Pile.find_by(name: params[:source_pile_name], room_id: room_id)
-    @destination_pile = Pile.find_by(name: destination_pile, room_id: room_id)
+    #room_id = params[:room_id]
+    #destination_pile = params[:pile][:name2]
+    source_pile = Pile.find_by(name: params[:source_pile_name], room_id: params[:room_id])
+    @destination_pile = Pile.find_by(name: params[:pile][:name2], room_id: params[:room_id])
     if @destination_pile.nil?
-      flash[:notice] = "This is not a pile in the database. Please try again." #@pile.name
-      redirect_to room_path({:id => room_id}) and return #piles_pile_homepage_path and return
+      #flash[:notice] = "This is not a pile in the database. Please try again." #@pile.name
+      redirect_to room_path({:id => params[:room_id]}), flash: { notice: "This is not a pile in the database. Please try again."} and return #piles_pile_homepage_path and return
     end
     if params[:the_cards].nil?
-      flash[:notice] = "No cards selected"
-      redirect_to room_path({:id => room_id}) and return
+      #flash[:notice] = "No cards selected"
+      redirect_to room_path({:id => params[:room_id]}), flash: { notice: "No cards selected"} and return
     end
     card_difference = params[:the_cards].keys.count
     @destination_pile[:card_count] = @destination_pile.cards.count + card_difference
@@ -147,14 +150,10 @@ class PilesController < ApplicationController
     @destination_pile.save
     source_pile.save
     params[:the_cards].keys.each do |card|
-      flash[:notice] = "#{card}"
       @destination_pile.cards << Card.find_by(id: card)
     end
-    flash[:notice] = "Card(s) successfully transferred!"
-    redirect_to room_path({:id => room_id})
+    #flash[:notice] = "Card(s) successfully transferred!"
+    redirect_to room_path({:id => params[:room_id]}), flash: { notice: "Card(s) successfully transferred!"}
   end
 
-  def pile_homepage
-    @pile_list = Pile.all
-  end
 end

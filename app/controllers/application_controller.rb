@@ -10,4 +10,8 @@ class ApplicationController < ActionController::Base
     cookies.encrypted[:user_id] = @current_user.id if @current_user
     redirect_to dashboard_path, notice: "You must be logged in to do that" unless @current_user
   end
+
+  def clear_current_user
+    @current_user = nil
+  end
 end

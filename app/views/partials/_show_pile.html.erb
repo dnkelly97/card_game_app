@@ -1,0 +1,15 @@
+<table class="cardsTable dataTable" id="card-table">
+  <% @room.piles.each do |pile| %>
+    <tr id=<%="#{pile.id}"%> style="display:none;">
+      <% Card.where(pile_id: pile.id).each do |card| %>
+        <td>
+          <% if pile.private_pile %>
+            <p style="font-size:128px;">&#x1F0F4;</p>
+          <% else %>
+            <p style="font-size:128px;">&#x<%= card.unicode_value %>;</p>
+          <% end %>
+        </td>
+      <% end %>
+    </tr>
+  <% end %>
+</table>
