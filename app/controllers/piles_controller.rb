@@ -101,7 +101,6 @@ class PilesController < ApplicationController
     num_cards = params[:pile][:num_cards].to_i
     deck = Pile.find_by(name: "Deck", room_id: params[:room_id])
     destination_pile = Pile.find_by(name: "#{@current_user.user_id}'s Hand", room_id: params[:room_id]) #this represents the format an automatically created hand should get
-
     if num_cards > deck.cards.count
       #flash[:notice] = "There aren't enough cards in the deck. Please try again or wait until the deck is replenished." #@pile.name
       redirect_to room_path({:id => params[:room_id]}), flash: { notice: 'There are not enough cards in the deck. Please try again or wait until the deck is replenished.'} and return
@@ -115,7 +114,6 @@ class PilesController < ApplicationController
       deck.save
       destination_pile.save
     end
-
     #flash[:notice] = "#{num_cards} card(s) transferred from Deck!"
     redirect_to room_path({:id => params[:room_id]}), flash: { notice: "#{num_cards} card(s) transferred from Deck!"} and return
   end
