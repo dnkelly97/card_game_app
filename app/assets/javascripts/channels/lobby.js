@@ -16,13 +16,26 @@ const subscribe_to_room = function(room_number) {
             received(data) {
                 // Called when there's incoming data on the websocket for this channel
                 // for each data['pile'], updated cards
-                $.ajax({
-                    type: 'GET',
-                    url: "/rooms/"+String(room_number),
-                    timeout: 5000,
-                    success: updateLobby,
-                    error: function(xhrObj, testStatus, exception) { alert('Error!'); }
-                });
+                let transferReload = document.getElementById('transferCardsPopup').style.display === "";
+
+                if(transferReload && data['pile']==$('#the_cards_form').attr('pile')){
+                    $.ajax({
+                        type: 'GET',
+                        url: $('#pile_detail').parent().attr('action'),
+                        timeout: 50000,
+                        success: updateTransferPopup,
+                        error: function(xhrObj, testStatus, exception) { alert('Error!'); }
+                    });
+                }else{
+                    $.ajax({
+                        type: 'GET',
+                        url: "/rooms/"+String(room_number),
+                        timeout: 50000,
+                        success: updateLobby,
+                        error: function(xhrObj, testStatus, exception) { alert('Error!'); }
+                    });
+                }
+
             }
         }
     );
@@ -38,28 +51,16 @@ let updateLobby = function(data, xhrObj, testStatus){
             break;
         }
     }
-    // Create Piles Popup
-    let createPilesReload = document.getElementById('createPilesPopup').style.display === "";
-    let CPHtml =  $('#createPilesPopup').html();
 
-    // Draw Popup
-    let drawReload = document.getElementById('drawPopup').style.display === "";
-    let drawHtml = $('#drawPopup').html();
-
-
-    let transferReload = document.getElementById('transferCardsPopup').style.display === "";
-    let transferHtml = $('#transferCardsPopup').html();
-
+    // General Popups
     let stateReload = null;
     let stateId = null;
-    if(!transferReload){
-        $('.popup').each(()=>{
-            if($(this).css('display') == "" || $(this).css('display') == "block"){
-                stateReload = $(this).html();
-                stateId = this.id;
-            }
-        });
-    }
+    $('.popup').each(()=>{
+        if($(this).css('display') == "" || $(this).css('display') == "block"){
+            stateReload = $(this).html();
+            stateId = this.id;
+        }
+    });
 
 
     //------------ Reset game room ----------------
@@ -74,21 +75,15 @@ let updateLobby = function(data, xhrObj, testStatus){
     }
 
 
-    // Create Piles Popup
-    if(transferReload){
-        // TODO: replace with element's actual show function, or an alias of it
-        $('#transferCardsPopup').html(transferHtml);
-        document.getElementById('transferCardsPopup').style.display = "";
-    } else if(stateReload != null){
+    // General Popup
+    if(stateReload != null){
         $('#'+stateId).html(stateReload)
         document.getElementById(stateId).style.display="";
-    } else if(createPilesReload){
-        $('#createPilesPopup').html(CPHtml);
-        document.getElementById('createPilesPopup').style.display = "";
-    } else if(drawReload){
-        $('#drawPopup').html(drawHtml);
-        document.getElementById('drawPopup').style.display = "";
     }
 
 
+}
+
+let updateTransferPopup = (data, xhrObj, testStatus) => {
+    $('#transferCardsPopup').empty().html(data).show();
 }
