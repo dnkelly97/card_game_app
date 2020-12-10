@@ -120,7 +120,6 @@ class PilesController < ApplicationController
     redirect_to room_path({:id => params[:room_id]}), flash: { notice: "#{num_cards} card(s) transferred from Deck!"} and return
   end
 
-
   def transfer_card
     begin
       source_pile = Pile.find pile_params[:source_pile_id]

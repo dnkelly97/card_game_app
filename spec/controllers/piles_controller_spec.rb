@@ -3,7 +3,7 @@ require 'spec_helper'
 
 describe PilesController do
   describe 'transferring cards between piles' do
-    before(:all) do
+    before(:each) do
       @room = Room.create_room! name: "Dan's Test Room", max_players: 2, game_type: "ultra fun", private: true
       User.delete_all
       @user = FactoryBot.create(:user)
@@ -28,16 +28,26 @@ describe PilesController do
       expect(response).to redirect_to(room_path({:id => @room.id}))
     end
     it 'should redirect to game room page if source pile not selected' do
-
+      post :transfer_card, params: {room_id: @room.id, pile: {source_pile_id: "", destination_pile_id: @pile2.id}},
+           session: {session_token: @user.session_token}
+      expect(response).to redirect_to(room_path({:id => @room.id}))
     end
     it 'should redirect to the game room page if no cards were selected for transfer' do
-
+      post :transfer_card, params: {room_id: @room.id, pile: {source_pile_id: @pile1.id, destination_pile_id: @pile2.id}},
+           session: {session_token: @user.session_token}
+      expect(response).to redirect_to(room_path({:id => @room.id}))
     end
     it 'should transfer cards from source pile to destination pile' do
-
+      transfer_card = @pile1.cards[1]
+      post :transfer_card, params: {room_id: @room.id, the_cards: {"#{@pile1.cards[1].id}": "on"}, pile: {source_pile_id: @pile1.id, destination_pile_id: @pile2.id}},
+           session: {session_token: @user.session_token}
+      expect(@pile2.cards).to include(transfer_card)
     end
     it 'should change the card counts of the source and destination piles' do
-
+      post :transfer_card, params: {room_id: @room.id, the_cards: {"#{@pile1.cards[1].id}": "on"}, pile: {source_pile_id: @pile1.id, destination_pile_id: @pile2.id}},
+           session: {session_token: @user.session_token}
+      expect(@pile1.cards.count).to eq(1)
+      expect(@pile2.cards.count).to eq(2)
     end
   end
   describe 'creating a new pile' do
