@@ -66,6 +66,13 @@ class RoomsController < ApplicationController
                  {name: "King of Diamonds", pile_id: @pile.id, unicode_value: "1F0CE"}
                 ])
     @room.piles << pile
+
+    general_piles = [1,2,3,4,5,6,7,8,9,10].map{|index| Pile.create(name: "General #{index}", creator: "The Game", private_pile: false, card_count: 0) }
+    general_piles.each { |pile| @room.piles << pile}
+
+    discard_pile = Pile.create(name: "Discard", creator: "The Game", private_pile: false, card_count: 0)
+
+    @room.piles << discard_pile
     @room.save!
     flash[:notice] = "Welcome to your newly created room, #{@room.name}"
     redirect_to room_path(@room)
