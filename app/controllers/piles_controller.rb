@@ -122,14 +122,16 @@ class PilesController < ApplicationController
 
 
   def transfer_card
-    source_pile = Pile.find pile_params[:source_pile_id]
-    destination_pile = Pile.find pile_params[:destination_pile_id]
-    if destination_pile.nil?
-      redirect_to room_path({:id => params[:room_id]}),
-                  flash: { notice: "You must select which pile to transfer cards to. Please try again."} and return
+    begin
+      source_pile = Pile.find pile_params[:source_pile_id]
+      destination_pile = Pile.find pile_params[:destination_pile_id]
+    rescue ActiveRecord::RecordNotFound
+      redirect_to room_path({:id => params[:room_id]}) and return
+      #, notice: "You must select both a source pile and a destination pile. Please try again." and return
     end
     if params[:the_cards].nil?
-      redirect_to room_path({:id => params[:room_id]}), flash: { notice: "No cards selected."} and return
+      redirect_to room_path({:id => params[:room_id]}) and return
+      #, flash: { notice: "No cards selected."} and return
     end
     card_difference = params[:the_cards].keys.count
     destination_pile[:card_count] = destination_pile.cards.count + card_difference
