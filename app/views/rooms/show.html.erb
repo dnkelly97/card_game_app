@@ -4,22 +4,18 @@
 </div>
 <div class="base-room">
   <div class="left-panel">
-    <!--    TODO: Add dynamic button generation -->
-    <Button class="btn btn-outline-dark ">View Player X's Hand</Button>
-    <Button class="btn btn-outline-dark ">View Player X's Hand</Button>
-    <Button class="btn btn-outline-dark ">View Player X's Hand</Button>
-    <Button class="btn btn-outline-dark ">View Player X's Hand</Button>
-    <Button class="btn btn-outline-dark ">View Player X's Hand</Button>
-    <Button class="btn btn-outline-dark ">View Player X's Hand</Button>
-    <Button class="btn btn-outline-dark ">View Player X's Hand</Button>
-    <Button class="btn btn-outline-dark ">View Player X's Hand</Button>
-    <Button class="btn btn-outline-dark ">View Player X's Hand</Button>
-
+<!--    TODO: Add dynamic button generation -->
+    </br>
+    <% @room.piles.select{ |pile| pile.name.include? "'s Hand" }.each do |pile| %>
+      <% if pile.creator != @current_user.user_id %>
+        <%= button_tag "#{pile.name}", type: "button", class: "btn btn-outline-dark", onclick: "show_pile(#{pile.id})"%>
+        </br>
+      <% end %>
+    <% end %>
   </div>
   <div class="center-panel">
-    <div class="top-center-panel">
-      <!--      TODO: Show Pile Interaction Goes Here -->
-      <h2>EXAMPLE: Interacting with players on the left column will show a more detailed view of their hands here</h2>
+    <div class="top-center-panel w3-panel" id="show-pile-panel">
+      <%= render "partials/show_pile" %>
     </div>
     <div class="middle-center-panel">
       <div class="draw-discard">
@@ -79,7 +75,7 @@
   </tr>
   </thead>
   <tbody>
-  <% @piles.each do |pile| %>
+  <% @room.piles.each do |pile| %>
     <% if pile.room_id == @room.id%>
       <tr>
         <td>
