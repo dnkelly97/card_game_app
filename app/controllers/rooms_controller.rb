@@ -84,11 +84,7 @@ class RoomsController < ApplicationController
       else
         suit = card.name.split[2].downcase
       end
-      if card.name.split[0].match(/^\d+$/)
-        card_name = card.name.split[0]
-      else
-        card_name = card.name[0]
-      end
+      card_name = translate_rank(card.name.split[0])
       [card_name, suit]
     end
   end
@@ -117,6 +113,38 @@ class RoomsController < ApplicationController
     rescue ActiveRecord::RecordNotFound
       flash[:warning] = "A room with that code does not exist."
       redirect_to rooms_new_join_path
+    end
+  end
+  
+  private
+  def translate_rank(rank)
+    case rank
+      when "Ace"
+        "A"
+      when "Two"
+        "2"
+      when "Three"
+        "3"
+      when "Four"
+        "4"
+      when "Five"
+        "5"
+      when "Six"
+        "6"
+      when "Seven"
+        "7"
+      when "Eight"
+        "8"
+      when "Nine"
+        "9"
+      when "Ten"
+        "10"
+      when "Jack"
+        "J"
+      when "Queen"
+        "Q"
+      when "King"
+        "K"
     end
   end
 end
