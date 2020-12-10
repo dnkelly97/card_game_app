@@ -57,7 +57,9 @@
       </ul>
       <div class="card-action-buttons">
         <Button type="button" class="btn btn-outline-primary spread-button" onclick="changeCards()">Spread/Unspread Cards</Button>
-        <Button type="button" class="btn btn-outline-primary spread-button" onclick="fanCards()">Fan/Unfan Cards</Button>
+        <% if @fan %>
+          <Button type="button" class="btn btn-outline-primary spread-button" onclick="fanCards()">Fan/Unfan Cards</Button>
+        <% end %>
       </div>
     </div>
   </div>
