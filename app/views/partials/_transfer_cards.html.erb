@@ -1,5 +1,4 @@
-<h3><%= link_to 'Game Room', room_path({:id => params[:room_id]}), :class => 'btn btn-primary' %></h3>
-<h2>Transfer Card!!</h2>
+<h2  data-source-pile="<%= @source_pile.id %>" id="transfer_cards_details_header">Transfer Card!!</h2>
 
   <%= form_tag piles_transfer_card_path({:room_id => params[:room_id], :source_pile_name => @source_pile.name}), :id => 'the_cards_form' do %>
   <table class="table table-striped col-md-12">

@@ -17,8 +17,10 @@ const subscribe_to_room = function(room_number) {
                 // Called when there's incoming data on the websocket for this channel
                 // for each data['pile'], updated cards
                 let transferReload = document.getElementById('transferCardsPopup').style.display === "";
-
-                if(transferReload && data['pile']==$('#the_cards_form').attr('pile')){
+                console.log($('#transfer_cards_details_header').attr('data-source-pile'))
+                console.log(data['pile'])
+                let transferID = data['pile']===$('#transfer_cards_details_header').attr('data-source-pile')
+                if(transferReload && transferID){
                     $.ajax({
                         type: 'GET',
                         url: $('#pile_detail').parent().attr('action'),
