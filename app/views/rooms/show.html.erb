@@ -12,8 +12,6 @@
         </br>
       <% end %>
     <% end %>
-
-
   </div>
   <div class="center-panel">
     <div class="top-center-panel w3-panel" id="show-pile-panel">
@@ -42,7 +40,7 @@
       </div>
     </div>
     <div class="bottom-center-panel">
-<!--      TODO: Replace with dynamically generated hand-->
+      <!--      TODO: Replace with dynamically generated hand-->
       <Button type="button" class="btn blank-card btn-outline-primary">+</Button>
       <Button type="button" class="btn blank-card btn-outline-primary">+</Button>
       <Button type="button" class="btn blank-card btn-outline-primary">+</Button>
@@ -51,7 +49,7 @@
     </div>
   </div>
   <div class="right-panel">
-<!--    <ActionsPanel/>-->
+    <!--    <ActionsPanel/>-->
     <div id="game-actions">
       <Button type="button" class="btn btn-outline-primary">Draw</Button>
       <Button type="button" class="btn btn-outline-primary">Transfer</Button>
@@ -64,3 +62,38 @@
     </div>
   </div>
 </div>
+<br>
+<br>
+<br>
+<table class="table table-striped col-md-12">
+  <thead>
+  <tr>
+    <th>Name</th>
+    <th>Owner</th>
+    <th>Count</th>
+    <th>Cards</th>
+  </tr>
+  </thead>
+  <tbody>
+  <% @piles.each do |pile| %>
+    <% if pile.room_id == @room.id%>
+      <tr>
+        <td>
+          <%= pile.name%>
+        </td>
+        <td>
+          <%= pile.creator%>
+        </td>
+        <td>
+          <%= pile.card_count%>
+        </td>
+        <td>
+          <%= form_tag piles_show_path({:room_id => @room.id, :source_pile_id => pile.id}), :class => 'form' do %>
+            <%= submit_tag 'Details',  :class => 'btn btn-primary', :id => 'pile_details' %>
+          <% end %>
+        </td>
+      </tr>
+    <% end %>
+  <% end %>
+  </tbody>
+</table>

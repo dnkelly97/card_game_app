@@ -1,0 +1,9 @@
+/*Place all the styles related to the UserSessions controller here.
+//They will automatically be included in application.css.
+//You can use Sass (SCSS) here: http://sass-lang.com/ */
+#transferCardsPopup {
+    padding: 2ex;
+    position: absolute;
+    border: 2px double grey;
+    background: darkolivegreen;
+}
