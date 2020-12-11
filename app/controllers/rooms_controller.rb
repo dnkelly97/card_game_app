@@ -77,6 +77,18 @@ class RoomsController < ApplicationController
     id = params[:id]
     @room = Room.find(id)
     @piles = Pile.all
+    user_pile = Pile.where(room_id: @room, creator: @current_user.user_id)[0]
+    user_cards = Card.where(pile_id: user_pile.id)
+    @fan = user_cards.length <= 13
+    @card_list = user_cards.map do |card|
+      if card.name.split[2] == "Diamonds"
+        suit = "diams"
+      else
+        suit = card.name.split[2].downcase
+      end
+      card_name = translate_rank(card.name.split[0])
+      [card_name, suit]
+    end
   end
 
   def new_join
@@ -105,8 +117,36 @@ class RoomsController < ApplicationController
       redirect_to rooms_new_join_path
     end
   end
-
-  def show_piles
-    @piles = Pile.all
+  
+  private
+  def translate_rank(rank)
+    case rank
+      when "Ace"
+        "A"
+      when "Two"
+        "2"
+      when "Three"
+        "3"
+      when "Four"
+        "4"
+      when "Five"
+        "5"
+      when "Six"
+        "6"
+      when "Seven"
+        "7"
+      when "Eight"
+        "8"
+      when "Nine"
+        "9"
+      when "Ten"
+        "10"
+      when "Jack"
+        "J"
+      when "Queen"
+        "Q"
+      when "King"
+        "K"
+    end
   end
 end
