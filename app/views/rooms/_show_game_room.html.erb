@@ -5,21 +5,17 @@
 <div class="base-room">
   <div class="left-panel">
     <!--    TODO: Add dynamic button generation -->
-    <Button class="btn btn-outline-dark ">View Player X's Hand</Button>
-    <Button class="btn btn-outline-dark ">View Player X's Hand</Button>
-    <Button class="btn btn-outline-dark ">View Player X's Hand</Button>
-    <Button class="btn btn-outline-dark ">View Player X's Hand</Button>
-    <Button class="btn btn-outline-dark ">View Player X's Hand</Button>
-    <Button class="btn btn-outline-dark ">View Player X's Hand</Button>
-    <Button class="btn btn-outline-dark ">View Player X's Hand</Button>
-    <Button class="btn btn-outline-dark ">View Player X's Hand</Button>
-    <Button class="btn btn-outline-dark ">View Player X's Hand</Button>
-
+    </br>
+    <% @room.piles.select{ |pile| pile.name.include? "'s Hand" }.each do |pile| %>
+      <% if pile.creator != @current_user.user_id %>
+        <%= button_tag "#{pile.name}", type: "button", class: "btn btn-outline-dark", onclick: "show_pile(#{pile.id})"%>
+        </br>
+      <% end %>
+    <% end %>
   </div>
   <div class="center-panel">
-    <div class="top-center-panel">
-      <!--      TODO: Show Pile Interaction Goes Here -->
-      <h2>EXAMPLE: Interacting with players on the left column will show a more detailed view of their hands here</h2>
+    <div class="top-center-panel w3-panel" id="show-pile-panel">
+      <%= render "partials/show_pile" %>
     </div>
     <div class="middle-center-panel">
       <div class="draw-discard">
@@ -28,6 +24,7 @@
       </div>
       <div class="piles">
         <div class="piles-top">
+          <!--TODO: Add if for if there is a deck here. If yes, use deck prop. If not, display button-->
           <Button type="button" class="btn blank-card btn-outline-secondary">+</Button>
           <Button type="button" class="btn blank-card btn-outline-secondary">+</Button>
           <Button type="button" class="btn blank-card btn-outline-secondary">+</Button>
@@ -43,19 +40,34 @@
         </div>
       </div>
     </div>
-    <div class="bottom-center-panel">
-      <!--      TODO: Replace with dynamically generated hand-->
-      <Button type="button" class="btn blank-card btn-outline-primary">+</Button>
-      <Button type="button" class="btn blank-card btn-outline-primary">+</Button>
-      <Button type="button" class="btn blank-card btn-outline-primary">+</Button>
-      <Button type="button" class="btn blank-card btn-outline-primary">+</Button>
-      <Button type="button" class="btn blank-card btn-outline-primary">+</Button>
+    <div class="playingCards simpleCards faceImages bottom-center-panel" id="root-playing-card">
+      <ul class="hand" id ="users-cards">
+        <% @card_list.each do |card| %>
+          <li>
+            <a class="card rank-<%= card[0] %> <%=card[1]%>">
+              <span class="rank"><%=card[0]%></span>
+              <span class="suit">&<%=card[1]%>;</span>
+            </a>
+          </li>
+        <% end %>
+      </ul>
+      <div class="card-action-buttons">
+        <Button type="button" class="btn btn-outline-primary spread-button" onclick="changeCards()">Spread/Unspread Cards</Button>
+        <% if @fan %>
+          <Button type="button" class="btn btn-outline-primary spread-button" onclick="fanCards()">Fan/Unfan Cards</Button>
+        <% end %>
+      </div>
     </div>
   </div>
   <div class="right-panel">
     <!--    <ActionsPanel/>-->
     <div id="game-actions">
-      <Button type="button" class="btn btn-outline-primary">Draw</Button>
+      <%= form_tag get_from_draw_piles_path({:room_id => @room.id}), :class => 'form' do %>
+        <%= submit_tag 'Draw', :type => "button", :class => 'btn btn-outline-primary', :id => 'draw_button' %>
+      <% end %>
+      <%= form_tag discard_piles_path({:room_id => @room.id}), :class => 'form' do %>
+        <%= submit_tag 'Discard', :type => "button", :class => 'btn btn-outline-primary', :id => 'discard_button' %>
+      <% end %>
       <Button type="button" class="btn btn-outline-primary">Transfer</Button>
       <Button type="button" class="btn btn-outline-primary">Reset Deck</Button>
       <Button type="button" class="btn btn-outline-primary">Show Hand</Button>
@@ -66,3 +78,4 @@
     </div>
   </div>
 </div>
+<br>
