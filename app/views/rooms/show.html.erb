@@ -19,29 +19,64 @@
     </div>
     <div class="middle-center-panel">
       <div class="draw-discard">
-        <Button type="button" class="btn blank-card btn-outline-secondary">Draw Pile</Button>
-        <Button type="button" class="btn blank-card btn-outline-secondary">Discard Pile</Button>
+        <%if @draw_cards.length == 0 %>
+          <Button type="button" class="btn blank-card btn-outline-secondary">Draw Pile</Button>
+        <% else %>
+          <div class="playingCards simpleCards faceImages bottom-center-panel">
+            <ul class="deck" id ="draw">
+              <% @draw_cards.each do |card| %>
+                <li>
+                  <a class="card rank-<%= card[0] %> <%=card[1]%>">
+                    <span class="rank"><%=card[0]%></span>
+                    <span class="suit">&<%=card[1]%>;</span>
+                  </a>
+                </li>
+              <% end %>
+            </ul>
+          </div>
+        <% end %>
+        <%if @discard_cards.length == 0 %>
+          <Button type="button" class="btn blank-card btn-outline-secondary">Discard Pile</Button>
+        <% else %>
+          <div class="playingCards simpleCards faceImages">
+            <ul class="deck" id ="discard">
+              <% @discard_cards.each do |card| %>
+                <li>
+                  <a class="card rank-<%= card[0] %> <%=card[1]%>">
+                    <span class="rank"><%=card[0]%></span>
+                    <span class="suit">&<%=card[1]%>;</span>
+                  </a>
+                </li>
+              <% end %>
+            </ul>
+          </div>
+        <% end %>
+
       </div>
       <div class="piles">
-        <div class="piles-top">
-          <Button type="button" class="btn blank-card btn-outline-secondary">+</Button>
-          <Button type="button" class="btn blank-card btn-outline-secondary">+</Button>
-          <Button type="button" class="btn blank-card btn-outline-secondary">+</Button>
-          <Button type="button" class="btn blank-card btn-outline-secondary">+</Button>
-          <Button type="button" class="btn blank-card btn-outline-secondary">+</Button>
-        </div>
-        <div class="piles-bottom">
-          <Button type="button" class="btn blank-card btn-outline-secondary">+</Button>
-          <Button type="button" class="btn blank-card btn-outline-secondary">+</Button>
-          <Button type="button" class="btn blank-card btn-outline-secondary">+</Button>
-          <Button type="button" class="btn blank-card btn-outline-secondary">+</Button>
-          <Button type="button" class="btn blank-card btn-outline-secondary">+</Button>
-        </div>
+        <%= @center_piles %>
+        <%  @center_piles.keys.each do |pile_name|%>
+          <% if @center_piles[pile_name].empty? %>
+            <Button type="button" class="btn blank-card btn-outline-primary">+</Button>
+          <% else %>
+            <div class="playingCards simpleCards faceImages">
+              <ul class="deck" id =<% pile_name %>>
+                <% @center_piles[pile_name].each do |card| %>
+                  <li>
+                    <a class="card rank-<%= card[0] %> <%=card[1]%>">
+                      <span class="rank"><%=card[0]%></span>
+                      <span class="suit">&<%=card[1]%>;</span>
+                    </a>
+                  </li>
+                <% end %>
+              </ul>
+            </div>
+          <% end %>
+      <% end %>
       </div>
     </div>
     <div class="bottom-center-panel">
       <!--      TODO: Replace with dynamically generated hand-->
-      <Button type="button" class="btn blank-card btn-outline-primary">+</Button>
       <Button type="button" class="btn blank-card btn-outline-primary">+</Button>
       <Button type="button" class="btn blank-card btn-outline-primary">+</Button>
       <Button type="button" class="btn blank-card btn-outline-primary">+</Button>
