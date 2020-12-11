@@ -59,7 +59,7 @@
       <Button type="button" class="btn btn-outline-primary">Transfer</Button>
       <Button type="button" class="btn btn-outline-primary">Reset Deck</Button>
 
-      <%= form_tag rooms_show_hand_path, :class => 'form' do %>
+      <%= form_tag rooms_show_hand_path, :class => 'button_to', id: 'show_hand_form', :xhr => true do %>
         <%= submit_tag "Show Hand", onclick: "show_hand()", :class => 'btn btn-primary' %>
       <% end %>
     </div>

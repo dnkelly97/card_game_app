@@ -119,5 +119,8 @@ class RoomsController < ApplicationController
       pile.private_pile = true
       pile.save
     end
+    p 'YOOOOOOOOOOOOOOOOO---------------------------------------------------------'
+    p request.xhr?
+    render partial: 'partials/show_hand' if request.xhr?
   end
 end
