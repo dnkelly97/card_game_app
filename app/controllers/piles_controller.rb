@@ -95,7 +95,7 @@ class PilesController < ApplicationController
     # redirect_to room_path({:id => room_id}) and return
   end
 
-  def show
+  def show_transfer
     @piles = Room.find_by_id(params[:room_id]).piles
     render(partial: 'partials/transfer_cards') if request.xhr?
   end
@@ -125,20 +125,11 @@ class PilesController < ApplicationController
       destination_pile = Pile.find pile_params[:destination_pile_id]
     rescue ActiveRecord::RecordNotFound
       redirect_to room_path({:id => params[:room_id]}) and return
-      #, notice: "You must select both a source pile and a destination pile. Please try again." and return
     end
     if params[:the_cards].nil?
       redirect_to room_path({:id => params[:room_id]}) and return
-      #, flash: { notice: "No cards selected."} and return
     end
-    card_difference = params[:the_cards].keys.count
-    destination_pile[:card_count] = destination_pile.cards.count + card_difference
-    source_pile[:card_count] = source_pile.cards.count - card_difference
-    destination_pile.save
-    source_pile.save
-    params[:the_cards].keys.each do |card|
-      destination_pile.cards << Card.find_by(id: card)
-    end
+    Pile.transfer(source_pile, destination_pile, params[:the_cards])
   end
 
   def get_from_draw
@@ -161,14 +152,7 @@ class PilesController < ApplicationController
     if params[:the_cards].nil?
       redirect_to room_path({:id => params[:room_id]}), flash: { notice: "No cards selected"} and return
     end
-    card_difference = params[:the_cards].keys.count
-    @destination_pile[:card_count] = @destination_pile.cards.count + card_difference
-    source_pile[:card_count] = source_pile.cards.count - card_difference
-    @destination_pile.save
-    source_pile.save
-    params[:the_cards].keys.each do |card|
-      @destination_pile.cards << Card.find_by(id: card)
-    end
+    Pile.transfer source_pile, @destination_pile, params[:the_cards]
     redirect_to room_path({:id => params[:room_id]}), flash: { notice: "Card(s) successfully discarded!"}
   end
 
