@@ -75,12 +75,23 @@
       <% end %>
       </div>
     </div>
-    <div class="bottom-center-panel">
-      <!--      TODO: Replace with dynamically generated hand-->
-      <Button type="button" class="btn blank-card btn-outline-primary">+</Button>
-      <Button type="button" class="btn blank-card btn-outline-primary">+</Button>
-      <Button type="button" class="btn blank-card btn-outline-primary">+</Button>
-      <Button type="button" class="btn blank-card btn-outline-primary">+</Button>
+    <div class="playingCards simpleCards faceImages bottom-center-panel" id="root-playing-card">
+      <ul class="hand" id ="users-cards">
+        <% @card_list.each do |card| %>
+        <li>
+            <a class="card rank-<%= card[0] %> <%=card[1]%>">
+              <span class="rank"><%=card[0]%></span>
+              <span class="suit">&<%=card[1]%>;</span>
+            </a>
+        </li>
+      <% end %>
+      </ul>
+      <div class="card-action-buttons">
+        <Button type="button" class="btn btn-outline-primary spread-button" onclick="changeCards()">Spread/Unspread Cards</Button>
+        <% if @fan %>
+          <Button type="button" class="btn btn-outline-primary spread-button" onclick="fanCards()">Fan/Unfan Cards</Button>
+        <% end %>
+      </div>
     </div>
   </div>
   <div class="right-panel">
