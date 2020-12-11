@@ -1,6 +1,6 @@
 let TransferCardsPopup = {
     setup: function() {
-        let popupDive = $('<div id="transferCardsPopup"></div>');
+        let popupDive = $('<div id="transferCardsPopup" class="popup"></div>');
         popupDive.hide().appendTo($('body'));
         $(document).on('click', '#pile_details', TransferCardsPopup.getCardInfo)
     },
@@ -16,10 +16,8 @@ let TransferCardsPopup = {
     },
     showCards: function (data, requestStatus, xhrObject) {
         console.log("Hello")
-        let oneFourth = Math.ceil($(window).width()/4);
         $('#MainWindow').css({'opacity': 0.4})
-        $('#transferCardsPopup').
-        css({'left': oneFourth,'width': 2*oneFourth, 'top':250, 'opacity': 1.0}).html(data).show();
+        $('#transferCardsPopup').html(data).show();
         $(document).on('click', '#cancel', TransferCardsPopup.hideTransfer);
         $('#pile_details').prop("disabled", true);
         return(false);

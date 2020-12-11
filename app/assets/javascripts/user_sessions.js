@@ -17,7 +17,6 @@ let LoginPopup = {
     },
     showLogin: function (data, requestStatus, xhrObject) {
         console.log("Hello")
-        let oneFourth = Math.ceil($(window).width()/4);
         $('#MainWindow').css({'opacity': 0.4})
         $('#loginPopup').html(data).show();
         $(document).on('click', '#cancelLogin', LoginPopup.hideLogin);

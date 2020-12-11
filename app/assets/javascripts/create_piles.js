@@ -1,7 +1,7 @@
 
 let CreatePilesPopup = {
     setup: function() {
-        let popupDive = $('<div id="createPilesPopup"></div>');
+        let popupDive = $('<div id="createPilesPopup" class="popup"></div>');
         popupDive.hide().appendTo($('body'));
         $(document).on('click', '#create_pile', CreatePilesPopup.showPileForm)
     },
@@ -16,10 +16,8 @@ let CreatePilesPopup = {
         return(false);
     },
     fillForm: function (data, requestStatus, xhrObject) {
-        let oneFourth = Math.ceil($(window).width()/4);
         $('#MainWindow').css({'opacity': 0.4})
-        $('#createPilesPopup').
-        css({'left': oneFourth,'width': 2*oneFourth, 'top':250, 'opacity': 1.0}).html(data).show();
+        $('#createPilesPopup').html(data).show();
         $(document).on('click', '#cancel', CreatePilesPopup.hideForm);
         $('#create_pile').prop("disabled", true);
         return(false);
