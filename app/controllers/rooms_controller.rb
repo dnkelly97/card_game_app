@@ -70,7 +70,7 @@ class RoomsController < ApplicationController
     @room.piles << pile
 
     [1,2,3,4,5,6,7,8,9,10].map{|index| Pile.create(name: "General #{index}", creator: "The Game", private_pile: false, card_count: 0, room_id: @room.id) }
-    Pile.create(name: "Discard", creator: "The Game", private_pile: false, card_count: 0, room_id: @room.id)
+    Pile.create(name: "Discard Pile", creator: "The Game", private_pile: false, card_count: 0, room_id: @room.id)
 
     @room.save!
     flash[:notice] = "Welcome to your newly created room, #{@room.name}"
@@ -82,7 +82,7 @@ class RoomsController < ApplicationController
     @room = Room.find(id)
     @draw_pile = Pile.where(room_id: @room.id, name: "Deck", creator: "The Game").first
     @draw_cards = translate_cards_to_array(Card.where(pile_id: @draw_pile.id))
-    @discard_pile = Pile.where(room_id: @room.id, name: "Discard", creator: "The Game").first
+    @discard_pile = Pile.where(room_id: @room.id, name: "Discard Pile", creator: "The Game").first
     @discard_cards = translate_cards_to_array(Card.where(pile_id: @discard_pile.id))
     @center_piles = {}
     # Pile.where("name = ? AND room_id = ? AND creator = ?", "%General%",  @room.id, "The Game").each do |pile|
