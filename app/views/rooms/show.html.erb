@@ -19,27 +19,29 @@
     </div>
     <div class="middle-center-panel">
       <div class="draw-discard">
-        <%if @draw_cards.length == 0 %>
-          <Button type="button" class="btn blank-card btn-outline-secondary">Draw Pile</Button>
-        <% else %>
-          <div class="playingCards simpleCards faceImages bottom-center-panel">
-            <ul class="deck" id ="draw">
+        <div class="playingCards simpleCards faceImages">
+          <ul class="deck" id ="draw">
+            <% if @draw_cards.empty? %>
+              <a class="card cardOutline">+</a>
+            <% else %>
               <% @draw_cards.each do |card| %>
                 <li>
-                  <a class="card rank-<%= card[0] %> <%=card[1]%>">
-                    <span class="rank"><%=card[0]%></span>
-                    <span class="suit">&<%=card[1]%>;</span>
-                  </a>
+<!--                  TODO: Add this back if we flip the deck to face up-->
+<!--                 <a class="card rank-<%#= card[0] %> <%#=card[1]%>">-->
+<!--                    <span class="rank"><%#=card[0]%></span>-->
+<!--                    <span class="suit">&<%#=card[1]%>;</span>-->
+<!--                  </a> -->
+                  <a class="card back"></a>
                 </li>
               <% end %>
-            </ul>
-          </div>
-        <% end %>
-        <%if @discard_cards.length == 0 %>
-          <Button type="button" class="btn blank-card btn-outline-secondary">Discard Pile</Button>
-        <% else %>
-          <div class="playingCards simpleCards faceImages">
-            <ul class="deck" id ="discard">
+            <% end %>
+          </ul>
+        </div>
+        <div class="playingCards simpleCards faceImages">
+          <ul class="deck" id ="discard">
+            <% if @discard_cards.empty? %>
+              <a class="card cardOutline">X</a>
+            <% else %>
               <% @discard_cards.each do |card| %>
                 <li>
                   <a class="card rank-<%= card[0] %> <%=card[1]%>">
@@ -48,19 +50,19 @@
                   </a>
                 </li>
               <% end %>
-            </ul>
-          </div>
-        <% end %>
+            <% end %>
+          </ul>
+        </div>
 
       </div>
       <div class="piles">
-        <%= @center_piles %>
         <%  @center_piles.keys.each do |pile_name|%>
-          <% if @center_piles[pile_name].empty? %>
-            <Button type="button" class="btn blank-card btn-outline-primary">+</Button>
-          <% else %>
-            <div class="playingCards simpleCards faceImages">
-              <ul class="deck" id =<% pile_name %>>
+
+          <div class="playingCards simpleCards faceImages">
+            <ul class="deck" id =<% pile_name %>>
+              <% if @center_piles[pile_name].empty? %>
+                <a class="card cardOutline">+</a>
+              <% else %>
                 <% @center_piles[pile_name].each do |card| %>
                   <li>
                     <a class="card rank-<%= card[0] %> <%=card[1]%>">
@@ -69,10 +71,10 @@
                     </a>
                   </li>
                 <% end %>
-              </ul>
-            </div>
-          <% end %>
-      <% end %>
+              <% end %>
+            </ul>
+          </div>
+        <% end %>
       </div>
     </div>
     <div class="playingCards simpleCards faceImages bottom-center-panel" id="root-playing-card">
