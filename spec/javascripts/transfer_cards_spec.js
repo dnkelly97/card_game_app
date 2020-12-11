@@ -1,4 +1,3 @@
-//this is simply a duplicate of user_sessions_rspec
 describe('TransferCardsPopup', function(){
 
         describe('setup', function (){
@@ -9,13 +8,13 @@ describe('TransferCardsPopup', function(){
                 expect($('#transferCardsPopup')).toBeHidden;
             });
         });
-        describe('Clicking login function', function (){
+        describe('Clicking transfer card function', function (){
 
             it('calls correct URL', function(){
                 loadFixtures("transfer_card.html");
                 spyOn($, 'ajax');
                 $('#pile_details').trigger('click');
-                expect($.ajax.calls.mostRecent().args[0]['url']).toEqual('/piles_show');
+                expect($.ajax.calls.mostRecent().args[0]['url']).toEqual('/show_pile_piles');
             });
             describe('when successful server call', function (){
                 beforeEach(function (){
