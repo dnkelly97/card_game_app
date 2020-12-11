@@ -4,7 +4,6 @@
 </div>
 <div class="base-room">
   <div class="left-panel">
-    <!--    TODO: Add dynamic button generation -->
     </br>
     <% @room.piles.select{ |pile| pile.name.include? "'s Hand" }.each do |pile| %>
       <% if pile.creator != @current_user.user_id %>
