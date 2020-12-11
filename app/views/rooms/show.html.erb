@@ -61,9 +61,6 @@
       <%= form_tag discard_piles_path({:room_id => @room.id}), :class => 'form' do %>
         <%= submit_tag 'Discard',  :class => 'btn btn-primary', :id => 'discard_button' %>
       <% end %>
-      <%= form_tag create_pile_path({:room_id => @room.id}), :class => 'form' do %>
-        <%= submit_tag 'Create New Pile',  :class => 'btn btn-primary', :id => 'create_pile' %>
-      <% end %>
       <Button type="button" class="btn btn-outline-primary">Transfer</Button>
       <Button type="button" class="btn btn-outline-primary">Reset Deck</Button>
       <Button type="button" class="btn btn-outline-primary">Show Hand</Button>
