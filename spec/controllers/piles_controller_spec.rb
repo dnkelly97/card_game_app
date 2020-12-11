@@ -67,11 +67,11 @@ describe PilesController do
       Card.delete_all
     end
     it 'should assign the piles belonging to the room to an instance variable @piles' do
-      post :show, params: { room_id: @room.id }, session: {session_token: @user.session_token}, xhr: true
+      get :show_transfer, params: { room_id: @room.id }, session: {session_token: @user.session_token}, xhr: true
       expect(assigns(:piles)).to eq(@room.piles)
     end
     it 'should render the _transfer_cards partial for ajax requests' do
-      post :show, params: { room_id: @room.id }, session: {session_token: @user.session_token}, xhr: true
+      get :show_transfer, params: { room_id: @room.id }, session: {session_token: @user.session_token}, xhr: true
       expect(response).to render_template(:partial => 'partials/_transfer_cards')
     end
   end

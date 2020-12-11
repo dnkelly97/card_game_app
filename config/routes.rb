@@ -27,7 +27,7 @@ Rails.application.routes.draw do
     collection do
       get 'get_from_draw'
       get 'discard'
-      get 'show_pile'
+      get 'show_transfer'
       post 'draw_cards_from_deck'
       post 'transfer_card'
       post 'transfer_to_discard'
