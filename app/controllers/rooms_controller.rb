@@ -85,7 +85,6 @@ class RoomsController < ApplicationController
     @discard_pile = Pile.where(room_id: @room.id, name: "Discard Pile", creator: "The Game").first
     @discard_cards = translate_cards_to_array(Card.where(pile_id: @discard_pile.id))
     @center_piles = {}
-    # Pile.where("name = ? AND room_id = ? AND creator = ?", "%General%",  @room.id, "The Game").each do |pile|
     Pile.where(:room_id => @room, :creator => "The Game").each do |pile|
       if pile.name.include?("General")
         cards_in_pile = translate_cards_to_array(Card.where(pile_id: pile.id))
