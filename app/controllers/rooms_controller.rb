@@ -67,12 +67,9 @@ class RoomsController < ApplicationController
                 ])
     @room.piles << pile
 
-    general_piles = [1,2,3,4,5,6,7,8,9,10].map{|index| Pile.create(name: "General #{index}", creator: "The Game", private_pile: false, card_count: 0) }
-    general_piles.each { |pile| @room.piles << pile}
+    [1,2,3,4,5,6,7,8,9,10].map{|index| Pile.create(name: "General #{index}", creator: "The Game", private_pile: false, card_count: 0, room_id: @room.id) }
+    Pile.create(name: "Discard", creator: "The Game", private_pile: false, card_count: 0, room_id: @room.id)
 
-    discard_pile = Pile.create(name: "Discard", creator: "The Game", private_pile: false, card_count: 0)
-
-    @room.piles << discard_pile
     @room.save!
     flash[:notice] = "Welcome to your newly created room, #{@room.name}"
     redirect_to room_path(@room)
@@ -81,6 +78,18 @@ class RoomsController < ApplicationController
   def show
     id = params[:id]
     @room = Room.find(id)
+    @draw_pile = Pile.where(room_id: @room.id, name: "Deck", creator: "The Game").first
+    @draw_cards = translate_cards_to_array(Card.where(pile_id: @draw_pile.id))
+    @discard_pile = Pile.where(room_id: @room.id, name: "Discard", creator: "The Game").first
+    @discard_cards = translate_cards_to_array(Card.where(pile_id: @discard_pile.id))
+    @center_piles = {}
+    # Pile.where("name = ? AND room_id = ? AND creator = ?", "%General%",  @room.id, "The Game").each do |pile|
+    Pile.where(:room_id => @room, :creator => "The Game").each do |pile|
+      if pile.name.include?("General")
+        cards_in_pile = translate_cards_to_array(Card.where(pile_id: pile.id))
+        @center_piles[pile.name] = cards_in_pile
+      end
+    end
   end
 
   def new_join
@@ -107,6 +116,23 @@ class RoomsController < ApplicationController
     rescue ActiveRecord::RecordNotFound
       flash[:warning] = "A room with that code does not exist."
       redirect_to rooms_new_join_path
+    end
+  end
+
+  private
+  def translate_cards_to_array(card_list)
+    card_list.map do |card|
+      if card.name.split[2] == "Diamonds"
+        suit = "diams"
+      else
+        suit = card.name.split[2].downcase
+      end
+      if card.name.split[0].match(/^\d+$/)
+        card_name = card.name.split[0]
+      else
+        card_name = card.name[0]
+      end
+      [card_name, suit]
     end
   end
 end
