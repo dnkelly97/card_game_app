@@ -136,3 +136,9 @@
   width: 95%;
   transform: translate(2.5%)
 }
+
+.card-action-buttons {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+}
