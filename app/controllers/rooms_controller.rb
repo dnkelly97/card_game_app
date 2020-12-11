@@ -8,6 +8,9 @@ class RoomsController < ApplicationController
                          :max_players => params[:max_players],
                          :game_type => params[:game_type],
                          :private => params[:private])
+    if @room.max_players.nil?
+      @room.max_players = 5
+    end
     @room.users << @current_user
     pile = Pile.create(name: "#{@current_user.user_id}'s Hand", creator: @current_user.user_id, private_pile: true, card_count: 0)
     @pile = Pile.create!(name: "Deck", creator: "The Game", private_pile: true, card_count: 52, room_id: @room.id)
