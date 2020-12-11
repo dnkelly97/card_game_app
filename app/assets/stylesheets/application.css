@@ -65,3 +65,15 @@ input[type=submit]:hover {
     margin: 1em 0;
     padding: 4px;
 }
+
+.popup {
+    /* https://css-tricks.com/quick-css-trick-how-to-center-an-object-exactly-in-the-center/ */
+    background: darkolivegreen;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    /* bring your own prefixes */
+    transform: translate(-50%, -50%);
+    padding: 2ex;
+    border: 2px double grey;
+}

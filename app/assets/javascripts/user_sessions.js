@@ -1,7 +1,7 @@
 
 let LoginPopup = {
     setup: function() {
-      let popupDive = $('<div id="loginPopup"></div>');
+      let popupDive = $('<div id="loginPopup" class="popup"></div>');
       popupDive.hide().appendTo($('body'));
       $(document).on('click', '#signupLogin', LoginPopup.getLoginInfo)
     },
@@ -19,8 +19,7 @@ let LoginPopup = {
         console.log("Hello")
         let oneFourth = Math.ceil($(window).width()/4);
         $('#MainWindow').css({'opacity': 0.4})
-        $('#loginPopup').
-            css({'left': oneFourth,'width': 2*oneFourth, 'top':250, 'opacity': 1.0}).html(data).show();
+        $('#loginPopup').html(data).show();
         $(document).on('click', '#cancelLogin', LoginPopup.hideLogin);
         $('#signupLogin').prop("disabled", true);
         return(false);
@@ -33,4 +32,3 @@ let LoginPopup = {
         return(false);
     }
 };
-jQuery(LoginPopup.setup);
