@@ -89,6 +89,7 @@ class RoomsController < ApplicationController
       card_name = translate_rank(card.name.split[0])
       [card_name, suit]
     end
+    render partial: 'show_game_room' if request.xhr?
   end
 
   def new_join
