@@ -78,10 +78,37 @@ describe PilesController do
 
   describe 'creating a new pile' do
     it 'Should create a new pile if provided valid info' do
-      test_params = { pile: { name: 'gabes hand', creator: "gabe", private_pile: true, card_count: 0, room_id: 1 } }
+      test_params = { pile: { name: 'gabes hand', creator: 'gabe', private_pile: true, card_count: 0, room_id: 1 } }
       post :create, params: test_params
       expect(response.status).to eq(302)
       expect(flash[:notice]).to be_present #include?('Your account was successfully created.')).to be_truthy
     end
   end
+  describe 'transferring cards from piles' do
+    before(:all) do
+      Room.delete_all
+      Pile.delete_all
+      User.delete_all
+      @room = FactoryBot.create(:room)
+      @pile = FactoryBot.create(:pile, room_id: @room.id)
+      @user = FactoryBot.create(:user, room_id: @room.id)
+
+      Pile.create({ name: "#{@user.user_id}'s Hand",
+                    creator: @user.user_id, room_id: @room.id,
+                    card_count: 0, private_pile: false } )
+      @pile.cards << FactoryBot.create_list(:card, 52)
+    end
+    it 'should work when drawing cards' do
+      allow(Pile).to receive(:create!).and_return(@pile)
+      post :draw_cards_from_deck,
+           params: {room_id: @room.id, pile: { num_cards: '3'}},
+           session: {session_token: @user.session_token}
+
+      #Pile.find_by(name: "#{@current_user.user_id}'s Hand", room_id: params[:room_id])
+      @hand = Pile.find_by_creator(@user.user_id)
+      expect(@hand.card_count).to be(3)
+      expect(response).to redirect_to(room_path({id: @room.id}))
+    end
+  end
+
 end
