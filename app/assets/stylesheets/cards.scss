@@ -45,7 +45,8 @@
 }
 /* selected and hover state */
 .playingCards a.card:hover, .playingCards a.card:active, .playingCards a.card:focus,
-.playingCards label.card:hover,
+.playingCards label.card:hover, .playingCards button.card.hover, .playingCards button.card.active,
+.playingCards button.card.active,
 .playingCards strong .card {
     bottom: 1em;
 }
