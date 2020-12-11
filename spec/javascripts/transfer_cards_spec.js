@@ -9,18 +9,11 @@ describe('TransferCardsPopup', function(){
                 expect($('#transferCardsPopup')).toBeHidden;
             });
         });
-        describe('Clicking login function', function (){
-
-            it('calls correct URL', function(){
-                loadFixtures("transfer_card.html");
-                spyOn($, 'ajax');
-                $('#initiate_transfer_button').trigger('click');
-                expect($.ajax.calls.mostRecent().args[0]['url']).toEqual('/piles/show');
-            });
+        describe('Clicking transfer button', function (){
             describe('when successful server call', function (){
                 beforeEach(function (){
                     let fixture = setFixtures('<div class="form"/>');
-                    let fixHtml = fixture.find('.form');
+                    let fixHtml = fixture.find('#transfer_cards');
                     // Last fixture loaded will be the document DOM. If putting this before let fixture, then
                     // dashboard.html would not exist as the document anymore
                     loadFixtures("transfer_card.html");
@@ -37,7 +30,6 @@ describe('TransferCardsPopup', function(){
                     $(fixHtml2).trigger('click');
                     expect($('#transferCardsPopup')).toBeHidden();
                 });
-
             });
         });
     }

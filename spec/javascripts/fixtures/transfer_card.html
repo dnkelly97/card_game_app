@@ -1,12 +1,558 @@
+<!--<!DOCTYPE html>-->
+<!--<html lang="en">-->
+<!--<head>-->
+<!--    <meta charset="UTF-8">-->
+<!--    <title>Title</title>-->
+<!--</head>-->
+<!--<body>-->
+<!--<form class="button_to" method="post" action="/piles_show">-->
+<!--    <input class="btn btn-primary" id="pile_details" type="submit" value="Details">-->
+<!--</form>-->
+<!--</body>-->
+<!--</html>-->
+
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
+<html>
+<header>
+    <h1><a class="btn btn-primary" href="/">Home</a></h1>
+</header>
 <body>
-<form class="button_to" method="post" action="/piles_show">
-    <input class="btn btn-primary" id="pile_details" type="submit" value="Details">
-</form>
+<div id="MainWindow">
+    <div class="base-room">
+        <div class="right-panel">
+            <!--    <ActionsPanel/>-->
+            <div id="game-actions">
+                <Button type="button" class="btn btn-outline-primary">Draw</Button>
+                <Button type="button" class="btn btn-outline-primary" id="initiate_transfer_button" action= /piles/show?room_id=3>Transfer</Button>
+                <Button type="button" class="btn btn-outline-primary">Reset Deck</Button>
+                <Button type="button" class="btn btn-outline-primary">Show Hand</Button>
+            </div>
+            <div id="dangerous-game-actions">
+                <Button type="button" class="btn btn-danger">Reset Game</Button>
+                <Button type="button" class="btn btn-danger">Quit Game</Button>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<div id="transferCardsPopup" style="display: none; left: 316px; width: 632px; top: 77px; opacity: 1;"><h3 style="color: white;">Transfer Card!!</h3>
+
+    <form id="transfer_cards_form" action="/piles/transfer_card?room_id=3" accept-charset="UTF-8" data-remote="true" method="post"><input name="utf8" type="hidden" value="✓"><input type="hidden" name="authenticity_token" value="A1J6KxNHQYyc5LDvxr2pY+K7VJ79AuZ+rOZ24fezhWDKpUnI2SwpAPEcAzFQI1KGqoCoBFX95OLQOTwLf7gjVg==">
+        <label class="row-form-label" style="color: white" for="pile_source_pile_name">Transfer From:</label>
+        <select name="pile[source_pile_id]" id="pile_source_pile_id"><option value=""></option>
+            <option value="5">dan's Hand</option>
+            <option value="7">p1</option>
+            <option value="11">jacob's Hand</option>
+            <option value="12">dan's Hand</option></select>
+        <label class="row-form-label" style="color: white" for="pile_destination_pile_name">To:</label>
+        <select name="pile[destination_pile_id]" id="pile_destination_pile_id"><option value=""></option>
+            <option value="5">dan's Hand</option>
+            <option value="6">Deck</option>
+            <option value="7">p1</option>
+            <option value="11">jacob's Hand</option>
+            <option value="12">dan's Hand</option></select>
+        <p style="color: white;">Cards to Transfer:</p>
+        <div style="padding-top: 5px; padding-bottom: 5px; height: 210px; overflow-y: auto; display: none;">
+            <table class="table table-striped card-table col-md-12" id="pile_table_5" style="display:table;">
+                <tbody>
+                <tr>
+                    <td style="color:white;">
+                        <span style="font-size:25px; padding-right: 5px;">🂢</span>
+                        Two of Spades
+                    </td>
+                    <td>
+                        <input type="checkbox" name="the_cards[106]" id="checkbox_Two of Spades">
+                    </td>
+                </tr>
+                <tr>
+                    <td style="color:white;">
+                        <span style="font-size:25px; padding-right: 5px;">🂣</span>
+                        Three of Spades
+                    </td>
+                    <td>
+                        <input type="checkbox" name="the_cards[107]" id="checkbox_Three of Spades">
+                    </td>
+                </tr>
+                <tr>
+                    <td style="color:white;">
+                        <span style="font-size:25px; padding-right: 5px;">🂤</span>
+                        Four of Spades
+                    </td>
+                    <td>
+                        <input type="checkbox" name="the_cards[108]" id="checkbox_Four of Spades">
+                    </td>
+                </tr>
+                <tr>
+                    <td style="color:white;">
+                        <span style="font-size:25px; padding-right: 5px;">🂥</span>
+                        Five of Spades
+                    </td>
+                    <td>
+                        <input type="checkbox" name="the_cards[109]" id="checkbox_Five of Spades">
+                    </td>
+                </tr>
+                <tr>
+                    <td style="color:white;">
+                        <span style="font-size:25px; padding-right: 5px;">🂦</span>
+                        Six of Spades
+                    </td>
+                    <td>
+                        <input type="checkbox" name="the_cards[110]" id="checkbox_Six of Spades">
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div style="padding-top: 5px; padding-bottom: 5px; height: 210px; overflow-y: auto; display: none;">
+            <table class="table table-striped card-table col-md-12" id="pile_table_6" style="display:table;">
+                <tbody>
+                <tr>
+                    <td style="color:white;">
+                        <span style="font-size:25px; padding-right: 5px;">🃴</span>
+                        Facedown Card
+                    </td>
+                    <td>
+                        <input type="checkbox" name="the_cards[111]" id="checkbox_Seven of Spades">
+                    </td>
+                </tr>
+                <tr>
+                    <td style="color:white;">
+                        <span style="font-size:25px; padding-right: 5px;">🃴</span>
+                        Facedown Card
+                    </td>
+                    <td>
+                        <input type="checkbox" name="the_cards[113]" id="checkbox_Nine of Spades">
+                    </td>
+                </tr>
+                <tr>
+                    <td style="color:white;">
+                        <span style="font-size:25px; padding-right: 5px;">🃴</span>
+                        Facedown Card
+                    </td>
+                    <td>
+                        <input type="checkbox" name="the_cards[114]" id="checkbox_Ten of Spades">
+                    </td>
+                </tr>
+                <tr>
+                    <td style="color:white;">
+                        <span style="font-size:25px; padding-right: 5px;">🃴</span>
+                        Facedown Card
+                    </td>
+                    <td>
+                        <input type="checkbox" name="the_cards[115]" id="checkbox_Jack of Spades">
+                    </td>
+                </tr>
+                <tr>
+                    <td style="color:white;">
+                        <span style="font-size:25px; padding-right: 5px;">🃴</span>
+                        Facedown Card
+                    </td>
+                    <td>
+                        <input type="checkbox" name="the_cards[116]" id="checkbox_Queen of Spades">
+                    </td>
+                </tr>
+                <tr>
+                    <td style="color:white;">
+                        <span style="font-size:25px; padding-right: 5px;">🃴</span>
+                        Facedown Card
+                    </td>
+                    <td>
+                        <input type="checkbox" name="the_cards[117]" id="checkbox_King of Spades">
+                    </td>
+                </tr>
+                <tr>
+                    <td style="color:white;">
+                        <span style="font-size:25px; padding-right: 5px;">🃴</span>
+                        Facedown Card
+                    </td>
+                    <td>
+                        <input type="checkbox" name="the_cards[118]" id="checkbox_Ace of Hearts">
+                    </td>
+                </tr>
+                <tr>
+                    <td style="color:white;">
+                        <span style="font-size:25px; padding-right: 5px;">🃴</span>
+                        Facedown Card
+                    </td>
+                    <td>
+                        <input type="checkbox" name="the_cards[119]" id="checkbox_Two of Hearts">
+                    </td>
+                </tr>
+                <tr>
+                    <td style="color:white;">
+                        <span style="font-size:25px; padding-right: 5px;">🃴</span>
+                        Facedown Card
+                    </td>
+                    <td>
+                        <input type="checkbox" name="the_cards[120]" id="checkbox_Three of Hearts">
+                    </td>
+                </tr>
+                <tr>
+                    <td style="color:white;">
+                        <span style="font-size:25px; padding-right: 5px;">🃴</span>
+                        Facedown Card
+                    </td>
+                    <td>
+                        <input type="checkbox" name="the_cards[121]" id="checkbox_Four of Hearts">
+                    </td>
+                </tr>
+                <tr>
+                    <td style="color:white;">
+                        <span style="font-size:25px; padding-right: 5px;">🃴</span>
+                        Facedown Card
+                    </td>
+                    <td>
+                        <input type="checkbox" name="the_cards[122]" id="checkbox_Five of Hearts">
+                    </td>
+                </tr>
+                <tr>
+                    <td style="color:white;">
+                        <span style="font-size:25px; padding-right: 5px;">🃴</span>
+                        Facedown Card
+                    </td>
+                    <td>
+                        <input type="checkbox" name="the_cards[123]" id="checkbox_Six of Hearts">
+                    </td>
+                </tr>
+                <tr>
+                    <td style="color:white;">
+                        <span style="font-size:25px; padding-right: 5px;">🃴</span>
+                        Facedown Card
+                    </td>
+                    <td>
+                        <input type="checkbox" name="the_cards[124]" id="checkbox_Seven of Hearts">
+                    </td>
+                </tr>
+                <tr>
+                    <td style="color:white;">
+                        <span style="font-size:25px; padding-right: 5px;">🃴</span>
+                        Facedown Card
+                    </td>
+                    <td>
+                        <input type="checkbox" name="the_cards[125]" id="checkbox_Eight of Hearts">
+                    </td>
+                </tr>
+                <tr>
+                    <td style="color:white;">
+                        <span style="font-size:25px; padding-right: 5px;">🃴</span>
+                        Facedown Card
+                    </td>
+                    <td>
+                        <input type="checkbox" name="the_cards[126]" id="checkbox_Nine of Hearts">
+                    </td>
+                </tr>
+                <tr>
+                    <td style="color:white;">
+                        <span style="font-size:25px; padding-right: 5px;">🃴</span>
+                        Facedown Card
+                    </td>
+                    <td>
+                        <input type="checkbox" name="the_cards[127]" id="checkbox_Ten of Hearts">
+                    </td>
+                </tr>
+                <tr>
+                    <td style="color:white;">
+                        <span style="font-size:25px; padding-right: 5px;">🃴</span>
+                        Facedown Card
+                    </td>
+                    <td>
+                        <input type="checkbox" name="the_cards[128]" id="checkbox_Jack of Hearts">
+                    </td>
+                </tr>
+                <tr>
+                    <td style="color:white;">
+                        <span style="font-size:25px; padding-right: 5px;">🃴</span>
+                        Facedown Card
+                    </td>
+                    <td>
+                        <input type="checkbox" name="the_cards[129]" id="checkbox_Queen of Hearts">
+                    </td>
+                </tr>
+                <tr>
+                    <td style="color:white;">
+                        <span style="font-size:25px; padding-right: 5px;">🃴</span>
+                        Facedown Card
+                    </td>
+                    <td>
+                        <input type="checkbox" name="the_cards[130]" id="checkbox_King of Hearts">
+                    </td>
+                </tr>
+                <tr>
+                    <td style="color:white;">
+                        <span style="font-size:25px; padding-right: 5px;">🃴</span>
+                        Facedown Card
+                    </td>
+                    <td>
+                        <input type="checkbox" name="the_cards[131]" id="checkbox_Ace of Clubs">
+                    </td>
+                </tr>
+                <tr>
+                    <td style="color:white;">
+                        <span style="font-size:25px; padding-right: 5px;">🃴</span>
+                        Facedown Card
+                    </td>
+                    <td>
+                        <input type="checkbox" name="the_cards[132]" id="checkbox_Two of Clubs">
+                    </td>
+                </tr>
+                <tr>
+                    <td style="color:white;">
+                        <span style="font-size:25px; padding-right: 5px;">🃴</span>
+                        Facedown Card
+                    </td>
+                    <td>
+                        <input type="checkbox" name="the_cards[133]" id="checkbox_Three of Clubs">
+                    </td>
+                </tr>
+                <tr>
+                    <td style="color:white;">
+                        <span style="font-size:25px; padding-right: 5px;">🃴</span>
+                        Facedown Card
+                    </td>
+                    <td>
+                        <input type="checkbox" name="the_cards[134]" id="checkbox_Four of Clubs">
+                    </td>
+                </tr>
+                <tr>
+                    <td style="color:white;">
+                        <span style="font-size:25px; padding-right: 5px;">🃴</span>
+                        Facedown Card
+                    </td>
+                    <td>
+                        <input type="checkbox" name="the_cards[135]" id="checkbox_Five of Clubs">
+                    </td>
+                </tr>
+                <tr>
+                    <td style="color:white;">
+                        <span style="font-size:25px; padding-right: 5px;">🃴</span>
+                        Facedown Card
+                    </td>
+                    <td>
+                        <input type="checkbox" name="the_cards[136]" id="checkbox_Six of Clubs">
+                    </td>
+                </tr>
+                <tr>
+                    <td style="color:white;">
+                        <span style="font-size:25px; padding-right: 5px;">🃴</span>
+                        Facedown Card
+                    </td>
+                    <td>
+                        <input type="checkbox" name="the_cards[137]" id="checkbox_Seven of Clubs">
+                    </td>
+                </tr>
+                <tr>
+                    <td style="color:white;">
+                        <span style="font-size:25px; padding-right: 5px;">🃴</span>
+                        Facedown Card
+                    </td>
+                    <td>
+                        <input type="checkbox" name="the_cards[138]" id="checkbox_Eight of Clubs">
+                    </td>
+                </tr>
+                <tr>
+                    <td style="color:white;">
+                        <span style="font-size:25px; padding-right: 5px;">🃴</span>
+                        Facedown Card
+                    </td>
+                    <td>
+                        <input type="checkbox" name="the_cards[139]" id="checkbox_Nine of Clubs">
+                    </td>
+                </tr>
+                <tr>
+                    <td style="color:white;">
+                        <span style="font-size:25px; padding-right: 5px;">🃴</span>
+                        Facedown Card
+                    </td>
+                    <td>
+                        <input type="checkbox" name="the_cards[140]" id="checkbox_Ten of Clubs">
+                    </td>
+                </tr>
+                <tr>
+                    <td style="color:white;">
+                        <span style="font-size:25px; padding-right: 5px;">🃴</span>
+                        Facedown Card
+                    </td>
+                    <td>
+                        <input type="checkbox" name="the_cards[143]" id="checkbox_King of Clubs">
+                    </td>
+                </tr>
+                <tr>
+                    <td style="color:white;">
+                        <span style="font-size:25px; padding-right: 5px;">🃴</span>
+                        Facedown Card
+                    </td>
+                    <td>
+                        <input type="checkbox" name="the_cards[144]" id="checkbox_Ace of Diamonds">
+                    </td>
+                </tr>
+                <tr>
+                    <td style="color:white;">
+                        <span style="font-size:25px; padding-right: 5px;">🃴</span>
+                        Facedown Card
+                    </td>
+                    <td>
+                        <input type="checkbox" name="the_cards[145]" id="checkbox_Two of Diamonds">
+                    </td>
+                </tr>
+                <tr>
+                    <td style="color:white;">
+                        <span style="font-size:25px; padding-right: 5px;">🃴</span>
+                        Facedown Card
+                    </td>
+                    <td>
+                        <input type="checkbox" name="the_cards[146]" id="checkbox_Three of Diamonds">
+                    </td>
+                </tr>
+                <tr>
+                    <td style="color:white;">
+                        <span style="font-size:25px; padding-right: 5px;">🃴</span>
+                        Facedown Card
+                    </td>
+                    <td>
+                        <input type="checkbox" name="the_cards[147]" id="checkbox_Four of Diamonds">
+                    </td>
+                </tr>
+                <tr>
+                    <td style="color:white;">
+                        <span style="font-size:25px; padding-right: 5px;">🃴</span>
+                        Facedown Card
+                    </td>
+                    <td>
+                        <input type="checkbox" name="the_cards[148]" id="checkbox_Five of Diamonds">
+                    </td>
+                </tr>
+                <tr>
+                    <td style="color:white;">
+                        <span style="font-size:25px; padding-right: 5px;">🃴</span>
+                        Facedown Card
+                    </td>
+                    <td>
+                        <input type="checkbox" name="the_cards[149]" id="checkbox_Six of Diamonds">
+                    </td>
+                </tr>
+                <tr>
+                    <td style="color:white;">
+                        <span style="font-size:25px; padding-right: 5px;">🃴</span>
+                        Facedown Card
+                    </td>
+                    <td>
+                        <input type="checkbox" name="the_cards[150]" id="checkbox_Seven of Diamonds">
+                    </td>
+                </tr>
+                <tr>
+                    <td style="color:white;">
+                        <span style="font-size:25px; padding-right: 5px;">🃴</span>
+                        Facedown Card
+                    </td>
+                    <td>
+                        <input type="checkbox" name="the_cards[151]" id="checkbox_Eight of Diamonds">
+                    </td>
+                </tr>
+                <tr>
+                    <td style="color:white;">
+                        <span style="font-size:25px; padding-right: 5px;">🃴</span>
+                        Facedown Card
+                    </td>
+                    <td>
+                        <input type="checkbox" name="the_cards[152]" id="checkbox_Nine of Diamonds">
+                    </td>
+                </tr>
+                <tr>
+                    <td style="color:white;">
+                        <span style="font-size:25px; padding-right: 5px;">🃴</span>
+                        Facedown Card
+                    </td>
+                    <td>
+                        <input type="checkbox" name="the_cards[154]" id="checkbox_Jack of Diamonds">
+                    </td>
+                </tr>
+                <tr>
+                    <td style="color:white;">
+                        <span style="font-size:25px; padding-right: 5px;">🃴</span>
+                        Facedown Card
+                    </td>
+                    <td>
+                        <input type="checkbox" name="the_cards[155]" id="checkbox_Queen of Diamonds">
+                    </td>
+                </tr>
+                <tr>
+                    <td style="color:white;">
+                        <span style="font-size:25px; padding-right: 5px;">🃴</span>
+                        Facedown Card
+                    </td>
+                    <td>
+                        <input type="checkbox" name="the_cards[156]" id="checkbox_King of Diamonds">
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div style="padding-top: 5px; padding-bottom: 5px; height: 210px; overflow-y: auto; display: none;">
+            <table class="table table-striped card-table col-md-12" id="pile_table_7" style="display:table;">
+                <tbody>
+                <tr>
+                    <td style="color:white;">
+                        <span style="font-size:25px; padding-right: 5px;">🂡</span>
+                        Ace of Spades
+                    </td>
+                    <td>
+                        <input type="checkbox" name="the_cards[105]" id="checkbox_Ace of Spades">
+                    </td>
+                </tr>
+                <tr>
+                    <td style="color:white;">
+                        <span style="font-size:25px; padding-right: 5px;">🂨</span>
+                        Eight of Spades
+                    </td>
+                    <td>
+                        <input type="checkbox" name="the_cards[112]" id="checkbox_Eight of Spades">
+                    </td>
+                </tr>
+                <tr>
+                    <td style="color:white;">
+                        <span style="font-size:25px; padding-right: 5px;">🃊</span>
+                        Ten of Diamonds
+                    </td>
+                    <td>
+                        <input type="checkbox" name="the_cards[153]" id="checkbox_Ten of Diamonds">
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div style="padding-top: 5px; padding-bottom: 5px; height: 210px; overflow-y: auto; display: none;">
+            <table class="table table-striped card-table col-md-12" id="pile_table_11" style="display:table;">
+                <tbody>
+                <tr>
+                    <td style="color:white;">
+                        <span style="font-size:25px; padding-right: 5px;">🃛</span>
+                        Jack of Clubs
+                    </td>
+                    <td>
+                        <input type="checkbox" name="the_cards[141]" id="checkbox_Jack of Clubs">
+                    </td>
+                </tr>
+                <tr>
+                    <td style="color:white;">
+                        <span style="font-size:25px; padding-right: 5px;">🃝</span>
+                        Queen of Clubs
+                    </td>
+                    <td>
+                        <input type="checkbox" name="the_cards[142]" id="checkbox_Queen of Clubs">
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div style="padding-top: 5px; padding-bottom: 5px; height: 210px; overflow-y: auto; display: none;">
+            <table class="table table-striped card-table col-md-12" id="pile_table_12" style="display:table;">
+                <tbody>
+                </tbody>
+            </table>
+        </div>
+        <br>
+        <input type="submit" name="commit" value="Transfer Card(s)" class="btn btn-primary" id="transfer_cards" data-disable-with="Transfer Card(s)">
+    </form>  <form class="button_to" method="get" action="/rooms/3"><input id="cancel" type="submit" value="Cancel"></form></div>
 </body>
 </html>
