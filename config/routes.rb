@@ -30,6 +30,7 @@ Rails.application.routes.draw do
       get 'show_pile'
       post 'draw_cards_from_deck'
       post 'transfer_card'
+      post 'transfer_to_discard'
     end
   end
   match '/create_pile', to: 'piles#new', via: :post

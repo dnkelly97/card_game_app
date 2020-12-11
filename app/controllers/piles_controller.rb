@@ -97,17 +97,6 @@ class PilesController < ApplicationController
 
   def show
     @piles = Room.find_by_id(params[:room_id]).piles
-  # =========
-  # def show_pile
-  #   #source_pile = Pile.find_by(name: params[:pile][:source_pile], room_id: params[:room_id])
-  #   source_pile = Pile.find_by(id: params[:source_pile_id])
-  #   if source_pile.nil?
-  #     redirect_to room_path({:id => params[:room_id]}), flash: { notice: 'This is not a pile in the database. Please try again.'} and return
-  #   end
-  #   @is_private = source_pile.private_pile
-  #   @cards = source_pile.cards
-  #   @source_pile = source_pile
-  # ===master
     render(partial: 'partials/transfer_cards') if request.xhr?
   end
 
