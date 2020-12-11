@@ -1,4 +1,3 @@
-//this is simply a duplicate of user_sessions_rspec
 describe('TransferCardsPopup', function(){
 
         describe('setup', function (){
