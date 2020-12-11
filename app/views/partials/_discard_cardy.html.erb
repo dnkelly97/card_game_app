@@ -1,0 +1,27 @@
+<h3><%= link_to 'Game Room', room_path({:id => params[:room_id]}), :class => 'btn btn-primary' %></h3>
+<h2>Discard Cards</h2>
+
+<%= form_tag transfer_card_piles_path({:room_id => params[:room_id], :source_pile_name => @player_pile.name, :pile => {:name2 => 'Discard Pile'}}), :id => 'the_cards_form' do %>
+  <table class="table table-striped col-md-12">
+    <thead>
+    <tr>
+      <th>Your Hand</th>
+    </tr>
+    </thead>
+    <tbody>
+    <% @thecards.each do |card| %>
+      <tr>
+        <td>
+            <%= card.name %>
+        </td>
+        <td>
+          <%=check_box_tag "the_cards[#{card.id}]", nil, nil, {:id => "checkbox_#{card.name}"}%>
+        </td>
+      </tr>
+    <% end %>
+    </tbody>
+  </table>
+  <br/>
+  <%= submit_tag 'Discard Card(s)', :class => 'btn btn-primary', :id => 'discard_the_cards' %>
+<% end %>
+<%= button_to 'Cancel', room_path({:id => params[:room_id]}), :method => :get, :id => 'cancel' %>
