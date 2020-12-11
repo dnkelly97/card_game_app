@@ -142,3 +142,16 @@
   flex-direction: column;
   justify-content: space-evenly;
 }
+
+$value: 1;
+$card-idx: 1;
+@for $outer-idx from 1 to 60 {
+  @for $inner-idx from 1 to 5 {
+    .playingCards ul.deck li:nth-child(#{$card-idx}) {
+      left: #{$value * 2}px;
+      bottom: #{$value}px;
+    }
+    $card-idx: $card-idx + 1;
+  }
+  $value: $value + 2;
+}
