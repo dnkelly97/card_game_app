@@ -1,9 +1,11 @@
 class PilesController < ApplicationController
   before_action :set_current_user
   protect_from_forgery with: :null_session
-  # def pile_params
-  #   params.require(:pile).permit(:name, :private_pile, :creator)
-  # end
+
+  def pile_params
+    params.require(:pile).permit(:name, :private_pile, :creator, :source_pile_id, :destination_pile_id)
+  end
+
   def index
     @piles = Pile.all
   end
@@ -11,8 +13,8 @@ class PilesController < ApplicationController
   def new
     render(partial: 'partials/create_pile') if request.xhr?
   end
-  def new_deck
 
+  def new_deck
   end
 
   def create
@@ -29,15 +31,8 @@ class PilesController < ApplicationController
     # redirect_to room_path({:id => room_id}) and return
   end
 
-  def show_pile
-    #source_pile = Pile.find_by(name: params[:pile][:source_pile], room_id: params[:room_id])
-    source_pile = Pile.find_by(id: params[:source_pile_id])
-    if source_pile.nil?
-      redirect_to room_path({:id => params[:room_id]}), flash: { notice: 'This is not a pile in the database. Please try again.'} and return
-    end
-    @is_private = source_pile.private_pile
-    @cards = source_pile.cards
-    @source_pile = source_pile
+  def show_transfer
+    @piles = Room.find_by_id(params[:room_id]).piles
     render(partial: 'partials/transfer_cards') if request.xhr?
   end
 
@@ -45,11 +40,9 @@ class PilesController < ApplicationController
     num_cards = params[:pile][:num_cards].to_i
     deck = Pile.find_by(name: "Deck", room_id: params[:room_id])
     destination_pile = Pile.find_by(name: "#{@current_user.user_id}'s Hand", room_id: params[:room_id]) #this represents the format an automatically created hand should get
-
     if num_cards > deck.cards.count
       redirect_to room_path({:id => params[:room_id]}), flash: { notice: 'There are not enough cards in the deck. Please try again or wait until the deck is replenished.'} and return
     end
-
     deck_count = deck.cards.count
     list_of_cards = (0...deck_count-1).to_a.sample(num_cards)
     list_of_cards.each do |card_num|
@@ -60,6 +53,19 @@ class PilesController < ApplicationController
       destination_pile.save
     end
     redirect_to room_path({:id => params[:room_id]}), flash: { notice: "#{num_cards} card(s) transferred from Deck!"} and return
+  end
+
+  def transfer_card
+    begin
+      source_pile = Pile.find pile_params[:source_pile_id]
+      destination_pile = Pile.find pile_params[:destination_pile_id]
+    rescue ActiveRecord::RecordNotFound
+      redirect_to room_path({:id => params[:room_id]}) and return
+    end
+    if params[:the_cards].nil?
+      redirect_to room_path({:id => params[:room_id]}) and return
+    end
+    Pile.transfer(source_pile, destination_pile, params[:the_cards])
   end
 
   def get_from_draw
@@ -73,7 +79,7 @@ class PilesController < ApplicationController
     render(partial: 'partials/discard_cardy') if request.xhr? and return
   end
 
-  def transfer_card
+  def transfer_to_discard
     source_pile = Pile.find_by(name: params[:source_pile_name], room_id: params[:room_id])
     @destination_pile = Pile.find_by(name: params[:pile][:name2], room_id: params[:room_id])
     if @destination_pile.nil?
@@ -82,15 +88,8 @@ class PilesController < ApplicationController
     if params[:the_cards].nil?
       redirect_to room_path({:id => params[:room_id]}), flash: { notice: "No cards selected"} and return
     end
-    card_difference = params[:the_cards].keys.count
-    @destination_pile[:card_count] = @destination_pile.cards.count + card_difference
-    source_pile[:card_count] = source_pile.cards.count - card_difference
-    @destination_pile.save
-    source_pile.save
-    params[:the_cards].keys.each do |card|
-      @destination_pile.cards << Card.find_by(id: card)
-    end
-    redirect_to room_path({:id => params[:room_id]}), flash: { notice: "Card(s) successfully transferred!"}
+    Pile.transfer source_pile, @destination_pile, params[:the_cards]
+    redirect_to room_path({:id => params[:room_id]}), flash: { notice: "Card(s) successfully discarded!"}
   end
 
 end

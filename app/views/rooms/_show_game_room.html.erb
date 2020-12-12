@@ -18,44 +18,76 @@
     </div>
     <div class="middle-center-panel">
       <div class="draw-discard">
-        <Button type="button" class="btn blank-card btn-outline-secondary">Draw Pile</Button>
-        <Button type="button" class="btn blank-card btn-outline-secondary">Discard Pile</Button>
+        <div class="playingCards simpleCards faceImages">
+          <ul class="deck" id ="draw">
+            <% if @draw_cards.empty? %>
+              <a class="card cardOutline">+</a>
+            <% else %>
+              <% @draw_cards.each do |card| %>
+                <li>
+                  <!--                  TODO: Add this back if we flip the deck to face up-->
+                  <!--                 <a class="card rank-<%#= card[0] %> <%#=card[1]%>">-->
+                  <!--                    <span class="rank"><%#=card[0]%></span>-->
+                  <!--                    <span class="suit">&<%#=card[1]%>;</span>-->
+                  <!--                  </a> -->
+                  <a class="card back"></a>
+                </li>
+              <% end %>
+            <% end %>
+          </ul>
+        </div>
+        <div class="playingCards simpleCards faceImages">
+          <ul class="deck" id ="discard">
+            <% if @discard_cards.empty? %>
+              <a class="card cardOutline">X</a>
+            <% else %>
+              <% @discard_cards.each do |card| %>
+                <li>
+                  <a class="card rank-<%= card[0] %> <%=card[1]%>">
+                    <span class="rank"><%=card[0]%></span>
+                    <span class="suit">&<%=card[1]%>;</span>
+                  </a>
+                </li>
+              <% end %>
+            <% end %>
+          </ul>
+        </div>
+
       </div>
       <div class="piles">
-        <div class="piles-top">
-          <!--TODO: Add if for if there is a deck here. If yes, use deck prop. If not, display button-->
-          <Button type="button" class="btn blank-card btn-outline-secondary">+</Button>
-          <Button type="button" class="btn blank-card btn-outline-secondary">+</Button>
-          <Button type="button" class="btn blank-card btn-outline-secondary">+</Button>
-          <Button type="button" class="btn blank-card btn-outline-secondary">+</Button>
-          <Button type="button" class="btn blank-card btn-outline-secondary">+</Button>
-        </div>
-        <div class="piles-bottom">
-          <Button type="button" class="btn blank-card btn-outline-secondary">+</Button>
-          <Button type="button" class="btn blank-card btn-outline-secondary">+</Button>
-          <Button type="button" class="btn blank-card btn-outline-secondary">+</Button>
-          <Button type="button" class="btn blank-card btn-outline-secondary">+</Button>
-          <Button type="button" class="btn blank-card btn-outline-secondary">+</Button>
-        </div>
+        <%  @center_piles.keys.each do |pile_name|%>
+
+          <div class="playingCards faceImages">
+            <ul class="deck" id =<% pile_name %>>
+              <% if @center_piles[pile_name].empty? %>
+                <a class="card cardOutline"><%=pile_name.split[1]%></a>
+              <% else %>
+                <% @center_piles[pile_name].each do |card| %>
+                  <li>
+                    <a class="card rank-<%= card[0].downcase %> <%=card[1]%>">
+                      <span class="rank"><%=card[0]%></span>
+                      <span class="suit">&<%=card[1]%>;</span>
+                    </a>
+                  </li>
+                <% end %>
+              <% end %>
+            </ul>
+          </div>
+        <% end %>
       </div>
     </div>
-    <div class="playingCards simpleCards faceImages bottom-center-panel" id="root-playing-card">
+    <div class="playingCards faceImages bottom-center-panel" id="root-playing-card">
       <ul class="hand" id ="users-cards">
         <% @card_list.each do |card| %>
           <li>
-            <a class="card rank-<%= card[0] %> <%=card[1]%>">
+            <a class="card rank-<%= card[0].downcase %> <%=card[1]%>">
               <span class="rank"><%=card[0]%></span>
               <span class="suit">&<%=card[1]%>;</span>
             </a>
           </li>
         <% end %>
       </ul>
-      <div class="card-action-buttons">
-        <Button type="button" class="btn btn-outline-primary spread-button" onclick="changeCards()">Spread/Unspread Cards</Button>
-        <% if @fan %>
-          <Button type="button" class="btn btn-outline-primary spread-button" onclick="fanCards()">Fan/Unfan Cards</Button>
-        <% end %>
-      </div>
+
     </div>
   </div>
   <div class="right-panel">
@@ -67,9 +99,13 @@
       <%= form_tag discard_piles_path({:room_id => @room.id}), :class => 'form' do %>
         <%= submit_tag 'Discard', :type => "button", :class => 'btn btn-outline-primary', :id => 'discard_button' %>
       <% end %>
-      <Button type="button" class="btn btn-outline-primary">Transfer</Button>
+      <Button type="button" class="btn btn-outline-primary" id="initiate_transfer_button" action= <%=show_transfer_piles_path({:room_id => @room.id}) %>>Transfer</Button>
       <Button type="button" class="btn btn-outline-primary">Reset Deck</Button>
       <Button type="button" class="btn btn-outline-primary">Show Hand</Button>
+      <Button type="button" class="btn btn-outline-primary" onclick="changeCards()">Spread/Unspread Cards</Button>
+      <% if @fan %>
+        <Button type="button" class="btn btn-outline-primary" onclick="fanCards()">Fan/Unfan Cards</Button>
+      <% end %>
     </div>
     <div id="dangerous-game-actions">
       <Button type="button" class="btn btn-danger">Reset Game</Button>
