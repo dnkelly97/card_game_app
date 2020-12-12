@@ -84,11 +84,12 @@ class RoomsController < ApplicationController
     @draw_cards = translate_cards_to_array(Card.where(pile_id: @draw_pile.id))
     @discard_pile = Pile.where(room_id: @room.id, name: "Discard Pile", creator: "The Game").first
     @discard_cards = translate_cards_to_array(Card.where(pile_id: @discard_pile.id))
-    @center_piles = {}
+    @center_piles = []
     Pile.where(:room_id => @room, :creator => "The Game").each do |pile|
       if pile.name.include?("General")
-        cards_in_pile = translate_cards_to_array(Card.where(pile_id: pile.id))
-        @center_piles[pile.name] = cards_in_pile
+        # cards_in_pile = translate_cards_to_array(Card.where(pile_id: pile.id))
+        # @center_piles[pile.name] = cards_in_pile
+        @center_piles << pile
       end
     end
 
