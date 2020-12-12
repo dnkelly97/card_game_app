@@ -14,69 +14,6 @@ class PilesController < ApplicationController
   def new_deck
 
   end
-  # def create_deck
-  #   #room_id = params[:room_id]
-  #   room = Room.find_by(id: params[:room_id])
-  #   @pile = Pile.create!(name: "Deck", creator: "The Game", private_pile: true, card_count: 52, room_id: params[:room_id])
-  #   room.piles << @pile
-  #   Card.create([{name: "Ace of Spades", pile_id: @pile.id, unicode_value: "1F0A1", suit: "spades", rank: "A"},
-  #                {name: "Two of Spades", pile_id: @pile.id, unicode_value: "1F0A2", suit: "spades", rank: "2"},
-  #                {name: "Three of Spades", pile_id: @pile.id, unicode_value: "1F0A3", suit: "spades", rank: "3"},
-  #                {name: "Four of Spades", pile_id: @pile.id, unicode_value: "1F0A4", suit: "spades", rank: "4"},
-  #                {name: "Five of Spades", pile_id: @pile.id, unicode_value: "1F0A5", suit: "spades", rank: "5"},
-  #                {name: "Six of Spades", pile_id: @pile.id, unicode_value: "1F0A6", suit: "spades", rank: "6"},
-  #                {name: "Seven of Spades", pile_id: @pile.id, unicode_value: "1F0A7", suit: "spades", rank: "7"},
-  #                {name: "Eight of Spades", pile_id: @pile.id, unicode_value: "1F0A8", suit: "spades", rank: "8"},
-  #                {name: "Nine of Spades", pile_id: @pile.id, unicode_value: "1F0A9", suit: "spades", rank: "9"},
-  #                {name: "Ten of Spades", pile_id: @pile.id, unicode_value: "1F0AA", suit: "spades", rank: "10"},
-  #                {name: "Jack of Spades", pile_id: @pile.id, unicode_value: "1F0AB", suit: "spades", rank: "J"},
-  #                {name: "Queen of Spades", pile_id: @pile.id, unicode_value: "1F0AD", suit: "spades", rank: "Q"},
-  #                {name: "King of Spades", pile_id: @pile.id, unicode_value: "1F0AE", suit: "spades", rank: "K"},
-  #                {name: "Ace of Hearts", pile_id: @pile.id, unicode_value: "1F0B1", suit: "hearts", rank: "A"},
-  #                {name: "Two of Hearts", pile_id: @pile.id, unicode_value: "1F0B2", suit: "hearts", rank: "2"},
-  #                {name: "Three of Hearts", pile_id: @pile.id, unicode_value: "1F0B3", suit: "hearts", rank: "3"},
-  #                {name: "Four of Hearts", pile_id: @pile.id,unicode_value: "1F0B4", suit: "hearts", rank: "4"},
-  #                {name: "Five of Hearts", pile_id: @pile.id, unicode_value: "1F0B5", suit: "hearts", rank: "5"},
-  #                {name: "Six of Hearts", pile_id: @pile.id, unicode_value: "1F0B6", suit: "hearts", rank: "6"},
-  #                {name: "Seven of Hearts", pile_id: @pile.id, unicode_value: "1F0B7", suit: "hearts", rank: "7"},
-  #                {name: "Eight of Hearts", pile_id: @pile.id, unicode_value: "1F0B8", suit: "hearts", rank: "8"},
-  #                {name: "Nine of Hearts", pile_id: @pile.id, unicode_value: "1F0B9", suit: "hearts", rank: "9"},
-  #                {name: "Ten of Hearts", pile_id: @pile.id, unicode_value: "1F0BA", suit: "hearts", rank: "10"},
-  #                {name: "Jack of Hearts", pile_id: @pile.id, unicode_value: "1F0BB", suit: "hearts", rank: "J"},
-  #                {name: "Queen of Hearts", pile_id: @pile.id, unicode_value: "1F0BD", suit: "hearts", rank: "Q"},
-  #                {name: "King of Hearts", pile_id: @pile.id, unicode_value: "1F0BE", suit: "hearts", rank: "K"},
-  #                {name: "Ace of Clubs", pile_id: @pile.id, unicode_value: "1F0D1", suit: "clubs", rank: "A"},
-  #                {name: "Two of Clubs", pile_id: @pile.id, unicode_value: "1F0D2", suit: "clubs", rank: "2"},
-  #                {name: "Three of Clubs", pile_id: @pile.id, unicode_value: "1F0D3", suit: "clubs", rank: "3"},
-  #                {name: "Four of Clubs", pile_id: @pile.id, unicode_value: "1F0D4", suit: "clubs", rank: "4"},
-  #                {name: "Five of Clubs", pile_id: @pile.id, unicode_value: "1F0D5", suit: "clubs", rank: "5"},
-  #                {name: "Six of Clubs", pile_id: @pile.id, unicode_value: "1F0D6", suit: "clubs", rank: "6"},
-  #                {name: "Seven of Clubs", pile_id: @pile.id, unicode_value: "1F0D7", suit: "clubs", rank: "7"},
-  #                {name: "Eight of Clubs", pile_id: @pile.id, unicode_value: "1F0D8", suit: "clubs", rank: "8"},
-  #                {name: "Nine of Clubs", pile_id: @pile.id, unicode_value: "1F0D9", suit: "clubs", rank: "9"},
-  #                {name: "Ten of Clubs", pile_id: @pile.id, unicode_value: "1F0DA", suit: "clubs", rank: "10"},
-  #                {name: "Jack of Clubs", pile_id: @pile.id, unicode_value: "1F0DB", suit: "clubs", rank: "J"},
-  #                {name: "Queen of Clubs", pile_id: @pile.id, unicode_value: "1F0DD", suit: "clubs", rank: "Q"},
-  #                {name: "King of Clubs", pile_id: @pile.id, unicode_value: "1F0DE", suit: "clubs", rank: "K"},
-  #                {name: "Ace of Diamonds", pile_id: @pile.id, unicode_value: "1F0C1", suit: "diams", rank: "A"},
-  #                {name: "Two of Diamonds", pile_id: @pile.id, unicode_value: "1F0C2", suit: "diams", rank: "2"},
-  #                {name: "Three of Diamonds", pile_id: @pile.id, unicode_value: "1F0C3", suit: "diams", rank: "3"},
-  #                {name: "Four of Diamonds", pile_id: @pile.id, unicode_value: "1F0C4", suit: "diams", rank: "4"},
-  #                {name: "Five of Diamonds", pile_id: @pile.id, unicode_value: "1F0C5", suit: "diams", rank: "5"},
-  #                {name: "Six of Diamonds", pile_id: @pile.id, unicode_value: "1F0C6", suit: "diams", rank: "6"},
-  #                {name: "Seven of Diamonds", pile_id: @pile.id, unicode_value: "1F0C7", suit: "diams", rank: "7"},
-  #                {name: "Eight of Diamonds", pile_id: @pile.id, unicode_value: "1F0C8", suit: "diams", rank: "8"},
-  #                {name: "Nine of Diamonds", pile_id: @pile.id, unicode_value: "1F0C9", suit: "diams", rank: "9"},
-  #                {name: "Ten of Diamonds", pile_id: @pile.id, unicode_value: "1F0CA", suit: "diams", rank: "10"},
-  #                {name: "Jack of Diamonds", pile_id: @pile.id, unicode_value: "1F0CB", suit: "diams", rank: "J"},
-  #                {name: "Queen of Diamonds", pile_id: @pile.id, unicode_value: "1F0CD", suit: "diams", rank: "Q"},
-  #                {name: "King of Diamonds", pile_id: @pile.id, unicode_value: "1F0CE", suit: "diams", rank: "K"}
-  #               ])
-  #   room.save!
-  #
-  #   # flash[:notice] = "Another deck added to the room"
-  #   redirect_to room_path({:id => params[:room_id]}), flash: { notice: "Another deck added to the room"} and return
-  # end
 
   def create
     #room_id = params[:room_id]
