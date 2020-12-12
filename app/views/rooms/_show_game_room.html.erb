@@ -100,7 +100,7 @@
       <%= form_tag discard_piles_path({:room_id => @room.id}), :class => 'form' do %>
         <%= submit_tag 'Discard', :type => "button", :class => 'btn btn-outline-primary', :id => 'discard_button' %>
       <% end %>
-      <Button type="button" class="btn btn-outline-primary">Transfer</Button>
+      <Button type="button" class="btn btn-outline-primary" id="initiate_transfer_button" action= <%=show_transfer_piles_path({:room_id => @room.id}) %>>Transfer</Button>
       <Button type="button" class="btn btn-outline-primary">Reset Deck</Button>
       <Button type="button" class="btn btn-outline-primary">Show Hand</Button>
       <Button type="button" class="btn btn-outline-primary" onclick="changeCards()">Spread/Unspread Cards</Button>
