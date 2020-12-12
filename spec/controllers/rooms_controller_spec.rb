@@ -62,5 +62,9 @@ describe RoomsController do
     it 'should render the partial hide_hand' do
       expect(response).to render_template(partial: '_hide_hand')
     end
+    it 'should render the partial show_hand' do
+      post :show_hand, xhr: true, session: {session_token: @user.session_token}
+      expect(response).to render_template(partial: '_show_hand')
+    end
   end
 end
