@@ -93,14 +93,37 @@ describe RoomsController do
     end
   end
   describe 'RoomsController#show' do
-    it 'should use the id parameter to assign the correct room to @rooms, making the room available to the view' do
+    before(:each) do
       allow(SecureRandom).to receive(:random_number).and_return(1111111111)
       post :create, params: {room_name: "Dan's Test Room", max_players: 1}, session: {session_token: @user.session_token}
+    end
+    it 'should use the id parameter to assign the correct room to @rooms, making the room available to the view' do
       get :show, params: {id: Room.all[0].id}
       expect(assigns(:room)).to eq(Room.find_by_id(Room.all[0].id))
     end
 
+    it 'should the render the show view' do
+      get :show, params: {id: Room.all[0].id}, session: {session_token: @user.session_token}
+      expect(response).to render_template(:show)
+    end
+  end
 
+  describe 'Showing a Hand' do
+    before(:each) do
+      @room = FactoryBot.create(:room)
+      @pile = FactoryBot.create(:pile, name: "kevin's Hand", creator: "kevin", private_pile: true)
+      post :show_hand, xhr: true, session: {session_token: @user.session_token}
+    end
+    it 'should update the piles table\'s private_pile boolean value' do
+      expect(Pile.find_by_name("kevin's Hand").private_pile).to eq(false)
+    end
+    it 'should render the partial hide_hand' do
+      expect(response).to render_template(partial: '_hide_hand')
+    end
+    it 'should render the partial show_hand' do
+      post :show_hand, xhr: true, session: {session_token: @user.session_token}
+      expect(response).to render_template(partial: '_show_hand')
+    end
   end
 
 

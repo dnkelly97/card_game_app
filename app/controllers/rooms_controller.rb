@@ -93,9 +93,10 @@ class RoomsController < ApplicationController
     end
 
     @piles = Pile.all
-
-    user_pile = Pile.where(room_id: @room, creator: @current_user.user_id)[0]
-    user_cards = Card.where(pile_id: user_pile.id)
+    user_hand_name = "#{@current_user.user_id}'s Hand"
+    @user_hand = Pile.find_by(room_id: id, name: user_hand_name)
+    # user_pile = Pile.where(room_id: @room, creator: @current_user.user_id)[0]
+    user_cards = Card.where(pile_id: @user_hand.id)
     @fan = user_cards.length <= 13
     @card_list = translate_cards_to_array(user_cards)
   end
@@ -127,6 +128,21 @@ class RoomsController < ApplicationController
     end
   end
 
+  def show_hand
+    room_id = @current_user.room_id
+    user_hand = "#{@current_user.user_id}'s Hand"
+    pile = Pile.find_by(room_id: room_id, name: user_hand)
+    if pile.private_pile
+      pile.private_pile = false
+      pile.save
+      render partial: 'partials/hide_hand' if request.xhr?
+    else
+      pile.private_pile = true
+      pile.save
+      render partial: 'partials/show_hand' if request.xhr?
+    end
+  end
+  
   private
 
   def translate_cards_to_array(card_list)

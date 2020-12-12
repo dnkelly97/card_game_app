@@ -6,4 +6,5 @@ FactoryBot.define do
     card_count {52}
     room_id {1}
   end
+
 end
