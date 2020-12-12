@@ -87,6 +87,9 @@ let updateLobby = function(data, xhrObj, testStatus){
     }
 
 
+    // Center piles
+    let center_table_id = $(".cardsTable tr:visible").attr('id')
+
 
     //------------ Reset game room ----------------
     $("#game-room").empty().html(data);
@@ -117,6 +120,12 @@ let updateLobby = function(data, xhrObj, testStatus){
             $(element).css('display') === "block" ? element.scrollTop = div_to_scroll : ""
         })
     }
+
+    // Center pile reload
+    if(center_table_id !== null && center_table_id !== undefined) {
+        $(".cardsTable tr#"+center_table_id).css('display', 'block')
+    }
+
 
 }
 
