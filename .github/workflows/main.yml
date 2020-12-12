@@ -47,6 +47,6 @@ jobs:
         with:
           name: coverage_report
           path: /coverage/
-          retention-days: 5
+          retention-days: 2
       - name: run cucumber tests
         run: bundle exec cucumber
