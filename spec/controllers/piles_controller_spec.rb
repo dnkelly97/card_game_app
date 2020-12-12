@@ -132,7 +132,7 @@ describe PilesController do
       get :transfer_to_discard, params: { room_id: @room.id, source_pile_name: @pile.name, pile: { name2: 'Discard Pile' } },
                                 session: { session_token: @user.session_token }
       expect(response).to redirect_to(room_path({ id: @room.id }))
-      expect(flash[:notice].to_s.include?("(transfer_card) This is not a pile in the database. Please try again.")).to be_truthy
+      expect(flash[:notice].to_s == ("(transfer_card) This is not a pile in the database. Please try again.")).to be_truthy
 
       Pile.create({ name: "Discard Pile",
                     creator: "The Game", room_id: @room.id,
@@ -145,8 +145,9 @@ describe PilesController do
       expect(flash[:notice].to_s.include?("No cards selected")).to be_truthy
 
 
+      allow(Pile).to receive(:transfer)
       get :transfer_to_discard, params: { room_id: @room.id, source_pile_name: @pile.name,
-                                          pile: { name2: 'Discard Pile' }, the_cards: [1] },
+                                          pile: { name2: 'Discard Pile' }, the_cards: { 1 => nil} },
                                 session: { session_token: @user.session_token }
       
 
