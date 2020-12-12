@@ -77,3 +77,10 @@ input[type=submit]:hover {
     padding: 2ex;
     border: 2px double grey;
 }
+
+.alert {
+    position: fixed;
+    margin-top: 2%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}

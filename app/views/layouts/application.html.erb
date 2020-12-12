@@ -43,7 +43,9 @@
 </div>
 
 <script>
-    $(".alert" ).slideDown().delay(10000).slideUp();
+    let x = $(".alert").html();
+    let y = $(x).text();
+    $(".alert" ).slideDown().delay(4000 + y.length*20).slideUp();
     // const fade = {opacity: 0, transition: 'opacity 0.5s'};
     // $(".alert" ).css(fade).delay(1000).slideUp();
 </script>
