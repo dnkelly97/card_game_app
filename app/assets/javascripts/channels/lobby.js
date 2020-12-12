@@ -1,5 +1,7 @@
+let my_room_number;
 const subscribe_to_room = function(room_number) {
     console.log("Hi, welcome to " + room_number);
+    my_room_number = room_number;
     App.lobby = App.cable.subscriptions.create({
             channel: "LobbyChannel",
             room: room_number
@@ -28,15 +30,17 @@ const subscribe_to_room = function(room_number) {
                         success: updateTransferPopup,
                         error: function(xhrObj, testStatus, exception) { alert('Error!'); }
                     });
+                } else {
+                    $.ajax({
+                        type: 'GET',
+                        url: "/rooms/" + String(room_number),
+                        timeout: 50000,
+                        success: updateLobby,
+                        error: function (xhrObj, testStatus, exception) {
+                            alert('Error!');
+                        }
+                    });
                 }
-                $.ajax({
-                    type: 'GET',
-                    url: "/rooms/"+String(room_number),
-                    timeout: 50000,
-                    success: updateLobby,
-                    error: function(xhrObj, testStatus, exception) { alert('Error!'); }
-                });
-
 
             }
         }
@@ -44,7 +48,7 @@ const subscribe_to_room = function(room_number) {
 };
 let updateLobby = function(data, xhrObj, testStatus){
     //------------- PreCondition ---------------
-
+    console.log("in updateLobby")
     // Show cards center-top table
     let saveValue = -1
     for (let i = 0; i < $('#card-table tr').length; i++) {
@@ -156,4 +160,5 @@ let updateTransferPopup = (data, xhrObj, testStatus) => {
     $("#transfer_cards_form div").each((index, element)=>{
         $(element).css('display') === "block" ? element.scrollTop = div_to_scroll : ""
     })
+
 }
