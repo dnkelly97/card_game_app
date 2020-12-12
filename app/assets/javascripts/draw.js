@@ -31,4 +31,3 @@ let DrawsPopup = {
         return(false);
     }
 };
-jQuery(DrawsPopup.setup);

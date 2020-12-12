@@ -29,4 +29,3 @@ let DiscardCardsPopup = {
         return(false);
     }
 };
-jQuery(DiscardCardsPopup.setup);

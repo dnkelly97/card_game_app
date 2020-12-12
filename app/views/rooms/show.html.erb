@@ -3,4 +3,8 @@
 </div>
 <script>
     subscribe_to_room(<%= @room.id %>)
+    jQuery(TransferCardsPopup.setup);
+    jQuery(DrawsPopup.setup);
+    jQuery(DiscardCardsPopup.setup);
+    jQuery(CreatePilesPopup.setup);
 </script>

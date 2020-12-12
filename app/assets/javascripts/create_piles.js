@@ -30,4 +30,3 @@ let CreatePilesPopup = {
         return(false);
     }
 };
-jQuery(CreatePilesPopup.setup);

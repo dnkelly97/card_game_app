@@ -44,4 +44,3 @@ let TransferCardsPopup = {
         return(false);
     }
 };
-jQuery(TransferCardsPopup.setup);
