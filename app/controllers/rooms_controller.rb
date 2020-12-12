@@ -99,6 +99,7 @@ class RoomsController < ApplicationController
     @fan = user_cards.length <= 13
 
     @card_list = translate_cards_to_array(user_cards)
+    render partial: 'show_game_room' if request.xhr?
   end
 
   def new_join
