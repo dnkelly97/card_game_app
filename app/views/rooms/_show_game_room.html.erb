@@ -1,0 +1,85 @@
+<div id="room-information">
+  <h2>Welcome To <%= @room.name %></h2>
+  <h2>Room Join Code: <%= @room.room_code %></h2>
+</div>
+<div class="base-room">
+  <div class="left-panel">
+    <!--    TODO: Add dynamic button generation -->
+    </br>
+    <% @room.piles.select{ |pile| pile.name.include? "'s Hand" }.each do |pile| %>
+      <% if pile.creator != @current_user.user_id %>
+        <%= button_tag "#{pile.name}", type: "button", class: "btn btn-outline-dark", onclick: "show_pile(#{pile.id})"%>
+        </br>
+      <% end %>
+    <% end %>
+  </div>
+  <div class="center-panel">
+    <div class="top-center-panel w3-panel" id="show-pile-panel">
+      <%= render "partials/show_pile" %>
+    </div>
+    <div class="middle-center-panel">
+      <div class="draw-discard">
+        <Button type="button" class="btn blank-card btn-outline-secondary">Draw Pile</Button>
+        <Button type="button" class="btn blank-card btn-outline-secondary">Discard Pile</Button>
+      </div>
+      <div class="piles">
+        <div class="piles-top">
+          <!--TODO: Add if for if there is a deck here. If yes, use deck prop. If not, display button-->
+          <Button type="button" class="btn blank-card btn-outline-secondary">+</Button>
+          <Button type="button" class="btn blank-card btn-outline-secondary">+</Button>
+          <Button type="button" class="btn blank-card btn-outline-secondary">+</Button>
+          <Button type="button" class="btn blank-card btn-outline-secondary">+</Button>
+          <Button type="button" class="btn blank-card btn-outline-secondary">+</Button>
+        </div>
+        <div class="piles-bottom">
+          <Button type="button" class="btn blank-card btn-outline-secondary">+</Button>
+          <Button type="button" class="btn blank-card btn-outline-secondary">+</Button>
+          <Button type="button" class="btn blank-card btn-outline-secondary">+</Button>
+          <Button type="button" class="btn blank-card btn-outline-secondary">+</Button>
+          <Button type="button" class="btn blank-card btn-outline-secondary">+</Button>
+        </div>
+      </div>
+    </div>
+    <div class="playingCards simpleCards faceImages bottom-center-panel" id="root-playing-card">
+      <ul class="hand" id ="users-cards">
+        <% @card_list.each do |card| %>
+          <li>
+            <a class="card rank-<%= card[0] %> <%=card[1]%>">
+              <span class="rank"><%=card[0]%></span>
+              <span class="suit">&<%=card[1]%>;</span>
+            </a>
+          </li>
+        <% end %>
+      </ul>
+      <div class="card-action-buttons">
+        <Button type="button" class="btn btn-outline-primary spread-button" onclick="changeCards()">Spread/Unspread Cards</Button>
+        <% if @fan %>
+          <Button type="button" class="btn btn-outline-primary spread-button" onclick="fanCards()">Fan/Unfan Cards</Button>
+        <% end %>
+      </div>
+    </div>
+  </div>
+  <div class="right-panel">
+    <!--    <ActionsPanel/>-->
+    <div id="game-actions">
+      <%= form_tag get_from_draw_piles_path({:room_id => @room.id}), :class => 'form' do %>
+        <%= submit_tag 'Draw', :type => "button", :class => 'btn btn-outline-primary', :id => 'draw_button' %>
+      <% end %>
+      <%= form_tag discard_piles_path({:room_id => @room.id}), :class => 'form' do %>
+        <%= submit_tag 'Discard', :type => "button", :class => 'btn btn-outline-primary', :id => 'discard_button' %>
+      <% end %>
+      <Button type="button" class="btn btn-outline-primary">Transfer</Button>
+      <Button type="button" class="btn btn-outline-primary">Reset Deck</Button>
+      <% if @user_hand.private_pile %>
+        <%= render partial: 'partials/show_hand'%>
+      <% else %>
+        <%= render partial: 'partials/hide_hand'%>
+      <% end %>
+    </div>
+    <div id="dangerous-game-actions">
+      <Button type="button" class="btn btn-danger">Reset Game</Button>
+      <Button type="button" class="btn btn-danger">Quit Game</Button>
+    </div>
+  </div>
+</div>
+<br>
