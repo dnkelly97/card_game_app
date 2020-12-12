@@ -1,12 +1,11 @@
-function show_hand(){
-    $.ajax({
-        type: 'GET',
-        url: $(this).parent().attr('action'),
-        timeout: 10000,
-        success: function(data, requestStatus, xhrObject){
-            console.log(data);
-            $('#show_hand_form').html(data);
-        },
-        error: function(xhrObj, testStatus, exception) { console.log('show_hand.js error!'); }
-    });
-}
+let ShowHand = {
+    setup: function() {
+        $(document).on('ajax:success', '#show_hand_form', ShowHand.toggleShowHandButton)
+    },
+    toggleShowHandButton: function (data, xhrObject, requestStatus){
+        console.log("ajax was successful")
+        $('#show_hand_form').replaceWith(xhrObject);
+        return(false);
+    }
+};
+jQuery(ShowHand.setup);

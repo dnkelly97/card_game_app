@@ -75,6 +75,8 @@ class RoomsController < ApplicationController
     id = params[:id]
     @room = Room.find(id)
     @piles = Pile.all
+    user_hand = "#{@current_user.user_id}'s Hand"
+    @user_hand = Pile.find_by(room_id: id, name: user_hand)
   end
 
   def new_join
@@ -115,12 +117,11 @@ class RoomsController < ApplicationController
     if pile.private_pile
       pile.private_pile = false
       pile.save
+      render partial: 'partials/hide_hand' if request.xhr?
     else
       pile.private_pile = true
       pile.save
+      render partial: 'partials/show_hand' if request.xhr?
     end
-    p 'YOOOOOOOOOOOOOOOOO---------------------------------------------------------'
-    p request.xhr?
-    render partial: 'partials/show_hand' if request.xhr?
   end
 end
