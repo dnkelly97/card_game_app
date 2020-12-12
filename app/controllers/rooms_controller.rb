@@ -68,6 +68,10 @@ class RoomsController < ApplicationController
                  {name: "King of Diamonds", pile_id: @pile.id, unicode_value: "1F0CE"}
                 ])
     @room.piles << pile
+
+    [1,2,3,4,5,6,7,8,9,10].map{|index| Pile.create(name: "General #{index}", creator: "The Game", private_pile: false, card_count: 0, room_id: @room.id) }
+    Pile.create(name: "Discard Pile", creator: "The Game", private_pile: false, card_count: 0, room_id: @room.id)
+
     @room.save!
     flash[:notice] = "Welcome to your newly created room, #{@room.name}"
     redirect_to room_path(@room)
@@ -76,19 +80,24 @@ class RoomsController < ApplicationController
   def show
     id = params[:id]
     @room = Room.find(id)
+    @draw_pile = Pile.where(room_id: @room.id, name: "Deck", creator: "The Game").first
+    @draw_cards = translate_cards_to_array(Card.where(pile_id: @draw_pile.id))
+    @discard_pile = Pile.where(room_id: @room.id, name: "Discard Pile", creator: "The Game").first
+    @discard_cards = translate_cards_to_array(Card.where(pile_id: @discard_pile.id))
+    @center_piles = {}
+    Pile.where(:room_id => @room, :creator => "The Game").each do |pile|
+      if pile.name.include?("General")
+        cards_in_pile = translate_cards_to_array(Card.where(pile_id: pile.id))
+        @center_piles[pile.name] = cards_in_pile
+      end
+    end
+
     @piles = Pile.all
+
     user_pile = Pile.where(room_id: @room, creator: @current_user.user_id)[0]
     user_cards = Card.where(pile_id: user_pile.id)
     @fan = user_cards.length <= 13
-    @card_list = user_cards.map do |card|
-      if card.name.split[2] == "Diamonds"
-        suit = "diams"
-      else
-        suit = card.name.split[2].downcase
-      end
-      card_name = translate_rank(card.name.split[0])
-      [card_name, suit]
-    end
+    @card_list = translate_cards_to_array(user_cards)
   end
 
   def new_join
@@ -117,8 +126,21 @@ class RoomsController < ApplicationController
       redirect_to rooms_new_join_path
     end
   end
-  
+
   private
+
+  def translate_cards_to_array(card_list)
+    card_list.map do |card|
+      if card.name.split[2] == "Diamonds"
+        suit = "diams"
+      else
+        suit = card.name.split[2].downcase
+      end
+      card_name = translate_rank(card.name.split[0])
+      [card_name, suit]
+    end
+  end
+
   def translate_rank(rank)
     case rank
       when "Ace"
