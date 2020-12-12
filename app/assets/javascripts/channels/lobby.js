@@ -69,10 +69,13 @@ let updateLobby = function(data, xhrObj, testStatus){
     // Check transfer specific select box
     let index = null;
     let destIndex = null;
+    let table = [];
     if(stateId.toString() === "transferCardsPopup"){
         index = document.getElementById('pile_source_pile_id').options.selectedIndex
         destIndex = document.getElementById('pile_destination_pile_id').options.selectedIndex
-
+        $("#transfer_cards_form input:checkbox").each((index, element)=>{
+            $(element).is(":checked") ? table.push(index) : "";
+        });
     }
 
     //------------ Reset game room ----------------
@@ -97,16 +100,26 @@ let updateLobby = function(data, xhrObj, testStatus){
     if(index != null){
         document.getElementById('pile_source_pile_id').options.selectedIndex = index
         document.getElementById('pile_destination_pile_id').options.selectedIndex = destIndex
+        $("#transfer_cards_form input:checkbox").each((index, element)=>{
+            table.includes(index) ? $(element).prop("checked", true) : $(element).prop("checked", false)
+        });
     }
 
 }
 
 // Maintain transfer select state with card updates
 let updateTransferPopup = (data, xhrObj, testStatus) => {
+    let table = [];
+    $("#transfer_cards_form input:checkbox").each((index, element)=>{
+        $(element).is(":checked") ? table.push(index) : "";
+    });
     let destIndex = document.getElementById('pile_destination_pile_id').options.selectedIndex
     let index = document.getElementById('pile_source_pile_id').options.selectedIndex
     $('#transferCardsPopup').empty().html(data).show();
     document.getElementById('pile_source_pile_id').options.selectedIndex = index
     document.getElementById('pile_destination_pile_id').options.selectedIndex = destIndex
 
+    $("#transfer_cards_form input:checkbox").each((index, element)=>{
+        table.includes(index) ? $(element).prop("checked", true) : $(element).prop("checked", false)
+    });
 }
