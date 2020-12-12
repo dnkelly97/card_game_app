@@ -49,4 +49,18 @@ describe RoomsController do
     end
 
   end
+
+  describe 'Showing a Hand' do
+    before(:each) do
+      @room = FactoryBot.create(:room)
+      @pile = FactoryBot.create(:pile)
+      post :show_hand, xhr: true, session: {session_token: @user.session_token}
+    end
+    it 'should update the piles table\'s private_pile boolean value' do
+      expect(Pile.find(1).private_pile).to eq(false)
+    end
+    it 'should render the partial hide_hand' do
+      expect(response).to render_template(action: '_hide_hand')
+    end
+  end
 end
