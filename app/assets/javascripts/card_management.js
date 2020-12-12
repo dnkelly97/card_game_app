@@ -1,8 +1,11 @@
 function changeCards(){
     if(document.getElementById('users-cards').getAttribute('class') === 'hand'){
         document.getElementById('users-cards').setAttribute('class', 'table')
+        document.getElementById('root-playing-card').style.overflowY = 'scroll'
     } else {
         document.getElementById('users-cards').setAttribute('class', 'hand')
+        document.getElementById('root-playing-card').style.overflowY = 'visible'
+
     }
 }
 

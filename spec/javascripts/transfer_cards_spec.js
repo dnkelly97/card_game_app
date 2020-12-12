@@ -8,18 +8,11 @@ describe('TransferCardsPopup', function(){
                 expect($('#transferCardsPopup')).toBeHidden;
             });
         });
-        describe('Clicking transfer card function', function (){
-
-            it('calls correct URL', function(){
-                loadFixtures("transfer_card.html");
-                spyOn($, 'ajax');
-                $('#pile_details').trigger('click');
-                expect($.ajax.calls.mostRecent().args[0]['url']).toEqual('/show_pile_piles');
-            });
+        describe('Clicking transfer button', function (){
             describe('when successful server call', function (){
                 beforeEach(function (){
                     let fixture = setFixtures('<div class="form"/>');
-                    let fixHtml = fixture.find('.form');
+                    let fixHtml = fixture.find('#transfer_cards');
                     // Last fixture loaded will be the document DOM. If putting this before let fixture, then
                     // dashboard.html would not exist as the document anymore
                     loadFixtures("transfer_card.html");
@@ -27,7 +20,7 @@ describe('TransferCardsPopup', function(){
                         console.log("This is a spy call for success handler");
                         ajaxArgs.success(fixHtml, '200', null);
                     });
-                    $('#pile_details').trigger('click');
+                    $('#initiate_transfer_button').trigger('click');
                 });
                 it('popup is Visible', function(){
                     expect($('#transferCardsPopup')).toBeVisible();
@@ -36,7 +29,6 @@ describe('TransferCardsPopup', function(){
                     $(fixHtml2).trigger('click');
                     expect($('#transferCardsPopup')).toBeHidden();
                 });
-
             });
         });
     }
