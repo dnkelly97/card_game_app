@@ -21,6 +21,8 @@ let DrawsPopup = {
         $('#drawPopup').html(data).show();
         $(document).on('click', '#cancel', DrawsPopup.hideForm);
         $('#draw_button').prop("disabled", true);
+        $(document).on('ajax:complete', '#draw_form', DrawsPopup.hideForm);
+
         return(false);
 
     },
