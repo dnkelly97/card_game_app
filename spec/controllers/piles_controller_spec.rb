@@ -13,9 +13,9 @@ describe PilesController do
       @pile1 = Pile.create! name: 'pile1', creator: @user.user_id, private_pile: true, card_count: 2
       @pile2 = Pile.create! name: 'pile2', creator: @user2.user_id, private_pile: true, card_count: 1
       @room.piles << [@pile1, @pile2]
-      Card.create([{name: "Ace of Spades", pile_id: @pile1.id, unicode_value: "1F0A1"},
-                            {name: "Two of Spades", pile_id: @pile1.id, unicode_value: "1F0A2"},
-                            {name: "Three of Spades", pile_id: @pile2.id, unicode_value: "1F0A3"}])
+      Card.create([{ name: "Ace of Spades", pile_id: @pile1.id, unicode_value: "1F0A1" },
+                            { name: "Two of Spades", pile_id: @pile1.id, unicode_value: "1F0A2" },
+                            { name: "Three of Spades", pile_id: @pile2.id, unicode_value: "1F0A3" }])
     end
     after(:all) do
       Room.delete_all
@@ -23,29 +23,29 @@ describe PilesController do
       Card.delete_all
     end
     it 'should redirect to game room page if destination pile not selected' do
-      post :transfer_card, params: {room_id: @room.id, pile: {source_pile_id: @pile1.id, destination_pile_id: ""}},
-           session: {session_token: @user.session_token}
-      expect(response).to redirect_to(room_path({:id => @room.id}))
+      post :transfer_card, params: { room_id: @room.id, pile: { source_pile_id: @pile1.id, destination_pile_id: "" } },
+                           session: { session_token: @user.session_token }
+      expect(response).to redirect_to(room_path({ :id => @room.id }))
     end
     it 'should redirect to game room page if source pile not selected' do
-      post :transfer_card, params: {room_id: @room.id, pile: {source_pile_id: "", destination_pile_id: @pile2.id}},
-           session: {session_token: @user.session_token}
-      expect(response).to redirect_to(room_path({:id => @room.id}))
+      post :transfer_card, params: { room_id: @room.id, pile: { source_pile_id: "", destination_pile_id: @pile2.id } },
+                           session: { session_token: @user.session_token }
+      expect(response).to redirect_to(room_path({ :id => @room.id }))
     end
     it 'should redirect to the game room page if no cards were selected for transfer' do
-      post :transfer_card, params: {room_id: @room.id, pile: {source_pile_id: @pile1.id, destination_pile_id: @pile2.id}},
-           session: {session_token: @user.session_token}
-      expect(response).to redirect_to(room_path({:id => @room.id}))
+      post :transfer_card, params: { room_id: @room.id, pile: { source_pile_id: @pile1.id, destination_pile_id: @pile2.id } },
+                           session: { session_token: @user.session_token }
+      expect(response).to redirect_to(room_path({ :id => @room.id }))
     end
     it 'should transfer cards from source pile to destination pile' do
       transfer_card = @pile1.cards[1]
-      post :transfer_card, params: {room_id: @room.id, the_cards: {"#{@pile1.cards[1].id}": "on"}, pile: {source_pile_id: @pile1.id, destination_pile_id: @pile2.id}},
-           session: {session_token: @user.session_token}
+      post :transfer_card, params: { room_id: @room.id, the_cards: { "#{@pile1.cards[1].id}": "on" }, pile: { source_pile_id: @pile1.id, destination_pile_id: @pile2.id } },
+                           session: { session_token: @user.session_token }
       expect(@pile2.cards).to include(transfer_card)
     end
     it 'should change the card counts of the source and destination piles' do
-      post :transfer_card, params: {room_id: @room.id, the_cards: {"#{@pile1.cards[1].id}": "on"}, pile: {source_pile_id: @pile1.id, destination_pile_id: @pile2.id}},
-           session: {session_token: @user.session_token}
+      post :transfer_card, params: { room_id: @room.id, the_cards: { "#{@pile1.cards[1].id}": "on" }, pile: { source_pile_id: @pile1.id, destination_pile_id: @pile2.id } },
+                           session: { session_token: @user.session_token }
       expect(@pile1.cards.count).to eq(1)
       expect(@pile2.cards.count).to eq(2)
     end
@@ -67,11 +67,11 @@ describe PilesController do
       Card.delete_all
     end
     it 'should assign the piles belonging to the room to an instance variable @piles' do
-      get :show_transfer, params: { room_id: @room.id }, session: {session_token: @user.session_token}, xhr: true
+      get :show_transfer, params: { room_id: @room.id }, session: { session_token: @user.session_token }, xhr: true
       expect(assigns(:piles)).to eq(@room.piles)
     end
     it 'should render the _transfer_cards partial for ajax requests' do
-      get :show_transfer, params: { room_id: @room.id }, session: {session_token: @user.session_token}, xhr: true
+      get :show_transfer, params: { room_id: @room.id }, session: { session_token: @user.session_token }, xhr: true
       expect(response).to render_template(:partial => 'partials/_transfer_cards')
     end
   end
@@ -106,25 +106,53 @@ describe PilesController do
     it 'should work when drawing cards' do
       allow(Pile).to receive(:create!).and_return(@pile)
       post :draw_cards_from_deck,
-           params: {room_id: @room.id, pile: { num_cards: '3'}},
-           session: {session_token: @user.session_token}
+           params: { room_id: @room.id, pile: { num_cards: '3' } },
+           session: { session_token: @user.session_token }
 
       @hand = Pile.find_by_creator(@user.user_id)
       expect(@hand.card_count).to be(3)
-      expect(response).to redirect_to(room_path({id: @room.id}))
+      expect(response).to redirect_to(room_path({ id: @room.id }))
     end
     it 'should be able to load the draw_cards partial' do
-      get :get_from_draw, xhr: true, params: {room_id: @room.id}, session: {session_token: @user.session_token}
+      get :get_from_draw, xhr: true, params: { room_id: @room.id }, session: { session_token: @user.session_token }
       expect(response).to render_template(partial: 'partials/_draw_card')
     end
     it 'should be able to load discard' do
-      get :discard, xhr: true, params: {room_id: @room.id}, session: {session_token: @user.session_token}
+      get :discard, xhr: true, params: { room_id: @room.id }, session: { session_token: @user.session_token }
       expect(response).to render_template(partial: 'partials/_discard_cardy')
     end
-    # it 'should be able to discard directly' do
-    #   get :transfer_to_discard, xhr: true, params: {room_id: @room.id}, session: {session_token: @user.session_token}
-    #   expect(response).to render_template(partial: 'partials/_draw_card')
-    # end
+    it 'should be able to create pile' do
+      post :create, params: { private_pile: false, room_id: @room.id, pile: { name: "test"+@user.user_id, creator: @user.user_id } },
+                    session: { session_token: @user.session_token }
+      expect(response).to redirect_to(room_path({ id: @room.id }))
+      x = Pile.find_by_name("test"+@user.user_id)
+      expect(x).to_not be_nil
+    end
+    it 'should be able to discard directly' do
+      get :transfer_to_discard, params: { room_id: @room.id, source_pile_name: @pile.name, pile: { name2: 'Discard Pile' } },
+                                session: { session_token: @user.session_token }
+      expect(response).to redirect_to(room_path({ id: @room.id }))
+      expect(flash[:notice].to_s.include?("(transfer_card) This is not a pile in the database. Please try again.")).to be_truthy
+
+      Pile.create({ name: "Discard Pile",
+                    creator: "The Game", room_id: @room.id,
+                    card_count: 0, private_pile: false } )
+      
+      get :transfer_to_discard, params: { room_id: @room.id, source_pile_name: @pile.name, pile: { name2: 'Discard Pile' } },
+                                session: { session_token: @user.session_token }
+
+      expect(response).to redirect_to(room_path({ id: @room.id }))
+      expect(flash[:notice].to_s.include?("No cards selected")).to be_truthy
+
+
+      get :transfer_to_discard, params: { room_id: @room.id, source_pile_name: @pile.name,
+                                          pile: { name2: 'Discard Pile' }, the_cards: [1] },
+                                session: { session_token: @user.session_token }
+      
+
+      expect(response).to redirect_to(room_path({ id: @room.id }))
+      expect(flash[:notice].to_s.include?("Card(s) successfully discarded!")).to be_truthy
+    end
   end
 
 end
