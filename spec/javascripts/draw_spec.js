@@ -2,9 +2,11 @@ describe('DrawsPopup', function(){
 
         describe('setup', function (){
             it('adds pop Div to game room page', function(){
+                loadFixtures("draw_card.html");
                 expect($('#drawPopup')).toExist();
             });
             it('hide Div initially', function(){
+                loadFixtures("draw_card.html");
                 expect($('#drawPopup')).toBeHidden;
             });
         });
