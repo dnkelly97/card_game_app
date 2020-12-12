@@ -60,7 +60,7 @@ describe RoomsController do
       expect(Pile.find(1).private_pile).to eq(false)
     end
     it 'should render the partial hide_hand' do
-      expect(response).to render_template(action: '_hide_hand')
+      expect(response).to render_template(partial: '_hide_hand')
     end
   end
 end
