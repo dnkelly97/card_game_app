@@ -2,7 +2,7 @@
 <%= form_tag rooms_path, :class => 'form' do %>
   <%=label :room, :name, :class => 'col-form-label' %>
   <%= text_field_tag 'room_name', nil  %>
-  <%=label :room, :max_players, :class => 'col-form-label' %>
+  <%=label :room, :max_players_with_default_5, :class => 'col-form-label'%>
   <%= number_field_tag 'max_players', nil  %>
   <%=label :room, :game_type, :class => 'col-form-label' %>
   <%= text_field_tag 'game_type', nil  %>

@@ -52,12 +52,12 @@ class PilesController < ApplicationController
     deck[:card_count] = deck[:card_count] - num_cards
     deck.save
     destination_pile.save
-
     redirect_to room_path({id: params[:room_id]}), flash: { notice: "#{num_cards} card(s) transferred from Deck!"} and
         return unless request.xhr?
 
     # https://stackoverflow.com/questions/4632271/render-nothing-true-returns-empty-plaintext-file/18059789
     render plain: 'drawn', status: 200, content_type: 'text/html' if request.xhr?
+
   end
 
   def transfer_card
@@ -81,7 +81,7 @@ class PilesController < ApplicationController
   def discard
     @player_pile = Pile.find_by(name: "#{@current_user.user_id}'s Hand", room_id: params[:room_id])
     @thecards = @player_pile.cards
-    render(partial: 'partials/discard_cardy') if request.xhr? and return
+    render(partial: 'partials/discard_cardy') if request.xhr?
   end
 
   def transfer_to_discard
