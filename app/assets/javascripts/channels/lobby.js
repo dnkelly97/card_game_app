@@ -66,6 +66,14 @@ let updateLobby = function(data, xhrObj, testStatus){
         }
     });
 
+    // Check transfer specific select box
+    let index = null;
+    let destIndex = null;
+    if(stateId.toString() === "transferCardsPopup"){
+        index = document.getElementById('pile_source_pile_id').options.selectedIndex
+        destIndex = document.getElementById('pile_destination_pile_id').options.selectedIndex
+
+    }
 
     //------------ Reset game room ----------------
     $("#game-room").empty().html(data);
@@ -85,12 +93,20 @@ let updateLobby = function(data, xhrObj, testStatus){
         document.getElementById(stateId).style.display="";
     }
 
+    // Maintain transfer select state
+    if(index != null){
+        document.getElementById('pile_source_pile_id').options.selectedIndex = index
+        document.getElementById('pile_destination_pile_id').options.selectedIndex = destIndex
+    }
 
 }
 
+// Maintain transfer select state with card updates
 let updateTransferPopup = (data, xhrObj, testStatus) => {
+    let destIndex = document.getElementById('pile_destination_pile_id').options.selectedIndex
     let index = document.getElementById('pile_source_pile_id').options.selectedIndex
     $('#transferCardsPopup').empty().html(data).show();
-     document.getElementById('pile_source_pile_id').options.selectedIndex = index
+    document.getElementById('pile_source_pile_id').options.selectedIndex = index
+    document.getElementById('pile_destination_pile_id').options.selectedIndex = destIndex
 
 }
