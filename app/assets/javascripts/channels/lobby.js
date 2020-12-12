@@ -71,13 +71,23 @@ let updateLobby = function(data, xhrObj, testStatus){
     let destIndex = null;
     let table = [];
     let table_name = [];
+    let div_to_scroll;
+
     if(stateId === "transferCardsPopup"){
         index = document.getElementById('pile_source_pile_id').options.selectedIndex
         destIndex = document.getElementById('pile_destination_pile_id').options.selectedIndex
         $("#transfer_cards_form input:checkbox").each((index, element)=>{
             if($(element).is(":checked")){table.push(index); table_name.push($(element).attr('id'))}
         });
+        // Reset Scrollbar
+        $("#transfer_cards_form div").each((index, element)=>{
+            $(element).css('display') === "block" ? div_to_scroll = element.scrollTop : ""
+        })
+
     }
+
+
+
     //------------ Reset game room ----------------
     $("#game-room").empty().html(data);
 
@@ -103,6 +113,9 @@ let updateLobby = function(data, xhrObj, testStatus){
         $("#transfer_cards_form input:checkbox").each((index, element)=>{
             table.includes(index) && table_name.includes($(element).attr('id')) ? $(element).prop("checked", true) : $(element).prop("checked", false)
         });
+        $("#transfer_cards_form div").each((index, element)=>{
+            $(element).css('display') === "block" ? element.scrollTop = div_to_scroll : ""
+        })
     }
 
 }
@@ -116,6 +129,13 @@ let updateTransferPopup = (data, xhrObj, testStatus) => {
     });
     let destIndex = document.getElementById('pile_destination_pile_id').options.selectedIndex
     let index = document.getElementById('pile_source_pile_id').options.selectedIndex
+
+
+    let div_to_scroll;
+    $("#transfer_cards_form div").each((index, element)=>{
+        $(element).css('display') === "block" ? div_to_scroll = element.scrollTop : ""
+    })
+
     $('#transferCardsPopup').empty().html(data).show();
     document.getElementById('pile_source_pile_id').options.selectedIndex = index
     document.getElementById('pile_destination_pile_id').options.selectedIndex = destIndex
@@ -124,4 +144,7 @@ let updateTransferPopup = (data, xhrObj, testStatus) => {
         table.includes(index) && table_name.includes($(element).attr('id')) ? $(element).prop("checked", true) : $(element).prop("checked", false)
     });
     TransferCardsPopup.showSourcePileCards()
+    $("#transfer_cards_form div").each((index, element)=>{
+        $(element).css('display') === "block" ? element.scrollTop = div_to_scroll : ""
+    })
 }
