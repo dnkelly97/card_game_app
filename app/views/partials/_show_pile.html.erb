@@ -1,12 +1,15 @@
-<table class="cardsTable dataTable" id="card-table">
+<table class="playingCards faceImages cardsTable dataTable" id="card-table">
   <% @room.piles.each do |pile| %>
     <tr id=<%="#{pile.id}"%> style="display:none;">
       <% Card.where(pile_id: pile.id).each do |card| %>
         <td>
-          <% if pile.private_pile %>
-            <p style="font-size:128px;">&#x1F0F4;</p>
+          <% if not pile.private_pile %>
+              <a class="card back"></a>
           <% else %>
-            <p style="font-size:128px;">&#x<%= card.unicode_value %>;</p>
+              <a class="card rank-<%=card.rank.downcase%> <%= card.suit %>">
+                <span class="rank"><%= card.rank %></span>
+                <span class="suit">&<%= card.suit %>;</span>
+              </a>
           <% end %>
         </td>
       <% end %>
