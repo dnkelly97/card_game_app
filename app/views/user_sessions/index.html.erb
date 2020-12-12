@@ -8,6 +8,12 @@
   <%= button_to "Create Room", new_room_path, method: :get, :class => 'btn btn-primary' %>
   <%= button_to "Join Room", rooms_new_join_path, method: :get, :class => 'btn btn-primary' %>
   <%= button_to "Logout",  logout_path, method: :post,:class => 'btn btn-primary', :id => 'logout' %>
+  <%= "Available Open Rooms: " %>
+  <% Room.where(private: nil).each do |room| %>
+    <% if room.users.count < room[:max_players] %>
+      <%= button_to  room.name, rooms_create_join_path(:id => room.room_code), method: :post, :class => 'btn btn-primary'%>
+    <% end %>
+  <% end %>
 <% end %>
 <script>
     jQuery(LoginPopup.setup);

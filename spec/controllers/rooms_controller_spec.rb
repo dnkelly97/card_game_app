@@ -14,7 +14,7 @@ describe RoomsController do
           session: {session_token: @user.session_token}
       expect(flash[:notice].include?('Welcome to your newly created room')).to be_truthy
       expect(Room.all.count).to eq(1)
-      expect(Room.find(Room.all[0].id).name).to eq('Test')
+      expect(Room.all[0].name).to eq('Test')
     end
     it 'should redirect to the new created room' do
       post :create, params: {room_name: 'Test'}, session: {session_token: @user.session_token}
@@ -98,16 +98,6 @@ describe RoomsController do
       post :create, params: {room_name: "Dan's Test Room", max_players: 1}, session: {session_token: @user.session_token}
       get :show, params: {id: Room.all[0].id}
       expect(assigns(:room)).to eq(Room.find_by_id(Room.all[0].id))
-    end
-  end
-
-  describe 'Show Action' do
-    before(:each) do
-      post :create, params: {room_name: "Dan's Test Room", max_players: 1}, session: {session_token: @user.session_token}
-    end
-    it 'should set the @room variable to the Room with the id passed as a parameter' do
-      get :show, params: {id: Room.all[0].id}, session: {session_token: @user.session_token}
-      assigns(:room).should eq(Room.find(Room.all[0].id))
     end
     it 'should the render the show view' do
       get :show, params: {id: Room.all[0].id}, session: {session_token: @user.session_token}
