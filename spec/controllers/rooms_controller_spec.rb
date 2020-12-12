@@ -50,6 +50,20 @@ describe RoomsController do
 
   end
 
+  describe 'Show Action' do
+    before(:each) do
+      @room = FactoryBot.create(:room)
+      @pile = FactoryBot.create(:pile)
+      get :show, params: {id: 1}, session: {session_token: @user.session_token}
+    end
+    it 'should set the @room variable to the Room with the id 1' do
+      assigns(:room).should eq(Room.find(1))
+    end
+    it 'should the render the show view' do
+      expect(response).to render_template(:show)
+    end
+  end
+
   describe 'Showing a Hand' do
     before(:each) do
       @room = FactoryBot.create(:room)
