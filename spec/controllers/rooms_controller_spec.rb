@@ -101,6 +101,7 @@ describe RoomsController do
       get :show, params: {id: Room.all[0].id}
       expect(assigns(:room)).to eq(Room.find_by_id(Room.all[0].id))
     end
+
     it 'should the render the show view' do
       get :show, params: {id: Room.all[0].id}, session: {session_token: @user.session_token}
       expect(response).to render_template(:show)
@@ -124,4 +125,6 @@ describe RoomsController do
       expect(response).to render_template(partial: '_show_hand')
     end
   end
+
+
 end

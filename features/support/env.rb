@@ -7,7 +7,12 @@
 require 'cucumber/rails'
 require 'rspec/expectations'
 require 'simplecov'
-SimpleCov.start
+SimpleCov.start do
+  add_filter "/test/"
+  add_filter "/spec/"
+  add_filter "/features/"
+  add_filter "/vendor/"
+end
 # frozen_string_literal: true
 
 # Capybara defaults to CSS3 selectors rather than XPath.
