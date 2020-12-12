@@ -100,21 +100,6 @@ describe RoomsController do
       expect(assigns(:room)).to eq(Room.find_by_id(Room.all[0].id))
     end
 
-    it 'should translate a character name into a number or single letter' do
-      @room = Room.find_by_name("Dan's Test Room")
-      allow(SecureRandom).to receive(:random_number).and_return(1111111111)
-      post :create, params: {room_name: "Dan's Test Room", max_players: 1}, session: {session_token: @user.session_token}
-      Card.where(pile_id: Pile.find_by_name("Deck").id).map do |card|
-        card.pile_id = Pile.find_by(creator: @user.user_id).id
-        card.save
-      end
-      #card.save
-      get :show, params: { id: 1 }
-      assigns(:card_list).each do |test|
-        expect(test[0].match?(/^([AJKQ2-9]|10)\z/)).to be_truthy
-      end
-
-    end
 
   end
 

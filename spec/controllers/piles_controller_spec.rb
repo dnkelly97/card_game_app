@@ -98,17 +98,33 @@ describe PilesController do
                     card_count: 0, private_pile: false } )
       @pile.cards << FactoryBot.create_list(:card, 52)
     end
+    after(:all) do
+      Room.delete_all
+      Pile.delete_all
+      User.delete_all
+    end
     it 'should work when drawing cards' do
       allow(Pile).to receive(:create!).and_return(@pile)
       post :draw_cards_from_deck,
            params: {room_id: @room.id, pile: { num_cards: '3'}},
            session: {session_token: @user.session_token}
 
-      #Pile.find_by(name: "#{@current_user.user_id}'s Hand", room_id: params[:room_id])
       @hand = Pile.find_by_creator(@user.user_id)
       expect(@hand.card_count).to be(3)
       expect(response).to redirect_to(room_path({id: @room.id}))
     end
+    it 'should be able to load the draw_cards partial' do
+      get :get_from_draw, xhr: true, params: {room_id: @room.id}, session: {session_token: @user.session_token}
+      expect(response).to render_template(partial: 'partials/_draw_card')
+    end
+    it 'should be able to load discard' do
+      get :discard, xhr: true, params: {room_id: @room.id}, session: {session_token: @user.session_token}
+      expect(response).to render_template(partial: 'partials/_discard_cardy')
+    end
+    # it 'should be able to discard directly' do
+    #   get :transfer_to_discard, xhr: true, params: {room_id: @room.id}, session: {session_token: @user.session_token}
+    #   expect(response).to render_template(partial: 'partials/_draw_card')
+    # end
   end
 
 end
