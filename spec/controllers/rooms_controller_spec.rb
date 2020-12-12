@@ -14,11 +14,11 @@ describe RoomsController do
           session: {session_token: @user.session_token}
       expect(flash[:notice].include?('Welcome to your newly created room')).to be_truthy
       expect(Room.all.count).to eq(1)
-      expect(Room.find(1).name).to eq('Test')
+      expect(Room.all[0].name).to eq('Test')
     end
     it 'should redirect to the new created room' do
       post :create, params: {room_name: 'Test'}, session: {session_token: @user.session_token}
-      expect(response).to redirect_to('/rooms/1')
+      expect(response).to redirect_to("/rooms/#{Room.all[0].id}")
       #TODO: Figure out how to change to a path variable
     end
     it 'should go back to login page if not logged in' do
@@ -36,7 +36,7 @@ describe RoomsController do
 
       post :create_join, params: {id: 1111111111}
       # byebug
-      expect(response).to redirect_to('/rooms/1')
+      expect(response).to redirect_to("/rooms/#{Room.all[0].id}")
     end
     it 'should redirect to the join room page if invalid id is given' do
       post :create_join, params: {id: 1111111110}
@@ -85,7 +85,7 @@ describe RoomsController do
         expect(@room.piles).to include(pile)
       end
       it 'should redirect to the room\'s page' do
-        expect(response).to redirect_to('/rooms/1')
+        expect(response).to redirect_to("/rooms/#{Room.all[0].id}")
       end
       it 'should display a flash message on the room page welcoming the user to the room' do
         expect(flash[:notice]).to eq("#{@user2.user_id}, welcome to #{@room.name}")
@@ -96,8 +96,8 @@ describe RoomsController do
     it 'should use the id parameter to assign the correct room to @rooms, making the room available to the view' do
       allow(SecureRandom).to receive(:random_number).and_return(1111111111)
       post :create, params: {room_name: "Dan's Test Room", max_players: 1}, session: {session_token: @user.session_token}
-      get :show, params: {id: 1}
-      expect(assigns(:room)).to eq(Room.find_by_id(1))
+      get :show, params: {id: Room.all[0].id}
+      expect(assigns(:room)).to eq(Room.find_by_id(Room.all[0].id))
     end
   end
 end

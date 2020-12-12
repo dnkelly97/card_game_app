@@ -9,7 +9,7 @@ class UsersController < ApplicationController
     rescue ActiveRecord::RecordInvalid => ex
       output = ['Invalid credentials:']
       ex.to_s.split(',').each { |ele| output << ele}
-      redirect_to new_user_path, flash: { warning: output.join('<br/>').html_safe }
+      redirect_to new_user_path, flash: { warning: output.join('<br/>') }
       return
     end
     redirect_to login_path, flash: { notice: 'Your account was successfully created.'}

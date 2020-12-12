@@ -9,12 +9,11 @@
 
 /* card itself
 ********************************************************************/
-.spread-button{
-    padding-top: 1em;
-    padding-bottom: 1em;
+
+
+.playingCards .cardOutline {
+    background-color: transparent !important;
 }
-
-
 
 .playingCards .card {
     display: inline-block;
@@ -43,7 +42,8 @@
 }
 /* selected and hover state */
 .playingCards a.card:hover, .playingCards a.card:active, .playingCards a.card:focus,
-.playingCards label.card:hover,
+.playingCards label.card:hover, .playingCards button.card.hover, .playingCards button.card.active,
+.playingCards button.card.active,
 .playingCards strong .card {
     bottom: 1em;
 }
@@ -53,12 +53,18 @@
 
 .playingCards .card.back {
     text-indent: -4000px;
-    background-color: #ccc;
-    background-repeat: repeat;
-    background-image: url(data:image/gif;base64,R0lGODlhJAAkAJEAAOjFsezdztOKbL5QKCH5BAAAAAAALAAAAAAkACQAAAL/HC4RAqm/mmLHyHmAbczB11Ea8ombJKSgKo6Z17pXFznmS1JptiX0z3vVhpEKDoUIkoa0olGIUeZUk1RI6Yn2mh/FDAt6frOrRRTqXPpsVLYugzxaVy+YcBdnoWPZOT0E4eckQtZFZBjWoHixQFWl6Nhol6R2p1Okt5TGaEWZA6fjiMdhZgPHeWrTWGVq+jTZg1HYyAEWKLYzmyiGKoUimilz+YYryyTlg5RcDJSAbNx0Q7lMcbIGEyzTK8zVdfVaImzs/QV+prYqWWW2ObkoOApM/Em/rUlIm7fijs8a2EEKEaZ3AsMUgneEU6RcpJbZ27aGHkAO2Ors8xQH1IR0Bn5YnOtVAAA7); /* image is "Pattern 069" from http://www.squidfingers.com/patterns/ */
-    background-image: -moz-repeating-linear-gradient(34% 6% 135deg,#0F1E59, #75A1BF, #3E3E63 50%);
-    background-image: -webkit-gradient(radial, center center, 20, center center, 80, from(#3c3), color-stop(0.4, #363), to(#030));
-    /* yes, it's intentional that Mozilla, Webkit, Opera and IE all will get different backgrounds ... why not? :) */
+    background-image: image-url("johnson_hans.jpg");
+    -moz-background-image: image-url("johnson_hans.jpg");
+    -o-background-image: image-url("johnson_hans.jpg");
+    -webkit-background-image: image-url("johnson_hans.jpg");
+    background-position: center;
+    background-size: cover;
+    /*background-color: #ccc;*/
+    /*background-repeat: repeat;*/
+    /*background-image: url(data:image/gif;base64,R0lGODlhJAAkAJEAAOjFsezdztOKbL5QKCH5BAAAAAAALAAAAAAkACQAAAL/HC4RAqm/mmLHyHmAbczB11Ea8ombJKSgKo6Z17pXFznmS1JptiX0z3vVhpEKDoUIkoa0olGIUeZUk1RI6Yn2mh/FDAt6frOrRRTqXPpsVLYugzxaVy+YcBdnoWPZOT0E4eckQtZFZBjWoHixQFWl6Nhol6R2p1Okt5TGaEWZA6fjiMdhZgPHeWrTWGVq+jTZg1HYyAEWKLYzmyiGKoUimilz+YYryyTlg5RcDJSAbNx0Q7lMcbIGEyzTK8zVdfVaImzs/QV+prYqWWW2ObkoOApM/Em/rUlIm7fijs8a2EEKEaZ3AsMUgneEU6RcpJbZ27aGHkAO2Ors8xQH1IR0Bn5YnOtVAAA7); !* image is "Pattern 069" from http://www.squidfingers.com/patterns/ *!*/
+    /*background-image: -moz-repeating-linear-gradient(34% 6% 135deg,#0F1E59, #75A1BF, #3E3E63 50%);*/
+    /*background-image: -webkit-gradient(radial, center center, 20, center center, 80, from(#3c3), color-stop(0.4, #363), to(#030));*/
+    /*!* yes, it's intentional that Mozilla, Webkit, Opera and IE all will get different backgrounds ... why not? :) *!*/
 }
 
 /* suit colours
@@ -173,7 +179,7 @@
     text-align: center;
     white-space: pre;
     line-height: .9;
-    font-size: 1.3em;
+    font-size: .7em;
     word-spacing: -.05em;
 }
 
@@ -344,22 +350,22 @@
     background-size: contain;
 }
 
-.playingCards.faceImages .card.rank-j.diams  { background-image: url(../images/faces/JD.gif); }
-.playingCards.faceImages .card.rank-j.hearts { background-image: url(../images/faces/JH.gif); }
-.playingCards.faceImages .card.rank-j.spades { background-image: url(../images/faces/JS.gif); }
-.playingCards.faceImages .card.rank-j.clubs  { background-image: url(../images/faces/JC.gif); }
+.playingCards.faceImages .card.rank-j.diams  { background-image: image-url("faces/JD.gif"); }
+.playingCards.faceImages .card.rank-j.hearts { background-image: image-url("faces/JH.gif"); }
+.playingCards.faceImages .card.rank-j.spades { background-image: image-url("faces/JS.gif"); }
+.playingCards.faceImages .card.rank-j.clubs  { background-image: image-url("faces/JC.gif"); }
 
-.playingCards.faceImages .card.rank-q.diams  { background-image: url(../images/faces/QD.gif); }
-.playingCards.faceImages .card.rank-q.hearts { background-image: url(../images/faces/QH.gif); }
-.playingCards.faceImages .card.rank-q.spades { background-image: url(../images/faces/QS.gif); }
-.playingCards.faceImages .card.rank-q.clubs  { background-image: url(../images/faces/QC.gif); }
+.playingCards.faceImages .card.rank-q.diams  { background-image: image-url("faces/QD.gif"); }
+.playingCards.faceImages .card.rank-q.hearts { background-image: image-url("faces/QH.gif"); }
+.playingCards.faceImages .card.rank-q.spades { background-image: image-url("faces/QS.gif"); }
+.playingCards.faceImages .card.rank-q.clubs  { background-image: image-url("faces/QC.gif"); }
 
-.playingCards.faceImages .card.rank-k.diams  { background-image: url(../images/faces/KD.gif); }
-.playingCards.faceImages .card.rank-k.hearts { background-image: url(../images/faces/KH.gif); }
-.playingCards.faceImages .card.rank-k.spades { background-image: url(../images/faces/KS.gif); }
-.playingCards.faceImages .card.rank-k.clubs  { background-image: url(../images/faces/KC.gif); }
+.playingCards.faceImages .card.rank-k.diams  { background-image: image-url("faces/KD.gif"); }
+.playingCards.faceImages .card.rank-k.hearts { background-image: image-url("faces/KH.gif"); }
+.playingCards.faceImages .card.rank-k.spades { background-image: image-url("faces/KS.gif"); }
+.playingCards.faceImages .card.rank-k.clubs  { background-image: image-url("faces/KC.gif"); }
 
-.playingCards.faceImages .card.joker         { background-image: url(../images/faces/joker.gif); }
+.playingCards.faceImages .card.joker         { background-image: image-url("faces/joker.gif"); }
 .playingCards.simpleCards .card.rank-j,
 .playingCards.simpleCards .card.rank-q,
 .playingCards.simpleCards .card.rank-k       { background-image: none !important; }
@@ -492,33 +498,39 @@
 .playingCards ul.hand li {
     bottom: 0;
 }
-.playingCards ul.hand li:nth-child(1)  { left: 0; }
-.playingCards ul.hand li:nth-child(2)  { left: 1.1em; }
-.playingCards ul.hand li:nth-child(3)  { left: 2.2em; }
-.playingCards ul.hand li:nth-child(4)  { left: 3.3em; }
-.playingCards ul.hand li:nth-child(5)  { left: 4.4em; }
-.playingCards ul.hand li:nth-child(6)  { left: 5.5em; }
-.playingCards ul.hand li:nth-child(7)  { left: 6.6em; }
-.playingCards ul.hand li:nth-child(8)  { left: 7.7em; }
-.playingCards ul.hand li:nth-child(9)  { left: 8.8em; }
-.playingCards ul.hand li:nth-child(10) { left: 9.9em; }
-.playingCards ul.hand li:nth-child(11) { left: 11em; }
-.playingCards ul.hand li:nth-child(12) { left: 12.1em; }
-.playingCards ul.hand li:nth-child(13) { left: 13.2em; }
 
-.playingCards ul.hand li:nth-child(14) { left: 14.3em; }
-.playingCards ul.hand li:nth-child(15) { left: 15.4em; }
-.playingCards ul.hand li:nth-child(16) { left: 16.5em; }
-.playingCards ul.hand li:nth-child(17) { left: 17.6em; }
-.playingCards ul.hand li:nth-child(18) { left: 18.7em; }
-.playingCards ul.hand li:nth-child(19) { left: 19.8em; }
-.playingCards ul.hand li:nth-child(20) { left: 20.9em; }
-.playingCards ul.hand li:nth-child(21) { left: 22em; }
-.playingCards ul.hand li:nth-child(22) { left: 23.1em; }
-.playingCards ul.hand li:nth-child(23) { left: 24.2em; }
-.playingCards ul.hand li:nth-child(24) { left: 25.3em; }
-.playingCards ul.hand li:nth-child(25) { left: 26.4em; }
-.playingCards ul.hand li:nth-child(26) { left: 27.5em; }
+$offset-value: 0;
+@for $card-idx from 1 to 60 {
+  .playingCards ul.hand li:nth-child(#{$card-idx})  { left: #{$offset-value}em; }
+  $offset-value: $offset-value + 1.2;
+}
+//.playingCards ul.hand li:nth-child(1)  { left: 0; }
+//.playingCards ul.hand li:nth-child(2)  { left: 1.1em; }
+//.playingCards ul.hand li:nth-child(3)  { left: 2.2em; }
+//.playingCards ul.hand li:nth-child(4)  { left: 3.3em; }
+//.playingCards ul.hand li:nth-child(5)  { left: 4.4em; }
+//.playingCards ul.hand li:nth-child(6)  { left: 5.5em; }
+//.playingCards ul.hand li:nth-child(7)  { left: 6.6em; }
+//.playingCards ul.hand li:nth-child(8)  { left: 7.7em; }
+//.playingCards ul.hand li:nth-child(9)  { left: 8.8em; }
+//.playingCards ul.hand li:nth-child(10) { left: 9.9em; }
+//.playingCards ul.hand li:nth-child(11) { left: 11em; }
+//.playingCards ul.hand li:nth-child(12) { left: 12.1em; }
+//.playingCards ul.hand li:nth-child(13) { left: 13.2em; }
+//
+//.playingCards ul.hand li:nth-child(14) { left: 14.3em; }
+//.playingCards ul.hand li:nth-child(15) { left: 15.4em; }
+//.playingCards ul.hand li:nth-child(16) { left: 16.5em; }
+//.playingCards ul.hand li:nth-child(17) { left: 17.6em; }
+//.playingCards ul.hand li:nth-child(18) { left: 18.7em; }
+//.playingCards ul.hand li:nth-child(19) { left: 19.8em; }
+//.playingCards ul.hand li:nth-child(20) { left: 20.9em; }
+//.playingCards ul.hand li:nth-child(21) { left: 22em; }
+//.playingCards ul.hand li:nth-child(22) { left: 23.1em; }
+//.playingCards ul.hand li:nth-child(23) { left: 24.2em; }
+//.playingCards ul.hand li:nth-child(24) { left: 25.3em; }
+//.playingCards ul.hand li:nth-child(25) { left: 26.4em; }
+//.playingCards ul.hand li:nth-child(26) { left: 27.5em; }
 
 /* rotate cards if rotateHand option is on */
 .playingCards.rotateHand ul.hand li:nth-child(1) {
@@ -601,6 +613,7 @@
 }
 
 /* deck */
+/*
 .playingCards ul.deck li:nth-child(1)  { left: 0;    bottom: 0; }
 .playingCards ul.deck li:nth-child(2)  { left: 2px;  bottom: 1px; }
 .playingCards ul.deck li:nth-child(3)  { left: 4px;  bottom: 2px; }
@@ -633,3 +646,4 @@
 .playingCards ul.deck li:nth-child(30) { left: 58px; bottom: 29px; }
 .playingCards ul.deck li:nth-child(31) { left: 60px; bottom: 30px; }
 .playingCards ul.deck li:nth-child(32) { left: 62px; bottom: 31px; }
+*/
