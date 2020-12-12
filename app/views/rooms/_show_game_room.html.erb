@@ -105,7 +105,7 @@
         <%= render partial: 'partials/show_hand'%>
       <% else %>
         <%= render partial: 'partials/hide_hand'%>
-      <%= end %>
+      <% end %>
       <Button type="button" class="btn btn-outline-primary" onclick="changeCards()">Spread/Unspread Cards</Button>
       <% if @fan %>
         <Button type="button" class="btn btn-outline-primary" onclick="fanCards()">Fan/Unfan Cards</Button>
