@@ -17,9 +17,9 @@ const subscribe_to_room = function(room_number) {
                 // Called when there's incoming data on the websocket for this channel
                 // for each data['pile'], updated cards
                 let transferReload = document.getElementById('transferCardsPopup').style.display === "";
-                console.log(data['pile'])
-                console.log($('#transfer_cards_details_header').attr('data-source-pile'))
-                let transferID = data['pile']===$('#transfer_cards_details_header').attr('data-source-pile')
+                // console.log(data['pile'])
+                // console.log($('#transfer_cards_details_header').attr('data-source-pile'))
+                let transferID = String(data['pile'])===$('#transfer_cards_details_header').attr('data-source-pile')
                 if(transferReload && transferID){
                     $.ajax({
                         type: 'GET',
@@ -28,15 +28,15 @@ const subscribe_to_room = function(room_number) {
                         success: updateTransferPopup,
                         error: function(xhrObj, testStatus, exception) { alert('Error!'); }
                     });
-                }else{
-                    $.ajax({
-                        type: 'GET',
-                        url: "/rooms/"+String(room_number),
-                        timeout: 50000,
-                        success: updateLobby,
-                        error: function(xhrObj, testStatus, exception) { alert('Error!'); }
-                    });
                 }
+                $.ajax({
+                    type: 'GET',
+                    url: "/rooms/"+String(room_number),
+                    timeout: 50000,
+                    success: updateLobby,
+                    error: function(xhrObj, testStatus, exception) { alert('Error!'); }
+                });
+
 
             }
         }
@@ -70,14 +70,14 @@ let updateLobby = function(data, xhrObj, testStatus){
     let index = null;
     let destIndex = null;
     let table = [];
-    if(stateId.toString() === "transferCardsPopup"){
+    let table_name = [];
+    if(stateId === "transferCardsPopup"){
         index = document.getElementById('pile_source_pile_id').options.selectedIndex
         destIndex = document.getElementById('pile_destination_pile_id').options.selectedIndex
         $("#transfer_cards_form input:checkbox").each((index, element)=>{
-            $(element).is(":checked") ? table.push(index) : "";
+            if($(element).is(":checked")){table.push(index); table_name.push($(element).attr('id'))}
         });
     }
-
     //------------ Reset game room ----------------
     $("#game-room").empty().html(data);
 
@@ -101,7 +101,7 @@ let updateLobby = function(data, xhrObj, testStatus){
         document.getElementById('pile_source_pile_id').options.selectedIndex = index
         document.getElementById('pile_destination_pile_id').options.selectedIndex = destIndex
         $("#transfer_cards_form input:checkbox").each((index, element)=>{
-            table.includes(index) ? $(element).prop("checked", true) : $(element).prop("checked", false)
+            table.includes(index) && table_name.includes($(element).attr('id')) ? $(element).prop("checked", true) : $(element).prop("checked", false)
         });
     }
 
@@ -110,8 +110,9 @@ let updateLobby = function(data, xhrObj, testStatus){
 // Maintain transfer select state with card updates
 let updateTransferPopup = (data, xhrObj, testStatus) => {
     let table = [];
+    let table_name = [];
     $("#transfer_cards_form input:checkbox").each((index, element)=>{
-        $(element).is(":checked") ? table.push(index) : "";
+        if($(element).is(":checked")){table.push(index); table_name.push($(element).attr('id'))}
     });
     let destIndex = document.getElementById('pile_destination_pile_id').options.selectedIndex
     let index = document.getElementById('pile_source_pile_id').options.selectedIndex
@@ -120,6 +121,7 @@ let updateTransferPopup = (data, xhrObj, testStatus) => {
     document.getElementById('pile_destination_pile_id').options.selectedIndex = destIndex
 
     $("#transfer_cards_form input:checkbox").each((index, element)=>{
-        table.includes(index) ? $(element).prop("checked", true) : $(element).prop("checked", false)
+        table.includes(index) && table_name.includes($(element).attr('id')) ? $(element).prop("checked", true) : $(element).prop("checked", false)
     });
+    TransferCardsPopup.showSourcePileCards()
 }
