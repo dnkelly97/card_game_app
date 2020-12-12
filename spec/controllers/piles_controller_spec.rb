@@ -121,6 +121,10 @@ describe PilesController do
       get :discard, xhr: true, params: { room_id: @room.id }, session: { session_token: @user.session_token }
       expect(response).to render_template(partial: 'partials/_discard_cardy')
     end
+    it 'should be able to load new partial' do
+      get :new, xhr: true, session: { session_token: @user.session_token }
+      expect(response).to render_template(partial: 'partials/_create_pile')
+    end
     it 'should be able to create pile' do
       post :create, params: { private_pile: false, room_id: @room.id, pile: { name: "test"+@user.user_id, creator: @user.user_id } },
                     session: { session_token: @user.session_token }
