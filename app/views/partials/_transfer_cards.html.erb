@@ -1,4 +1,4 @@
-<h3 style="color: white;" data-source-pile="<%= @source_pile.id %>" id="transfer_cards_details_header">Transfer Card!!</h3>
+<h3 style="color: white;" data-source-pile="<%= @piles.select{ |pile| pile.creator == @current_user.user_id }[0].id %>" id="transfer_cards_details_header">Transfer Card!!</h3>
 
   <%= form_tag transfer_card_piles_path({:room_id => params[:room_id]}), :id => 'transfer_cards_form', remote: true, :authenticity_token => true do %>
   <%= label :pile, :source_pile_name, 'Transfer From:', :class => 'row-form-label', style: "color: white" %>

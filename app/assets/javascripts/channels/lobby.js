@@ -16,19 +16,19 @@ const subscribe_to_room = function(room_number) {
             received(data) {
                 // Called when there's incoming data on the websocket for this channel
                 // for each data['pile'], updated cards
-                //let transferReload = document.getElementById('transferCardsPopup').style.display === "";
+                let transferReload = document.getElementById('transferCardsPopup').style.display === "";
                 console.log(data['pile'])
                 console.log($('#transfer_cards_details_header').attr('data-source-pile'))
                 let transferID = data['pile']===$('#transfer_cards_details_header').attr('data-source-pile')
-                // if(transferReload && transferID){
-                //     $.ajax({
-                //         type: 'GET',
-                //         url: $('#pile_detail').parent().attr('action'),
-                //         timeout: 50000,
-                //         success: updateTransferPopup,
-                //         error: function(xhrObj, testStatus, exception) { alert('Error!'); }
-                //     });
-                // }else{
+                if(transferReload && transferID){
+                    $.ajax({
+                        type: 'GET',
+                        url: $('#initiate_transfer_button').attr('action'),
+                        timeout: 50000,
+                        success: updateTransferPopup,
+                        error: function(xhrObj, testStatus, exception) { alert('Error!'); }
+                    });
+                }else{
                     $.ajax({
                         type: 'GET',
                         url: "/rooms/"+String(room_number),
@@ -36,7 +36,7 @@ const subscribe_to_room = function(room_number) {
                         success: updateLobby,
                         error: function(xhrObj, testStatus, exception) { alert('Error!'); }
                     });
-                // }
+                }
 
             }
         }
@@ -89,5 +89,8 @@ let updateLobby = function(data, xhrObj, testStatus){
 }
 
 let updateTransferPopup = (data, xhrObj, testStatus) => {
+    let index = document.getElementById('pile_source_pile_id').options.selectedIndex
     $('#transferCardsPopup').empty().html(data).show();
+     document.getElementById('pile_source_pile_id').options.selectedIndex = index
+
 }
