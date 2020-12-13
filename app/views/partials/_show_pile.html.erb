@@ -3,7 +3,7 @@
     <tr id=<%="#{pile.id}"%> style="display:none;">
       <% Card.where(pile_id: pile.id).each do |card| %>
         <td>
-          <% if not pile.private_pile %>
+          <% if pile.private_pile %>
               <a class="card back"></a>
           <% else %>
               <a class="card rank-<%=card.rank.downcase%> <%= card.suit %>">
