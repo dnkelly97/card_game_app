@@ -81,7 +81,7 @@ class RoomsController < ApplicationController
   def show
     id = params[:id]
     @room = Room.find(id)
-    @draw_pile = Pile.where(room_id: @room.id, name: "Deck", creator: "The Game").first
+    @draw_pile = Pile.find_by(room_id: @room.id, name: "Deck", creator: "The Game")
     @draw_cards = translate_cards_to_array(Card.where(pile_id: @draw_pile.id))
     @discard_pile = Pile.find_by(room_id: @room.id, name: "Discard Pile", creator: "The Game")
     @center_piles = []
