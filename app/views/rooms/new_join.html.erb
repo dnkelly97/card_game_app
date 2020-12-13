@@ -1,8 +1,10 @@
-<h2>Join A Game Room</h2>
-<%= form_tag rooms_create_join_path, :class => 'form', :method=> 'post' do %>
-  <%=label :room, :id, 'Room ID', :class => 'col-form-label' %>
-  <%= text_field_tag 'id', nil  %>
-  <%= submit_tag 'Join Room', :class => 'btn btn-primary' %>
-<% end %>
-<br>
-<%= link_to 'Create Room', new_room_path, :class => 'btn btn-secondary'%>
+<div class="padded-form">
+  <h2>Join A Game Room</h2>
+  <%= form_tag rooms_create_join_path, :class => 'form', :method=> 'post' do %>
+    <%=label :room, :id, 'Room ID', :class => 'col-form-label' %>
+    <%= text_field_tag 'id', nil  %>
+    <%= submit_tag 'Join Room', :class => 'btn btn-primary' %>
+  <% end %>
+  <br>
+  <%= link_to 'Create Room', new_room_path, :class => 'btn btn-secondary'%>
+</div>

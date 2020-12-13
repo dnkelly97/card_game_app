@@ -84,3 +84,9 @@ input[type=submit]:hover {
     left: 50%;
     transform: translate(-50%, -50%);
 }
+
+.padded-form{
+    padding-top: 5%;
+    padding-left: 30%;
+    padding-right: 30%;
+}
