@@ -54,9 +54,7 @@
 
       </div>
       <div class="piles">
-        <%# counter = 1 %>
         <%  @center_piles.keys.each do |pile_name|%>
-
           <div class="centerPiles playingCards faceImages">
             <ul class="deck" id =<% pile_name %>>
               <% if @center_piles[pile_name].empty? %>
@@ -73,14 +71,8 @@
                   </li>
                 <% end %>
               <% end %>
-
             </ul>
-
           </div>
-          <%#if counter == 5 %>
-<!--            <div class="break"></div>-->
-          <%# end %>
-          <%# counter = counter + 1 %>
         <% end %>
       </div>
     </div>
