@@ -108,8 +108,9 @@
       <% end %>
     </div>
     <div id="dangerous-game-actions">
-      <Button type="button" class="btn btn-danger">Reset Game</Button>
-      <Button type="button" class="btn btn-danger">Quit Game</Button>
+      <%= form_tag root_path, :class => 'form' do %>
+        <%= submit_tag 'Exit Game', :type => "button", :class => 'btn btn-outline-primary', :id => 'exit_game_button' %>
+      <% end %>
     </div>
   </div>
 </div>
