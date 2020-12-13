@@ -76,4 +76,7 @@ Rails.application.configure do
 
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
+  config.web_socket_server_url = "wss://g003-cardgamesim-sprint3.herokuapp.com/cable"
+  config.action_cable.allowed_request_origins =  ["https://g003-cardgamesim-sprint3.herokuapp.com",
+                                               %r{https://g003-cardgamesim-sprint3.herokuapp.com/*}]
 end
