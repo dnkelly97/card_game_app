@@ -21,15 +21,12 @@
         <div class="playingCards simpleCards faceImages">
           <ul class="deck" id ="draw">
             <% if @draw_cards.empty? %>
-              <a class="card cardOutline">+</a>
+              <li>
+                <a class="card cardOutline">+</a>
+              <li>
             <% else %>
               <% @draw_cards.each do |card| %>
                 <li>
-                  <!--                  TODO: Add this back if we flip the deck to face up-->
-                  <!--                 <a class="card rank-<%#= card[0] %> <%#=card[1]%>">-->
-                  <!--                    <span class="rank"><%#=card[0]%></span>-->
-                  <!--                    <span class="suit">&<%#=card[1]%>;</span>-->
-                  <!--                  </a> -->
                   <a class="card back"></a>
                 </li>
               <% end %>
@@ -39,7 +36,9 @@
         <div class="playingCards simpleCards faceImages">
           <ul class="deck" id ="discard">
             <% if @discard_cards.empty? %>
-              <a class="card cardOutline">X</a>
+              <li>
+                <a class="card cardOutline">X</a>
+              </li>
             <% else %>
               <% @discard_cards.each do |card| %>
                 <li>
@@ -55,12 +54,15 @@
 
       </div>
       <div class="piles">
+        <%# counter = 1 %>
         <%  @center_piles.keys.each do |pile_name|%>
 
-          <div class="playingCards faceImages">
+          <div class="centerPiles playingCards faceImages">
             <ul class="deck" id =<% pile_name %>>
               <% if @center_piles[pile_name].empty? %>
-                <a class="card cardOutline"><%=pile_name.split[1]%></a>
+                <li>
+                  <a class="card cardOutline"><%=pile_name.split[1]%></a>
+                </li>
               <% else %>
                 <% @center_piles[pile_name].each do |card| %>
                   <li>
@@ -71,8 +73,14 @@
                   </li>
                 <% end %>
               <% end %>
+
             </ul>
+
           </div>
+          <%#if counter == 5 %>
+<!--            <div class="break"></div>-->
+          <%# end %>
+          <%# counter = counter + 1 %>
         <% end %>
       </div>
     </div>
