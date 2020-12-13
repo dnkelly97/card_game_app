@@ -1,13 +1,15 @@
-<h2>Create New Game Room</h2>
-<%= form_tag rooms_path, :class => 'form' do %>
-  <%=label :room, :name, :class => 'col-form-label' %>
-  <%= text_field_tag 'room_name', nil  %>
-  <%=label :room, :max_players_with_default_5, :class => 'col-form-label'%>
-  <%= number_field_tag 'max_players', nil  %>
-  <%=label :room, :game_type, :class => 'col-form-label' %>
-  <%= text_field_tag 'game_type', nil  %>
-  <%=label :room, :private, :class => 'col-form-label' %>
-  <%= check_box_tag 'private', nil  %>
-   <%= submit_tag 'Create Room', :class => 'btn btn-primary' %>
-<!--  TODO: Add link to home for cancelling addition -->
-<% end %>
+<div class="padded-form">
+  <h2>Create New Game Room</h2>
+  <%= form_tag rooms_path, :class => 'form' do %>
+    <%=label :room, :name, :class => 'col-form-label' %>
+    <%= text_field_tag 'room_name', nil  %>
+    <%=label :room, :max_players_with_default_5, :class => 'col-form-label'%>
+    <%= number_field_tag 'max_players', nil  %>
+    <%=label :room, :game_type, :class => 'col-form-label' %>
+    <%= text_field_tag 'game_type', nil  %>
+    <%=label :room, :private, :class => 'col-form-label' %>
+    <%= check_box_tag 'private', nil  %>
+     <%= submit_tag 'Create Room', :class => 'btn btn-primary' %>
+  <!--  TODO: Add link to home for cancelling addition -->
+  <% end %>
+</div>
