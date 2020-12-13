@@ -91,5 +91,5 @@ end
 group :production do
   gem 'pg', '~> 0.21' # for Heroku deployment
   gem 'rails_12factor'
-  gem 'redis'
+  gem 'redis', '~> 3.0'
 end
