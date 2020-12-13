@@ -20,10 +20,12 @@
       <div class="draw-discard">
         <div class="playingCards simpleCards faceImages">
           <ul class="deck" id ="draw">
-            <% if @draw_cards.empty? %>
-              <a class="card cardOutline">+</a>
+            <% if @draw_pile.cards.count == 0 %>
+              <li>
+                <a class="card cardOutline">+</a>
+              </li>
             <% else %>
-              <% @draw_cards.each do |card| %>
+              <% @draw_pile.cards.each do |card| %>
                 <li>
                   <a class="card back"></a>
                 </li>
