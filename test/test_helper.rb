@@ -3,7 +3,11 @@ require File.expand_path('../../config/environment', __FILE__)
 require 'rails/test_help'
 require 'simplecov'
 SimpleCov.start 'rails' do
-  add_filter '/test/' # for minitest
+  load_profile 'rails'
+  add_filter '/vendor/'
+  add_filter "/test/"
+  add_filter "/spec/"
+  add_filter "/features/"
 end
 SimpleCov.command_name 'minitest'
 class ActiveSupport::TestCase
