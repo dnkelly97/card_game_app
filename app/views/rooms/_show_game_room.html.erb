@@ -35,7 +35,7 @@
         </div>
         <div class="playingCards simpleCards faceImages">
           <ul class="deck" id ="discard">
-            <% if @discard_cards.empty? %>
+            <% if @discard_pile.cards.count == 0 %>
               <li>
                 <a class="card cardOutline">X</a>
               </li>
