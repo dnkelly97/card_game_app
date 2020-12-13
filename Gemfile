@@ -73,7 +73,6 @@ group :development do
   gem 'web-console', '~> 2.0'
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
-  gem 'puma'
 end
 group :test do
   gem 'cucumber', '<4.0.0'
@@ -84,7 +83,13 @@ group :test do
 
 end
 
+group :development, :production do
+  gem 'puma'
+
+end
+
 group :production do
   gem 'pg', '~> 0.21' # for Heroku deployment
   gem 'rails_12factor'
+  gem 'redis', '~> 3.0'
 end

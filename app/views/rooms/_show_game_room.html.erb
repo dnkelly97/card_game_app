@@ -40,11 +40,11 @@
                 <a class="card cardOutline">X</a>
               </li>
             <% else %>
-              <% @discard_cards.each do |card| %>
+              <% @discard_pile.cards.each do |card| %>
                 <li>
-                  <a class="card rank-<%= card[0] %> <%=card[1]%>">
-                    <span class="rank"><%=card[0]%></span>
-                    <span class="suit">&<%=card[1]%>;</span>
+                  <a onclick="show_pile(<%= @discard_pile.id %>)" class="card rank-<%= card.rank.downcase %> <%=card.suit%>">
+                    <span class="rank"><%=card.rank%></span>
+                    <span class="suit">&<%=card.suit%>;</span>
                   </a>
                 </li>
               <% end %>
@@ -54,19 +54,18 @@
 
       </div>
       <div class="piles">
-        <%  @center_piles.keys.each do |pile_name|%>
-          <div class="centerPiles playingCards faceImages">
-            <ul class="deck" id =<% pile_name %>>
-              <% if @center_piles[pile_name].empty? %>
-                <li>
-                  <a class="card cardOutline"><%=pile_name.split[1]%></a>
-                </li>
+        <%  @center_piles.each do |pile|%>
+
+          <div class="playingCards faceImages">
+            <ul class="deck" id =<% pile.name %>>
+              <% if pile.cards.count == 0 %>
+                <a class="card cardOutline"><%=pile.name.split[1]%></a>
               <% else %>
-                <% @center_piles[pile_name].each do |card| %>
+                <% pile.cards.each do |card| %>
                   <li>
-                    <a class="card rank-<%= card[0].downcase %> <%=card[1]%>">
-                      <span class="rank"><%=card[0]%></span>
-                      <span class="suit">&<%=card[1]%>;</span>
+                    <a onclick="show_pile(<%= pile.id %>)" class="card rank-<%= card.rank.downcase %> <%=card.suit%>">
+                      <span class="rank"><%=card.rank%></span>
+                      <span class="suit">&<%=card.suit%>;</span>
                     </a>
                   </li>
                 <% end %>
@@ -112,8 +111,7 @@
       <% end %>
     </div>
     <div id="dangerous-game-actions">
-      <Button type="button" class="btn btn-danger">Reset Game</Button>
-      <Button type="button" class="btn btn-danger">Quit Game</Button>
+      <%= link_to 'Exit Game', root_path, :class => 'btn btn-outline-primary' %>
     </div>
   </div>
 </div>
