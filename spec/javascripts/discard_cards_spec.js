@@ -2,9 +2,11 @@ describe('DiscardCardsPopup', function(){
 
         describe('setup', function (){
             it('adds pop Div to game room page', function(){
+                loadFixtures("discard_card.html");
                 expect($('#discardCardsPopup')).toExist();
             });
             it('hide Div initially', function(){
+                loadFixtures("discard_card.html");
                 expect($('#discardCardsPopup')).toBeHidden;
             });
         });

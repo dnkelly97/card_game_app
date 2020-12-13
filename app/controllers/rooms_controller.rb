@@ -99,7 +99,9 @@ class RoomsController < ApplicationController
     # user_pile = Pile.where(room_id: @room, creator: @current_user.user_id)[0]
     user_cards = Card.where(pile_id: @user_hand.id)
     @fan = user_cards.length <= 13
+
     @card_list = translate_cards_to_array(user_cards)
+    render partial: 'show_game_room' if request.xhr?
   end
 
   def new_join

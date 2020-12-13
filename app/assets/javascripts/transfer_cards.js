@@ -1,6 +1,6 @@
 let TransferCardsPopup = {
     setup: function() {
-        let popupDive = $('<div id="transferCardsPopup" ></div>');
+        let popupDive = $('<div id="transferCardsPopup" class="popup"></div>');
         popupDive.hide().appendTo($('body'));
         $(document).on('change', '#pile_source_pile_id', TransferCardsPopup.showSourcePileCards);
         $(document).on('click', '#initiate_transfer_button', TransferCardsPopup.getCardInfo);
@@ -31,11 +31,10 @@ let TransferCardsPopup = {
         let oneFourth = Math.ceil($(window).width()/4);
         let drop = Math.ceil($(window).height()/8);
         $('#MainWindow').css({'opacity': 0.4})
-        $('#transferCardsPopup').
-        css({'left': oneFourth,'width': 2*oneFourth, 'top':drop, 'opacity': 1.0}).html(data).show();
+        $('#transferCardsPopup').html(data).show();
         $(document).on('click', '#cancel', TransferCardsPopup.hideTransfer);
         $('#pile_details').prop("disabled", true);
-        $(document).on('ajax:complete', '#transfer_cards_form', TransferCardsPopup.hideTransfer);
+        $(document).on('submit', '#transfer_cards_form', TransferCardsPopup.hideTransfer);
         return(false);
     },
     hideTransfer: function() {
@@ -45,4 +44,3 @@ let TransferCardsPopup = {
         return(false);
     }
 };
-jQuery(TransferCardsPopup.setup);

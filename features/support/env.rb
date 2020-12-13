@@ -13,6 +13,8 @@ SimpleCov.start do
   add_filter "/features/"
   add_filter "/vendor/"
 end
+SimpleCov.command_name 'features'
+
 # frozen_string_literal: true
 
 # Capybara defaults to CSS3 selectors rather than XPath.

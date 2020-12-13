@@ -2,9 +2,11 @@ describe('LoginPopup', function(){
 
     describe('setup', function (){
         it('adds pop Div to main page', function(){
+            loadFixtures("dashboard.html");
             expect($('#loginPopup')).toExist();
         });
         it('hide Div initially', function(){
+            loadFixtures("dashboard.html");
             expect($('#loginPopup')).toBeHidden;
         });
     });

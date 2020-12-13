@@ -2,9 +2,11 @@ describe('CreatePilesPopup', function(){
 
         describe('setup', function (){
             it('adds pop Div to game room page', function(){
+                loadFixtures("create_pile.html");
                 expect($('#createPilesPopup')).toExist();
             });
             it('hide Div initially', function(){
+                loadFixtures("create_pile.html");
                 expect($('#createPilesPopup')).toBeHidden;
             });
         });

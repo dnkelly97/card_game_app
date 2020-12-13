@@ -2,9 +2,11 @@ describe('TransferCardsPopup', function(){
 
         describe('setup', function (){
             it('adds pop Div to game room page', function(){
+                loadFixtures("transfer_card.html");
                 expect($('#transferCardsPopup')).toExist();
             });
             it('hide Div initially', function(){
+                loadFixtures("transfer_card.html");
                 expect($('#transferCardsPopup')).toBeHidden;
             });
         });
