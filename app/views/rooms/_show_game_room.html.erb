@@ -59,7 +59,9 @@
           <div class="centerPiles playingCards faceImages">
             <ul class="deck" id =<% pile.name %>>
               <% if pile.cards.count == 0 %>
-                <a class="card cardOutline"><%=pile.name.split[1]%></a>
+                <li>
+                  <a class="card cardOutline"><%=pile.name.split[1]%></a>
+                </li>
               <% else %>
                 <% pile.cards.each do |card| %>
                   <li>
