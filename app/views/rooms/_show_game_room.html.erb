@@ -56,7 +56,7 @@
       <div class="piles">
         <%  @center_piles.each do |pile|%>
 
-          <div class="playingCards faceImages">
+          <div class="centerPiles playingCards faceImages">
             <ul class="deck" id =<% pile.name %>>
               <% if pile.cards.count == 0 %>
                 <a class="card cardOutline"><%=pile.name.split[1]%></a>
