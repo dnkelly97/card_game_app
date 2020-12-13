@@ -5,15 +5,31 @@
   <div class="message">
     <%= "Welcome player" %>
   </div>
-  <%= button_to "Create Room", new_room_path, method: :get, :class => 'btn btn-primary' %>
-  <%= button_to "Join Room", rooms_new_join_path, method: :get, :class => 'btn btn-primary' %>
-  <%= button_to "Logout",  logout_path, method: :post,:class => 'btn btn-primary', :id => 'logout' %>
-  <%= "Available Open Rooms: " %>
-  <% Room.where(private: nil).each do |room| %>
-    <% if room.users.count < room[:max_players] %>
-      <%= button_to  room.name, rooms_create_join_path(:id => room.room_code), method: :post, :class => 'btn btn-primary'%>
-    <% end %>
-  <% end %>
+  <div class="dash-buttons">
+    <div class="main-buttons">
+      <h2>Create Or Join A Game Room</h2>
+      <%= button_to "Create Room", new_room_path, method: :get, :class => 'btn btn-primary' %>
+      <%= button_to "Join Room", rooms_new_join_path, method: :get, :class => 'btn btn-primary' %>
+      <%= button_to "Logout",  logout_path, method: :post,:class => 'btn btn-primary', :id => 'logout' %>
+    </div>
+    <div class="my-rooms">
+      <h2>My Recent Created Rooms</h2>
+      <% Pile.where(:creator =>  @current_user.user_id).order("id DESC").limit(10).each do |pile| %>
+        <% associated_room = Room.find(pile.room_id) %>
+        <% if associated_room.users.count < associated_room[:max_players] %>
+          <%= button_to  associated_room.name, rooms_create_join_path(:id => associated_room.room_code), method: :post, :class => 'btn btn-primary'%>
+        <% end %>
+      <% end %>
+    </div>
+    <div class="open-rooms">
+      <h2>Available Open Rooms</h2>
+      <% Room.where(private: nil).order("id DESC").limit(10).each do |room| %>
+        <% if room.users.count < room[:max_players] %>
+          <%= button_to  room.name, rooms_create_join_path(:id => room.room_code), method: :post, :class => 'btn btn-primary'%>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
 <% end %>
 <script>
     jQuery(LoginPopup.setup);
