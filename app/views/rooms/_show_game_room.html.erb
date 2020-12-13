@@ -18,7 +18,7 @@
     </div>
     <div class="middle-center-panel">
       <div class="draw-discard">
-        <div class="playingCards simpleCards faceImages">
+        <div class="playingCards  faceImages">
           <ul class="deck" id ="draw">
             <% if @draw_pile.cards.count == 0 %>
               <li>
@@ -33,7 +33,7 @@
             <% end %>
           </ul>
         </div>
-        <div class="playingCards simpleCards faceImages">
+        <div class="playingCards  faceImages">
           <ul class="deck" id ="discard">
             <% if @discard_pile.cards.count == 0 %>
               <a class="card cardOutline">X</a>
