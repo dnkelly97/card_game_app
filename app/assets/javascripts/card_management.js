@@ -15,9 +15,9 @@ function fanCards(){
 
     } else {
         document.getElementById('root-playing-card').classList.add('rotateHand')
-        if(document.getElementById('user-cards').getAttribute('class')=== 'table'){
-            document.getElementById('user-cards').classList.remove('table')
-            document.getElementById('user-cards').classList.add('hand')
+        if(document.getElementById('users-cards').getAttribute('class')=== 'table'){
+            document.getElementById('users-cards').classList.remove('table')
+            document.getElementById('users-cards').classList.add('hand')
         }
     }
 }
