@@ -11,7 +11,7 @@ class RoomsController < ApplicationController
     @room.users << @current_user
     pile = Pile.create(name: "#{@current_user.user_id}'s Hand", creator: @current_user.user_id, private_pile: true, card_count: 0)
     @pile = Pile.create!(name: "Deck", creator: "The Game", private_pile: true, card_count: 52, room_id: @room.id)
-    discard_pile = Pile.create!(name: "Discard Pile", creator: "The Game", private_pile: true, card_count: 0, room_id: @room.id)
+    discard_pile = Pile.create!(name: "Discard Pile", creator: "The Game", private_pile: false , card_count: 0, room_id: @room.id)
     @room.piles << @pile
     @room.piles << discard_pile
     Card.create([{name: "Ace of Spades", pile_id: @pile.id, unicode_value: "1F0A1", suit: "spades", rank: "A"},
@@ -70,7 +70,7 @@ class RoomsController < ApplicationController
     @room.piles << pile
 
     [1,2,3,4,5,6,7,8,9,10].map{|index| Pile.create(name: "General #{index}", creator: "The Game", private_pile: false, card_count: 0, room_id: @room.id) }
-    Pile.create(name: "Discard Pile", creator: "The Game", private_pile: false, card_count: 0, room_id: @room.id)
+    # Pile.create(name: "Discard Pile", creator: "The Game", private_pile: false, card_count: 0, room_id: @room.id)
 
     @room.save!
     flash[:notice] = "Welcome to your newly created room, #{@room.name}"
@@ -82,13 +82,10 @@ class RoomsController < ApplicationController
     @room = Room.find(id)
     @draw_pile = Pile.where(room_id: @room.id, name: "Deck", creator: "The Game").first
     @draw_cards = translate_cards_to_array(Card.where(pile_id: @draw_pile.id))
-    @discard_pile = Pile.where(room_id: @room.id, name: "Discard Pile", creator: "The Game").first
-    @discard_cards = translate_cards_to_array(Card.where(pile_id: @discard_pile.id))
+    @discard_pile = Pile.find_by(room_id: @room.id, name: "Discard Pile", creator: "The Game")
     @center_piles = []
     Pile.where(:room_id => @room, :creator => "The Game").each do |pile|
       if pile.name.include?("General")
-        # cards_in_pile = translate_cards_to_array(Card.where(pile_id: pile.id))
-        # @center_piles[pile.name] = cards_in_pile
         @center_piles << pile
       end
     end
@@ -96,7 +93,6 @@ class RoomsController < ApplicationController
     @piles = Pile.all
     user_hand_name = "#{@current_user.user_id}'s Hand"
     @user_hand = Pile.find_by(room_id: id, name: user_hand_name)
-    # user_pile = Pile.where(room_id: @room, creator: @current_user.user_id)[0]
     user_cards = Card.where(pile_id: @user_hand.id)
     @fan = user_cards.length <= 13
     @card_list = translate_cards_to_array(user_cards)
