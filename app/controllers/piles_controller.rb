@@ -44,7 +44,7 @@ class PilesController < ApplicationController
       redirect_to room_path({id: params[:room_id]}), flash: { notice: 'There are not enough cards in the deck. Please try again or wait until the deck is replenished.'} and return
     end
     deck_count = deck.cards.count
-    list_of_cards = (0...deck_count-1).to_a.sample(num_cards)
+    list_of_cards = (0...deck_count).to_a.sample(num_cards)
     list_of_cards.each do |card_num|
       destination_pile.cards << deck.cards[card_num]
     end
