@@ -73,7 +73,6 @@ group :development do
   gem 'web-console', '~> 2.0'
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
-  gem 'puma'
 end
 group :test do
   gem 'cucumber', '<4.0.0'
@@ -81,6 +80,11 @@ group :test do
   gem 'database_cleaner'
   gem 'rspec-expectations'
   gem 'rails-controller-testing'
+
+end
+
+group :development, :production do
+  gem 'puma'
 
 end
 
