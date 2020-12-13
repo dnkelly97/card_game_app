@@ -14,11 +14,6 @@
  *= require_self
  */
 
-@media screen and(max-width: 750px){
-    .dash-buttons{
-        flex-direction: column;
-    }
-}
 
 header{
     background: #007bff;
@@ -116,3 +111,8 @@ input[type=submit]:hover {
     flex-basis: 33%;
 }
 
+@media screen and(max-width: 750px){
+    .dash-buttons{
+        flex-direction: column;
+    }
+}
