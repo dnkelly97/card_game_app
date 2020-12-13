@@ -32,6 +32,15 @@ describe RoomsController do
       allow(SecureRandom).to receive(:random_number).and_return(1111111111)
       post :create, params: {room_name: "Dan's Test Room", max_players: 1}, session: {session_token: @user.session_token}
     end
+    it 'should remember a user if they join another room and come back' do
+      post :create_join, params: {id: 1111111111}
+      allow(SecureRandom).to receive(:random_number).and_return(1111111112)
+      post :create, params: {room_name: "Dan's Second Test Room", max_players: 2}
+      post :create_join, params: {id: 1111111112}
+      post :create_join, params: {id: 1111111111}
+      @room = Room.find_by_room_code(1111111111)
+      expect(@room.piles.where(name: "#{@user.user_id}'s Hand").count).to eq(1)
+    end
     it 'should redirect to the room page corresponding to the valid id given' do
 
       post :create_join, params: {id: 1111111111}
@@ -51,7 +60,7 @@ describe RoomsController do
     describe 'joining a full room' do
       before(:each) do
         post :create_join, params: {id: 1111111111}
-        @user2 = FactoryBot.create(:user, :email => 'you@you.com', :email_confirmation => 'you@you.com')
+        @user2 = FactoryBot.create(:user, :user_id => 'graeg', :email => 'you@you.com', :email_confirmation => 'you@you.com')
         @controller.send(:clear_current_user)
         post :create_join, params: {id: 1111111111}, session: {session_token: @user2.session_token}
       end

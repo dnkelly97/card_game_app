@@ -110,7 +110,8 @@ class RoomsController < ApplicationController
   def create_join
     begin
       @room = Room.find_by!(:room_code => params[:id])
-      if @current_user.room_id == @room.id
+      existing_user_hand_query = Pile.where("name = ?", "#{@current_user.user_id}'s Hand")
+      unless existing_user_hand_query.empty?
         flash[:notice] = "#{@current_user.user_id}, welcome back to #{@room.name}"
         redirect_to room_path(@room) and return
       end
